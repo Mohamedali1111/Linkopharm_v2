@@ -1,4 +1,4 @@
-package com.example.swd_project.linkopharm;
+package com.example.aswe.linkopharm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
