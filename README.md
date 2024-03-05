@@ -1,1 +1,1 @@
-# Linkopharm_v2
+Develop a web application for Linko Pharm, a leading international pharmaceutical company, focused on enhancing customer experience and providing essential pharmaceutical information. The application will serve as a centralized platform offering a user-friendly product catalog, facilitating online ordering. By prioritizing ease of use and accessibility, the project aims to boost Linko Pharm's market reach, improve operational efficiency, and elevate customer satisfaction.
