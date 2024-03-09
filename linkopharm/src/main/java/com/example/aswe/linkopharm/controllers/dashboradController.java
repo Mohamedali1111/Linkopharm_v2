@@ -11,4 +11,10 @@ public class dashboradController {
         return "dashboard";
 
     }
+    @GetMapping("displayproducts")
+    public String displayproducts(){
+        return "displayproducts";
+
+    }
+
 }
