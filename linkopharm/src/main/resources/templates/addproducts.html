@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/displayproducts.css"/>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="/css/editdash.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Add Product</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div th:replace="~{partials/dashboardsidebar}"></div>
+
+
+        <main>
+
+            <h1>Products</h1>
+
+            <div class="addprod">
+                <form action="/addproducts" class="form" method="POST">
+                    <h2 class="title">Add a Product</h2>
+                    <div class="product-container" style="display: block;">
+                        <div class="input">
+                            <label for="id">Product ID</label>
+                            <div> <input type="text" id="product_id" placeholder="Product id" name="product_id" required>
+                            </div>
+                            <span class="errormsg"></span>
+
+                        </div>
+
+                        <div class="input">
+                            <label for="name">Product Name</label>
+                            <div><input type="text" id="product_name" placeholder="Product name" name="product_name" required></div>
+                            <span class="errormsg"></span>
+
+                        </div>
+
+                        <div class="input">
+                            <label for="" class="add-photo-btn">Upload Image
+                            </label>
+                            <input type="file" name="img" multiple required>
+                            <span class="errormsg"></span>
+
+                        </div>
+
+                        <div class="input">
+                            <label for="price">Product Price</label>
+                            <div><input type="text" id="price" placeholder="Product Price" name="price" required></div>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="description">Product Description</label> 
+                            <textarea id="desc" name="description" rows="4" cols="50" required></textarea>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="category">Category</label>
+                            <div><input type="text" id="category" placeholder="Product Category" name="category" required></div>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <button type="add" id="add" href="/view">Add</button><span>
+                            <button id="cancel" href="/addproducts">Cancel</button></span>
+
+
+
+                    </div>
+
+
+
+                </form>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>
