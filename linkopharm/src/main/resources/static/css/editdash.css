@@ -1,0 +1,57 @@
+
+.title{
+    color:black;
+    margin: 5%;
+    font-weight: 200;
+    font-size: 30px;
+}
+
+
+input[type=text],
+input[type=email],
+input[type=file],
+input[type=password],
+textarea {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 5%;
+    display: inline-block;
+    border: 0.5px solid #a0a3b7;
+    box-sizing: border-box;
+}
+
+.input label {
+    font-size: 16px;
+    margin: 5%;
+    font-weight: 150;
+}
+#add {
+    background-color: #8f9dfa;
+    color: #fff;
+    margin: 2% 5%;
+    width: 80%;
+    font-size: 20px;
+    padding: 1% 0;
+}
+#cancel {
+    background-color: #a0a3b7;
+    color: #fff;
+    margin: 5%;
+    width: 80%;
+    font-size: 20px;
+    padding: 1% 0;
+}
+#cancel:hover {
+    cursor: pointer;
+    background-color: #6a6666;
+    color: white;
+    letter-spacing: 1px;
+    transition: 0.7s ease;
+}
+#add:hover {
+    cursor: pointer;
+    background-color: #59e76e;
+    color: white;
+    letter-spacing: 1px;
+    transition: 0.6s ease;
+}

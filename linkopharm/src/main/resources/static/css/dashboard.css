@@ -1,19 +1,17 @@
-
-
 /* variable declaration */
 :root {
     --color-primary: #4057f3;
-    --color-danger: #ff4444;
-    --color-success: #3fd1f2;
+    --color-danger: #ff4c4c;
+    --color-success: #3ff263;
     --color-warning: #ffbb55;
     --color-white: #fff;
     --color-info-dark: #7d8da1;
     --color-info-light: #dce1eb;
-    --color-dark: #44454b;
+    --color-dark: #363949;
     --color-light: rgba(132, 139, 200, 0.18);
     --color-primary-variant: #111e88;
     --color-dark-variant: #677483;
-    --color-background: #ffffff;
+    --color-background: #f0f2f5; 
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
     --border-radius-2: 0.8rem;
@@ -38,13 +36,12 @@
     margin: 0;
     padding: 0;
     outline: 0;
-    appearance: none;
     border: 0;
     text-decoration: none;
     box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 
     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 100;
+    
 }
 
 html {
@@ -147,6 +144,7 @@ aside .top {
     color: var(--color-dark);
 }
 
+
 aside .close {
     display: none;
 }
@@ -178,7 +176,7 @@ aside .sidebar a span {
 }
 
 aside .sidebar a:last-child {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     width: 100%;
 }
@@ -218,16 +216,23 @@ aside .sidebar .message-count {
     border-radius: var(--border-radius-1);
 }
 
+aside .sidebar a:last-child {
+    position: relative;
+    bottom: -9rem;
+    width: calc(100% - 2rem);
+}
+    
 
 
 
 /* MAIN */
 main {
     margin-top: 1.4rem;
+    padding-top:30px;
 
 }
 
-main h1 {
+main h1 , h2 {
     color: var(--color-dark);
     font-weight: 400;
 }
@@ -398,17 +403,17 @@ main .recent-orders a {
 /* right */
 .right {
     margin-top: 1.4rem;
+    
 }
 
 .right .top {
     display: flex;
     justify-content: end;
     gap: 2rem;
+    
 }
 
-.right .top button {
-    display: none;
-}
+
 
 .right .theme-toggler {
     background: var(--color-light);
@@ -437,33 +442,15 @@ main .recent-orders a {
     border-radius: var(--border-radius-1);
 }
 
-/* recent updates */
-.right .recent-updates {
-    margin-top: 1rem;
+
+
+
+
+
+
+.left{
+    padding-top: 30px;
 }
-
-.right .recent-updates h2 {
-    margin-bottom: 0.8rem;
-    color: var(--color-dark);
-
-}
-
-.right .recent-updates .updates {
-    background: var(--color-white);
-    padding: var(--card-padding);
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--box-shadow);
-    transition: all 300ms ease;
-}
-
-.right .recent-updates .updates:hover {
-    box-shadow: none;
-}
-
-.right .recent-updates .updates .update {
-    margin-bottom: 1rem;
-}
-
 /* sales analytics */
 .right .sales-analytics {
     margin-top: 2rem;
@@ -535,7 +522,39 @@ main .recent-orders a {
     display: flex;
     align-items: center;
 }
+.left{
+    color: var(--color-dark);
+margin-top: 10px;
+}
 
+
+
+
+/* Employer Info */
+.employer-info {
+    padding: 2rem;
+    background-color: var(--color-white);
+    margin-bottom: 1.8rem;
+    margin-top: 1.8rem;
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .employer-info h2 {
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .employer-info p {
+    font-size: 17px;
+    margin-bottom: 0.8rem;
+  }
+  
+  
+  
+  
+  
 /* responsive */
 
 @media screen and (max-width:1200px) {
@@ -574,19 +593,4 @@ main .recent-orders a {
         width: 83%;
     }
 
-}
-
-.logout-link {
-    display: inline-block;
-    overflow: hidden;
-    width: fit-content;
-}
-.logout-link a {
-    display: inline-block;
-    padding: 0 10px;
-    box-sizing: content-box;
-    background-color: white;
-}
-.logout-link a:hover {
-    background-color: transparent;
 }
