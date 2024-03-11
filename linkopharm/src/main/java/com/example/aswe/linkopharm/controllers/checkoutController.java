@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class checkoutController {
     
     @GetMapping("checkout")
-    public String dashboard(){
+    public String checkout(){
         return "checkout";
     }
 
