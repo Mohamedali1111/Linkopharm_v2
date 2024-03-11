@@ -17,4 +17,9 @@ public class ApplicationController {
         return "login";
 
     }
+
+    @GetMapping("forgetPassword")
+    public String forgetPassword(){
+        return "forgetPassword";
+    }
 }
