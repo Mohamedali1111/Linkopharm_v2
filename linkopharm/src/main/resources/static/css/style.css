@@ -32,14 +32,14 @@ h5{
   color: rgb(255, 255, 255) !important;
 }
 .nav-link:hover{
-  color: rgba(255, 168, 37, 0.938) !important;
+  color:#ff4c4c !important;
 }
 .navbar-scrolled{
   background-color: rgb(5, 5, 5);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); 
 }
 .active{
-  background-color: rgb(196, 120, 237) !important;
+  background-color:#4057f3 !important;
   display: inline-block;
   padding: 5px;
   border-radius: 5px;
@@ -78,7 +78,7 @@ a{
   text-transform: uppercase;
 }
 .btn1{
-  background-color: orange !important;
+  background-color: #ff4c4c !important;
   border-radius: 10px;
   padding: 5px 10px;
   border: none;
@@ -115,7 +115,7 @@ a{
 .line{
   width: 60px !important;
   height: 4px;
-  background-color: blueviolet;
+  background-color: #4057f3;
   margin: 16px auto 24px auto;
 }
 .para{
@@ -139,7 +139,7 @@ a{
 .icon{
   width:70px;
   height: 60px;
-  background-color: rgb(222, 185, 222);
+  background-color:#ff4c4c;
   text-align: center;
   font-size: 34px;
 }
@@ -174,7 +174,7 @@ a{
 .iconbox{
   width:60px !important;
   height: 50px;
-  background-color: rgb(227, 203, 246);
+  background-color:  #ff4c4c;
   font-size: 34px;
   text-align: center !important;
 }
@@ -182,7 +182,7 @@ a{
   content: " ";
   width: 40px;
   height: 40px;
-  background-color: rgb(227, 203, 246);
+  background-color: #4057f3;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -245,7 +245,7 @@ a{
 .review-name p{
   font-weight: 600;
   text-transform: uppercase;
-  color: blueviolet;
+  color: #4057f3;
 }
 
 /* team */
@@ -277,7 +277,8 @@ a{
   content: "";
   width: 100%;
   height: 70%;
-  background: linear-gradient(rgba(151, 35, 235, 0.8),rgba(134, 29, 225, 0.8)),url(img/contact-img.jpg);
+  background: #1c2fad;
+  
   background-position: center;
   background-size: cover;
   position: absolute;
