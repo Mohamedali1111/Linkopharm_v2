@@ -338,3 +338,53 @@ font-size: 42px;
   color: #717171;
 
 }
+
+
+
+
+
+.banner {
+  position: relative;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo {
+  position: absolute;
+  top: 250px; 
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 200px;
+  height: auto;
+  z-index: 2; }
+
+.content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.content {
+  padding-top: 100px;
+  position: relative;
+  z-index: 3; 
+}
+
+
+.content-h5 {
+  font-family: 'Gerlach Sans', sans-serif; 
+  font-weight: 400; 
+  
+}
+
