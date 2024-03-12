@@ -1,0 +1,208 @@
+body {
+    background-image: url("images/linkoback0.png");
+    /* Adjust the path to the actual location of your logo image */
+    background-repeat: no-repeat; /* Ensure the background image doesn't repeat */
+    background-size: contain; /* Ensure the background image fits within the body */
+}
+
+.user-image {
+    width: 80px !important;
+    height: auto;
+}
+
+.btn-reset {
+    border-color: rgba(24, 28, 33, 0.1);
+    background-color: rgba(0, 0, 0, 0);
+    color: #4E5155;
+}
+
+.btn-upload {
+    margin-bottom: 0;
+}
+
+.btn-primary-outline {
+    border-color: #26B4FF;
+    background-color: transparent;
+    color: #26B4FF;
+    
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-muted {
+    color: #babbbc !important;
+}
+
+.btn-facebook {
+    border-color: transparent;
+    background-color: #3B5998;
+    color: #fff;
+}
+
+.btn-instagram {
+    border-color: transparent;
+    background-color: #000;
+    color: #fff;
+}
+
+.card {
+    background-clip: padding-box;
+    box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
+}
+
+.overflow-hidden {
+    overflow: hidden;
+    width: fit-content;
+    length: auto;
+}
+
+.file-input-hidden {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.active-link {
+    font-weight: bold !important;
+}
+
+.light-style.active-link {
+    background-color: transparent !important;
+}
+
+.multiselect-width {
+    width: 100% !important;
+}
+
+.light-style.list-item {
+    padding: 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.light-style.active-link {
+    color: #4e5155 !important;
+}
+
+.material-style.list-item {
+    padding: 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.material-style.active-link {
+    color: #4e5155 !important;
+}
+
+.dark-style.list-item {
+    padding: 0.85rem 1.5rem;
+    border-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.dark-style.active-link {
+    color: #fff !important;
+}
+
+.light-style.active-link {
+    color: #4E5155 !important;
+}
+
+.light-style.list-item {
+    padding: 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+
+aside {
+    height: 100%;
+
+}
+
+aside .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    color: var(--color-dark);
+}
+
+
+aside .close {
+    display: none;
+}
+
+/* el Sidebar */
+aside .sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 86%;
+    position: relative;
+    top: 1rem;
+}
+
+aside .sidebar a {
+    display: flex;
+    color: var(--color-info-dark);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 300ms ease;
+
+}
+
+aside .sidebar a span {
+    font-size: 1.6rem;
+    transition: all 300ms ease;
+}
+
+aside .sidebar a:last-child {
+    position: fixed;
+    bottom: 2rem;
+    width: 100%;
+}
+
+aside .sidebar a.active {
+    background: var(--color-light);
+    color: var(--color-primary);
+    margin-left: 0;
+
+}
+
+aside .sidebar a.active::before {
+    content: '';
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+}
+
+aside .sidebar a.active span {
+    color: var(--color-primary);
+    margin-left: calc(1rem - 3px);
+}
+
+aside .sidebar a:hover {
+    color: var(--color-primary);
+}
+
+aside .sidebar a:hover span {
+    margin-left: 1rem;
+
+}
+
+aside .sidebar .message-count {
+    background: var(--color-danger);
+    padding: 2px 10px;
+    font-size: 11px;
+    border-radius: var(--border-radius-1);
+}
+
+aside .sidebar a:last-child {
+    position: relative;
+    bottom: -9rem;
+    width: calc(100% - 2rem);
+}
+    
