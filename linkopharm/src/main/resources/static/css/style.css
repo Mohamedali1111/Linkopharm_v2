@@ -649,21 +649,4 @@ margin-bottom: 10px;
 } */
 
 
-.badge {
-  font-size: 0.8rem; /* Adjust the font size as needed */
-  position: absolute; /* Position the badge absolutely */
-  top: 22px; /* Adjust the top position to move it above the icon */
-  left: 84.5%; /* Center the badge horizontally */
-  transform: translateX(-50%); /* Center the badge horizontally */
-}
-
-.footer-logo {
-  /* Ensure the image is a block-level element */
-  margin: 0 auto; /* Center the image horizontally */
-  width: 150px;
-  height: 100px; /* Set the width of the image */
-  margin-bottom: 8px; 
-  margin-left: 12%;/* Add some bottom margin to create space between the image and the text */
-  top: 10%;
-}
 
