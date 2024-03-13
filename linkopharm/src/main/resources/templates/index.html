@@ -49,12 +49,12 @@
               <a class="nav-link active" href="#contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="cart">
                   <i class="fas fa-prescription-bottle-alt"></i> <!-- Pharmacy icon -->
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="profile">
                   <i class="fas fa-user"></i> <!-- Profile icon -->
               </a>
           </li>
@@ -203,6 +203,8 @@
         </div>
       </div>
     </div>
+    <div class="text-center mt-5">
+      <a href="#" class="mt-4" style="color: blue!important;" data-aos="fade-down" data-aos-delay="350">Show All Products </a>
   </section>
 
   <section id="service" class="section-padding border-top">
@@ -433,43 +435,86 @@
 
   <!-- Contact -->
   <section id="contact" class="section-padding  text-white">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-12" data-aos="fade-down" data-aos-delay="50">
-          <div class="contact-title">
-            <h5>Contact Us</h5>
-            <div class="line bg-white"></div>
-            <p class="para" style="color: white;">We Love to craft digital experience for brands rather than crap and
-              more lorem ipsum
-              do crazy skills.</p>
-          </div>
-        </div>
+    <div class="contactus">
+      <div class="title">
+          <h2>Contact us</h2>
       </div>
-      <div class="row justify-content-center mt-5  p-4 ">
-        <div class="col-lg-8 text-center">
-          <form action="#" class="row g-3 p-lg-5 p-4 bg-white shadow" data-aos="fade-down" data-aos-delay="150">
-            <div class="col-lg-6 form-group" data-aos="fade-down" data-aos-delay="250">
-              <input type="text" class="form-control" placeholder="Enter First Name">
-            </div>
-            <div class="col-lg-6 form-group" data-aos="fade-down" data-aos-delay="350">
-              <input type="text" class="form-control" placeholder="Enter Last Name">
-            </div>
-            <div class="col-lg-12 form-group" data-aos="fade-down" data-aos-delay="450">
-              <input type="email" class="form-control" placeholder="Enter email address">
-            </div>
-            <div class="col-lg-12 form-group" data-aos="fade-down" data-aos-delay="550">
-              <input type="text" class="form-control" placeholder="Enter subject">
-            </div>
-            <div class="col-lg-12 form-group d-grid" data-aos="fade-down" data-aos-delay="650">
-              <textarea name="message" rows="5" class="form-control" placeholder="Enter Message"></textarea>
-            </div>
-            <div class="col-lg-12 form-group d-grid" data-aos="fade-down" data-aos-delay="650">
-              <button class="btn1" style="background-color:  #1c2fad !important;">Send message</button>
-            </div>
+      <div class="box">
+          <div class="contact form">
+          <h3>Send a Message </h3>
+          <form>
+              <div class="formbox">
+                  <div class="row50">
+                      <div class="inputbox">
+                          <span>First Name</span>
+                          <input type="text" placeholder="name">
+                      </div>
+                      <div class="inputbox">
+                          <span>Last Name</span>
+                          <input type="text" placeholder="name">
+                      </div>
+                  </div>
+
+                  <div class="row50">
+                      <div class="inputbox">
+                          <span>Email</span>
+                          <input type="text" placeholder="namee@gmail.com">
+                      </div>
+                      <div class="inputbox">
+                          <span>Mobile</span>
+                          <input type="text" placeholder="+20-3-xxx-xxxx">
+                      </div>
+                  </div>
+                  <div class="row100">
+                      <div class="inputbox">
+                          <span>Message</span>
+                         <textarea placeholder="Write your message here.."></textarea>
+                      </div>
+              </div>
+              <div class="row100">
+                      <div class="inputbox">
+                          <input type="submit" value="send">
+                      </div>
+              </div>
+              </div>
           </form>
-        </div>
+          </div>
+   
+          <div class="contact info">
+          <h3>Contact Info</h3>
+          <div class="infobox">
+              <div>
+                  <span><ion-icon name="location"></ion-icon></span>
+                  <p>17 Street, Cairo <br>EGYPT</p>
+              </div>
+              <div>
+                  <span><ion-icon name="mail"></ion-icon></span>
+                  <a href="mailtoLinko@gmail.com">Linko@gmail.com</a>
+              </div>
+              <div>
+                  <span><ion-icon name="call"></ion-icon></span>
+                  <a href="tel:+201234567890">+20 123 456 7890</a>
+              </div>
+
+
+              <ul class="sci">
+                  <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                  <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                  <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                  <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+              </ul>
+          </div>
+          </div>
+      
+          <div class="contact map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13806.837479012767!2d31.
+              266953453397168!3d30.10250879830669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!
+              1s0x14583f33ac2f3715%3A0xc4a7c2debc3a47b2!2sLINKOPHARM!5e0!3m2!1sen!2seg!4v1698082558695
+              !5m2!1sen!2seg" style="border:0;" allowfullscreen="" loading="lazy"
+               referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
       </div>
-    </div>
+  </div>
   </section>
 
   <!-- Footer -->
@@ -531,6 +576,9 @@
   <script>
     AOS.init();
   </script>
+  
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 
