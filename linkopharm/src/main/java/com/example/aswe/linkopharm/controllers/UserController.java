@@ -53,11 +53,13 @@ return mav;
 }
 
 @PostMapping( "Registration")
-public String saveFruit(@ModelAttribute User user) {
+public ModelAndView saveFruit(@ModelAttribute User user) {
 String encoddedPassword=BCrypt.hashpw(user.getPassword( ),BCrypt.gensalt (12)) ;
 user.setPassword (encoddedPassword) ;
 this. userRepository.save (user) ;
-return "Added";
+ModelAndView mav = new ModelAndView("redirect:/User/Login");
+return mav;
+
 
 
 }
@@ -77,14 +79,19 @@ return "Added";
      
  
       @PostMapping("Login")
-      public String loginProcess(@RequestParam("username") String username,@RequestParam("password") String password) {
+      public ModelAndView loginProcess(@RequestParam("username") String username,@RequestParam("password") String password) {
          
        User dbUser=this.userRepository.findByUsername(username);
        Boolean isPasswordMatched=BCrypt.checkpw(password, dbUser.getPassword());
+       ModelAndView mav = new ModelAndView("redirect:/");
+       ModelAndView mavv = new ModelAndView("redirect:/User/Login");
+
        if(isPasswordMatched)
-          return "welcome";
+     
+       return mav;
+       
           else
-          return"failed to login";
+          return mavv;
       }
 
 
