@@ -35,16 +35,16 @@
 
 		<h1>Sign Up Now</h1>
 		<h3>Linkopharm</h3>
-		<form method='POST'>
+		<form th:action="@{/User/Registration}" th:object="${user}" method="POST">
 			<!-- <label><b>Firstname: </b> </label> -->
-			<input type="text" id="inputfname" name="firstname" placeholder="Firstname" size="15" />
+			<input type="text" th:field="*{firstname}" id="inputfname" name="firstname" placeholder="Firstname" size="15" />
 			<div id='fname' class='err'></div>
 			<!-- <label> <b>Middlename:</b> </label> -->
-			<input type="text" id="inputmname" name="lastname" placeholder="Lastname" size="15" />
+			<input type="text" th:field="*{lastname}" id="inputmname" name="lastname" placeholder="Lastname" size="15" />
 			<div id='mname' class='err'></div>
 
 			<!-- <label> <b>Lastname</b>: </label> -->
-			<input type="text" id="inputlname" name="username" placeholder="Username" size="15" />
+			<input type="text" id="inputlname" th:field="*{username}" name="username" placeholder="Username" size="15" />
 			<div id='lname' class='err'></div>
 
 
@@ -54,7 +54,7 @@
 
 
 			<!-- <label for="email"><b>Email</b></label> -->
-			<input type="email" id="inputmail" placeholder="Enter Email" name="email" required>
+			<input type="email" id="inputmail" th:field="*{email}" placeholder="Enter Email" name="email" required>
 			<div id='mail' class='err'></div>
 
 
@@ -65,7 +65,7 @@
 						</select>
 			<div id='phone' class='err'></div>
 			<!-- <label for="psw"><b>Password</b></label> -->
-			<input type="password" name="password" id="inputpass" placeholder="Enter Password">
+			<input type="password" th:field="*{password}" name="password" id="inputpass" placeholder="Enter Password">
 			<div id='password' class='err'></div>
 			<!-- <label for="psw-confirm"><b>Re-type Password</b></label> -->
 			<input type="password" name="password2" id="inputcpass" placeholder="confirm Password">
