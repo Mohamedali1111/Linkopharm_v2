@@ -4,12 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.util.Locale.Category;
 import java.util.Objects;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String firstname;
     private String lastname;
@@ -90,5 +92,21 @@ public class User {
             ", password='" + getPassword() + "'" +
             "}";
     }
+     @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return id == user.id && Objects.equals(firstname, user.firstname)&& Objects.equals(lastname, user.lastname)&& Objects.equals(username, user.username)&& Objects.equals(email, user.email)&& Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, lastname, username, email, password);
+    }
+
     
 }

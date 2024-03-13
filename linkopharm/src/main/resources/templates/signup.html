@@ -35,7 +35,7 @@
 
 		<h1>Sign Up Now</h1>
 		<h3>Linkopharm</h3>
-		<form th:action="@{/User/Registration}" th:object="${user}" method='POST'>
+		<form th:action="@{/User/Registration}" th:object="${user}" method="POST">
 			<!-- <label><b>Firstname: </b> </label> -->
 			<input type="text" th:field="*{firstname}" id="inputfname" name="firstname" placeholder="Firstname" size="15" />
 			<div id='fname' class='err'></div>
