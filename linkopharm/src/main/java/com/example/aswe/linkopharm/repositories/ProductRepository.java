@@ -1,4 +1,4 @@
-package com.example.aswe.linkopharm.repository;
+package com.example.aswe.linkopharm.repositories;
 
 import com.example.aswe.linkopharm.models.products;
 import org.springframework.data.jpa.repository.JpaRepository;

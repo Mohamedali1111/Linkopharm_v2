@@ -12,31 +12,24 @@ public class products {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
-    //cannot be null
-    @Column(name = "image", nullable  = false)
     private String image;
 
-    @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(name = "availability", nullable = false)
     private String availability;
     
-    @Column(name = "price", nullable = false)
     private String price;
     
-    @Column(name = "description", nullable = false)
     private String description;
     
-    @Column(name = "category", nullable = false)
     private String category;
 
     public products() {
     }
 
-    public products(int id, String image, String name, String availability, String price, String description, String category) {
+    public products(Integer id, String image, String name, String availability, String price, String description, String category) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -46,11 +39,11 @@ public class products {
         this.category = category;
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -102,7 +95,7 @@ public class products {
         this.category = category;
     }
 
-    public products id(int id) {
+    public products id(Integer id) {
         setId(id);
         return this;
     }
@@ -145,7 +138,7 @@ public class products {
             return false;
         }
         products products = (products) o;
-        return id == products.id && Objects.equals(image, products.image) && Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
+        return Objects.equals(id, products.id) && Objects.equals(image, products.image) && Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
     }
 
     @Override
@@ -166,6 +159,7 @@ public class products {
             "}";
     }
 
-    
+
+   
 
 }
