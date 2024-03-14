@@ -17,6 +17,7 @@
         font-family: 'Roboto', sans-serif; /* Apply custom font */
         font-weight:bold;
         font-size: 14px;
+		height: 100px;
      }
      .navbar-brand {
         margin-right: auto; /* Push the logo to the left */
