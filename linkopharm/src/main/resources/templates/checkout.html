@@ -8,11 +8,115 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/checkout.css"/>
+
+        
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gerlach+Sans:wght@400&display=swap">
         <title>Checkout</title>
 
     </head>
-
+    <style>
+        #logo{
+            width:6cm;
+        }
+    
+        #back{
+            background-image: url("images/linkoback0.jpg");
+    
+        }
+    
+    
+    
+      
+              /* Reset CSS */
+              * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+         }
+         /* Custom font */
+         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+         /* Navbar styling */
+         .navbar {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Roboto', sans-serif; /* Apply custom font */
+            font-weight:bold;
+            font-size: 14px;
+            height: 100px;
+         }
+         .navbar-brand {
+            margin-right: auto; /* Push the logo to the left */
+           margin-left: 12%;
+         }
+         .navbar-brand img {
+            width: 150px; /* Adjust the width as needed */
+            height: auto;
+            
+         }
+         .navbar-nav {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin-right: 8%;
+            
+         }
+         .nav-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 16px; /* Adjust the font size */
+            padding: 12px; /* Add padding between items */
+         }
+         .nav-item a:hover {
+            color: red;
+         }
+         .nav-item i {
+            font-size: 20px; /* Adjust the icon size */
+         }
+    
+         .badge {
+     font-size: 0.8rem; /* Adjust the font size as needed */
+     position: absolute; /* Position the badge absolutely */
+     top: 22px; /* Adjust the top position to move it above the icon */
+     left: 84.5%; /* Center the badge horizontally */
+     transform: translateX(-50%); /* Center the badge horizontally */
+    }
+    
+    
+    </style>
     <body>
+
+        <nav class="navbar">
+            <div class="navbar-brand">
+               <img src="/images/linko logo transperant.png" alt="Logo">
+            </div>
+            <ul class="navbar-nav">
+               <li class="nav-item"><a href="#home">Home</a></li>
+               <li class="nav-item"><a href="#about">About</a></li>
+               <li class="nav-item"><a href="#about">Products</a></li>
+               <li class="nav-item"><a href="#services">Service</a></li>
+               <li class="nav-item"><a href="#about">Reviews</a></li>
+               <li class="nav-item"><a href="#contact">Contact</a></li>
+               <li class="nav-item">
+                  <a href="cart">
+                    
+                     <i class="fas fa-prescription-bottle-alt"></i>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a href="profile">
+                     <i class="fas fa-user"></i>
+                  </a>
+               </li>
+            </ul>
+         </nav>
       <div class="hero">
             <div class="container">
                 <div class="checkoutLayout">

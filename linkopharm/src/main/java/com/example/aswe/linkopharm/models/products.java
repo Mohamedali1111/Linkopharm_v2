@@ -7,38 +7,32 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Objects;
 
+
 @Entity
 public class products {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
-    //cannot be null
-    @Column(name = "image", nullable  = false)
-    private String image;
-
-    @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(name = "availability", nullable = false)
     private String availability;
     
-    @Column(name = "price", nullable = false)
     private String price;
     
-    @Column(name = "description", nullable = false)
     private String description;
     
-    @Column(name = "category", nullable = false)
     private String category;
+
+    @Column(length = 1000) // Adjust length as needed
+    private String imagePath;
 
     public products() {
     }
 
-    public products(int id, String image, String name, String availability, String price, String description, String category) {
+    public products(Integer id, String name, String availability, String price, String description, String category) {
         this.id = id;
-        this.image = image;
         this.name = name;
         this.availability = availability;
         this.price = price;
@@ -46,21 +40,25 @@ public class products {
         this.category = category;
     }
 
-    public int getId() {
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getImage() {
-        return this.image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getName() {
         return this.name;
@@ -102,15 +100,11 @@ public class products {
         this.category = category;
     }
 
-    public products id(int id) {
+    public products id(Integer id) {
         setId(id);
         return this;
     }
 
-    public products image(String image) {
-        setImage(image);
-        return this;
-    }
 
     public products name(String name) {
         setName(name);
@@ -145,27 +139,30 @@ public class products {
             return false;
         }
         products products = (products) o;
-        return id == products.id && Objects.equals(image, products.image) && Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
+        return Objects.equals(id, products.id)  && Objects.equals(imagePath, products.imagePath)&& Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, image, name, availability, price, description, category);
+        return Objects.hash(id, imagePath, name, availability, price, description, category);
     }
+
 
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", image='" + getImage() + "'" +
             ", name='" + getName() + "'" +
             ", availability='" + getAvailability() + "'" +
             ", price='" + getPrice() + "'" +
             ", description='" + getDescription() + "'" +
             ", category='" + getCategory() + "'" +
+            ", imagePath='" + getImagePath() + "'" +
             "}";
     }
 
-    
+
+   
 
 }
+
