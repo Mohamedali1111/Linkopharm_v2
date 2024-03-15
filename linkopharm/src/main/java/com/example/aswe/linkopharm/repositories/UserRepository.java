@@ -6,5 +6,7 @@ import com.example.aswe.linkopharm.models.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUsername(String username);
+
+    User findByEmail(String email);
     
 }
