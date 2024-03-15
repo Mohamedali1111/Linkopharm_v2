@@ -108,5 +108,11 @@ return mav;
          }
      }
 
-    
+     @GetMapping("forgetPassword")
+     public ModelAndView forgetPassword() {
+         ModelAndView mav = new ModelAndView("forgetPassword.html");
+         User newUser = new User();
+         mav.addObject("user", newUser);
+         return mav;
+     }
 }
