@@ -4,19 +4,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Locale.Category;
 import java.util.Objects;
 
 @Entity
 public class User {
-    @Id
+@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @NotEmpty(message = "First name is required")
     private String firstname;
+    
+    @NotEmpty(message = "Last name is required")
     private String lastname;
+    
+    @NotEmpty(message = "Username is required")
     private String username;
+    
+    @Email(message = "Invalid email format")
+    @NotEmpty(message = "Email is required")
     private String email;
+    
+    @NotEmpty(message = "Password is required")
     private String password;
 
     public User() {
