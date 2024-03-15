@@ -30,11 +30,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("profile")
-    
     public ModelAndView getUsers(){
         ModelAndView mav= new ModelAndView("profile.html");
-        java.util.List<User> users  =this.userRepository.findAll();
-        mav.addObject("users", users);
+        mav.addObject("users", userRepository.findAll());
         return mav;
 
     }
