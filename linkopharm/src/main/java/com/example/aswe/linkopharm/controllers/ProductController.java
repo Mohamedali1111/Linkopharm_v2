@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,6 +65,32 @@ public class ProductController {
         }
 
         productRepository.save(product);
+        return new ModelAndView("redirect:/products");
+    }
+    @GetMapping("/edit/{id}")
+    public ModelAndView editProductForm(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("editproduct");
+        products product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            mav.addObject("product", product);
+        } else {
+            return new ModelAndView("redirect:/products");
+        }
+        return mav;
+    }
+
+    @PostMapping("/update")
+    public ModelAndView updateProduct(@ModelAttribute products product) {
+        products existingProduct = productRepository.findById(product.getId()).orElse(null);
+        if (existingProduct != null) {
+            existingProduct.setName(product.getName());
+            existingProduct.setAvailability(product.getAvailability());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setDescription(product.getDescription());
+            existingProduct.setCategory(product.getCategory());
+
+            productRepository.save(existingProduct);
+        }
         return new ModelAndView("redirect:/products");
     }
 }
