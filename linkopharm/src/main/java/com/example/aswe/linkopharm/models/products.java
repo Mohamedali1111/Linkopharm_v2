@@ -7,14 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Objects;
 
+
 @Entity
 public class products {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    private String image;
 
     private String name;
     
@@ -26,18 +25,30 @@ public class products {
     
     private String category;
 
+    @Column(length = 1000) // Adjust length as needed
+    private String imagePath;
+
     public products() {
     }
 
-    public products(Integer id, String image, String name, String availability, String price, String description, String category) {
+    public products(Integer id, String name, String availability, String price, String description, String category) {
         this.id = id;
-        this.image = image;
         this.name = name;
         this.availability = availability;
         this.price = price;
         this.description = description;
         this.category = category;
     }
+
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
 
     public Integer getId() {
         return this.id;
@@ -47,13 +58,7 @@ public class products {
         this.id = id;
     }
 
-    public String getImage() {
-        return this.image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getName() {
         return this.name;
@@ -100,10 +105,6 @@ public class products {
         return this;
     }
 
-    public products image(String image) {
-        setImage(image);
-        return this;
-    }
 
     public products name(String name) {
         setName(name);
@@ -138,24 +139,25 @@ public class products {
             return false;
         }
         products products = (products) o;
-        return Objects.equals(id, products.id) && Objects.equals(image, products.image) && Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
+        return Objects.equals(id, products.id)  && Objects.equals(imagePath, products.imagePath)&& Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, image, name, availability, price, description, category);
+        return Objects.hash(id, imagePath, name, availability, price, description, category);
     }
+
 
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", image='" + getImage() + "'" +
             ", name='" + getName() + "'" +
             ", availability='" + getAvailability() + "'" +
             ", price='" + getPrice() + "'" +
             ", description='" + getDescription() + "'" +
             ", category='" + getCategory() + "'" +
+            ", imagePath='" + getImagePath() + "'" +
             "}";
     }
 
@@ -163,3 +165,4 @@ public class products {
    
 
 }
+

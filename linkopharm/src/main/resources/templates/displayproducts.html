@@ -46,7 +46,7 @@
                         <tr th:each="product : ${products}">
                             <td th:text="${product.id}"></td>
                             <td>
-                                <img th:if="${product.image}" th:src="@{'/images/' + ${product.image}}" alt="Product Image" style="height:50px; width:auto;"/>
+                                <img th:if="${product.imagePath}" th:src="@{${product.imagePath}}" alt="Product Image" style="height:50px; width:auto;"/>
                             </td>
                             <td th:text="${product.name}"></td>
                             <td>
