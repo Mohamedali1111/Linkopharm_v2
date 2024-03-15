@@ -93,4 +93,10 @@ public class ProductController {
         }
         return new ModelAndView("redirect:/products");
     }
+
+    @PostMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Integer id) {
+        productRepository.deleteById(id);
+        return "redirect:/products";
+    }
 }
