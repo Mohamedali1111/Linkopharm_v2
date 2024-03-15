@@ -2,15 +2,6 @@ package com.example.aswe.linkopharm.controllers;
 
 import com.example.aswe.linkopharm.models.products;
 import com.example.aswe.linkopharm.repositories.ProductRepository;
-
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +9,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
+
+    private static final String UPLOAD_DIR = "src/main/resources/static/images/";
 
     @Autowired
     private ProductRepository productRepository;
@@ -40,24 +40,27 @@ public class ProductController {
         mav.addObject("product", new products()); 
         return mav;
     }
+
     @PostMapping("/save")
     public ModelAndView saveProduct(@ModelAttribute products product, @RequestParam("imageFile") MultipartFile imageFile) {
-        try {
-            if (!imageFile.isEmpty()) {
-                String uploadDirectory = "/images/";
+        if (!imageFile.isEmpty()) {
+            try {
+                // et2kd en directory exists
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
 
-                String originalFilename = imageFile.getOriginalFilename();
+                // Use file name
+                String fileName = imageFile.getOriginalFilename();
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-                // Save the image file to the specified directory
-                byte[] bytes = imageFile.getBytes();
-                java.nio.file.Path path = Paths.get(uploadDirectory + originalFilename);
-                Files.write(path, bytes, StandardOpenOption.CREATE);
-
-                // Set the image path in the product object
-                product.setImagePath(path.toString());
+                // khaly l image path in the product object to the filename
+                product.setImagePath(fileName);
+            } catch (IOException e) {
+                e.printStackTrace(); 
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         productRepository.save(product);

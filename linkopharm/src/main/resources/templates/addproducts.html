@@ -25,7 +25,7 @@
             <h1>Products</h1>
 
             <div class="addprod">
-                <form action="@{/products/save}" th:action="@{/products/save}" th:object="${product}" method="POST"
+                <form th:action="@{/products/save}" th:object="${product}" method="POST"
                     enctype="multipart/form-data">
 
                     <h2 class="title">Add a Product</h2>
@@ -46,7 +46,7 @@
 
                         <div class="input">
                             <label for="image" class="add-photo-btn">Upload Image</label>
-                            <input type="file" id="imageFile" name="imageFile" accept="image/png,image/jpeg" required>
+                            <input type="file"  id="imageFile" name="imageFile" accept="image/*" required>
                             <span class="errormsg"></span>
                         </div>
 
@@ -78,7 +78,7 @@
                             <span class="errormsg"></span>
                         </div>
 
-                        <button type="submit" id="add">Add</button>
+                        <button type="submit" value="Submit" id="add">Add</button>
                         <button id="cancel">Cancel</button>
                     </div>
                 </form>

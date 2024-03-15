@@ -23,7 +23,6 @@
                     <input type="search" placeholder="Search existing products...">
                 </div>
                 <div class="add_product">
-                    <!-- Adjust the link to your path for adding a new product -->
                     <a href="@{/products/add}">
                         <button class="btn add-product"><i class="fa fa-plus"></i> Add Product</button>
                     </a>
@@ -42,11 +41,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Loop through the products list -->
+                        <!-- Loop products list -->
                         <tr th:each="product : ${products}">
                             <td th:text="${product.id}"></td>
                             <td>
-                                <img th:if="${product.imagePath}" th:src="@{${product.imagePath}}" alt="Product Image" style="height:50px; width:auto;"/>
+                                <img th:if="${product.imagePath}" th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="Product Image" style="height:50px; width:auto;"/>
                             </td>
                             <td th:text="${product.name}"></td>
                             <td>
