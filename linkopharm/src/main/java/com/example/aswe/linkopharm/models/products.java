@@ -160,9 +160,5 @@ public class products {
             ", imagePath='" + getImagePath() + "'" +
             "}";
     }
-
-
-   
-
 }
 
