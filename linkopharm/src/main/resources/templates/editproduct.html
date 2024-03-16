@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link th:href="@{/css/displayproducts.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/editdash.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Edit Product</title>
+</head>
+<body>
+    <div class="container">
+        <div th:replace="~{partials/dashboardsidebar}"></div>
+        <main>
+            <h1>Edit Product</h1>
+            <div class="addprod">
+                <form th:action="@{/products/update}" th:object="${product}" method="POST" enctype="multipart/form-data" class="form">
+                    <h2 class="title">Update a Product</h2>
+                    <div class="product-container" style="display: block;">
+                        <input type="hidden" th:field="*{id}" />
+
+                        <div class="input">
+                            <label for="name">Product Name</label>
+                            <div><input type="text" th:field="*{name}" placeholder="Product name" required></div>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <!-- <div class="input">
+                            <label for="image" class="add-photo-btn">Upload Image</label>
+                            <input type="file" name="imageFile" accept="image/*" />
+                            <span class="errormsg"></span>
+                        </div> -->
+
+                        <div class="input">
+                            <label for="price">Product Price</label>
+                            <div><input type="text" th:field="*{price}" placeholder="Product Price" required></div>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="availability">Availability</label>
+                            <div><input type="text" th:field="*{availability}" placeholder="Product Availability" required></div>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="description">Product Description</label>
+                            <textarea th:field="*{description}" rows="4" cols="50" required></textarea>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="category">Category</label>
+                            <div><input type="text" th:field="*{category}" placeholder="Product Category" required></div>
+                            <span class="errormsg"></span>
+                        </div>
+
+                        <div class="actions">
+                            <input type="submit" value="Update" id="add" />
+                            <a th:href="@{/products}" id="cancel">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

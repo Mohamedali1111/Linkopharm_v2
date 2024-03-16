@@ -102,7 +102,7 @@ body {
     background-color: #37a18a;
 }
 
-.navbar {
+.navbar1 {
     top: 0;
     left: 0;
     width: 100%;
@@ -110,7 +110,6 @@ body {
     justify-content: flex-start;
     background-color: #333;
     padding: 10px;
-    margin-top: 10%;
     margin-bottom: -10%;
     z-index: 1000;
 }
