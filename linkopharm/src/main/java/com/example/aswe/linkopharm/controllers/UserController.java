@@ -6,7 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.aswe.linkopharm.models.User;
 import com.example.aswe.linkopharm.repositories.UserRepository;
 
-import java.util.Locale.Category;
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -108,7 +108,7 @@ public class UserController {
         return mav;
     }
 
- // Admin adds user directly, redirecting differently
+ // Admin adds user directly redirecting differently
  @GetMapping("/AddUser")
  public ModelAndView addAdminUserForm() {
      ModelAndView mav = new ModelAndView("addcust");
@@ -132,6 +132,41 @@ public class UserController {
      return new ModelAndView("redirect:/User"); // Redirect to dashboard
  }
 
+
+ @GetMapping("/edit/{id}")
+public ModelAndView showEditUserForm(@PathVariable("id") Integer id) {
+    ModelAndView mav = new ModelAndView("editcust");
+    User user = userRepository.findById(id)
+                  .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    mav.addObject("user", user);
+    return mav;
+}
+
+
+@PostMapping("/update")
+public ModelAndView updateUser(@Valid @ModelAttribute("user") User user, BindingResult result) {
+    if (result.hasErrors()) {
+        return new ModelAndView("editcust").addObject("user", user);
+    }
+    
+    User existingUser = userRepository.findById(user.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + user.getId()));
+
+    existingUser.setFirstname(user.getFirstname());
+    existingUser.setLastname(user.getLastname());
+    existingUser.setUsername(user.getUsername());
+    existingUser.setEmail(user.getEmail());
+
+    userRepository.save(existingUser);
+
+    return new ModelAndView("redirect:/User");
+}
+
+
+
+
+
+  
 
 
 }
