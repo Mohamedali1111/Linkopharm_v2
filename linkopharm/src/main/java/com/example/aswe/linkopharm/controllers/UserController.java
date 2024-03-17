@@ -163,7 +163,13 @@ public ModelAndView updateUser(@Valid @ModelAttribute("user") User user, Binding
 }
 
 
-
+@GetMapping("/delete/{id}")
+public ModelAndView deleteUser(@PathVariable("id") int id) {
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    userRepository.delete(user);
+    return new ModelAndView("redirect:/User");
+}
 
 
   
