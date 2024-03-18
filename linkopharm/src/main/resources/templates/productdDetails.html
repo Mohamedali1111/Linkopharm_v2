@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/productdDetails.css"/>
+    <title>Product details</title>
+</head>
+<body>
+    <div th:replace="~{partials/navbar}"></div>
+    <div class="hero">
+        <div class="mainContainer">
+            <div class="container">
+                <div class="left">
+                    <a class="back" href="">Back</a>
+                    <div class="productInfo">
+                        <h1 class="product-name">Bioderma Photoderm Max Tinted Aquafluid Light Color SPF 50+ - 40ml</h1>
+                        <p class="product-price">Price: 950</p>
+                        <div class="availability">
+                            <div class="product-availability"></div>
+                            <p class="stock">In Stock</p>
+                        </div>
+                        <p class="product-code">Product code: 376089</p>
+                        <p class="product-description">Category: Sun protection products</p>
+                        <button type="button" class="button">
+                            <span class="button__text">ADD TO CART</span>
+                            <span class="button__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
+                                    <line y2="19" y1="5" x2="12" x1="12"></line>
+                                    <line y2="12" y1="12" x2="19" x1="5"></line>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="right">
+                    <img id="myImg" class="product-image" src="/images/sunblock1.webp" alt="product-image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-info">
+        <h1 class="prodinfo">Product information:</h1>
+        <br>
+        <p> Bioderma Photoderm Max Tinted Aquafluid SPF 50+ offers a very high UVA/UVB anti-shine protection evens out the complexion with a tinted light color.</p>
+    </div>
+    <br>
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+    <script>
+        var modal = document.getElementById("myModal");
+        var img = document.getElementById("myImg");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function(){
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() { 
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
