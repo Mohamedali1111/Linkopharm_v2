@@ -25,7 +25,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gerlach+Sans:wght@400&display=swap">
 	</head>
 
-
+	<style>
+        .error-message {
+            color: red;
+        }
+    </style>
 
 	<body>
 		<div th:replace="~{partials/navbar}"></div>
@@ -36,38 +40,25 @@
 		<h1>Sign Up Now</h1>
 		<h3>Linkopharm</h3>
 		<form th:action="@{/User/Registration}" th:object="${user}" method="POST">
-			<!-- <label><b>Firstname: </b> </label> -->
 			<input type="text" th:field="*{firstname}" id="inputfname" name="firstname" placeholder="Firstname" size="15" />
-			<div id='fname' class='err'></div>
-			<!-- <label> <b>Middlename:</b> </label> -->
-			<input type="text" th:field="*{lastname}" id="inputmname" name="lastname" placeholder="Lastname" size="15" />
-			<div id='mname' class='err'></div>
+            <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="error-message"></div>
 
-			<!-- <label> <b>Lastname</b>: </label> -->
-			<input type="text" id="inputlname" th:field="*{username}" name="username" placeholder="Username" size="15" />
-			<div id='lname' class='err'></div>
+            <input type="text" th:field="*{lastname}" id="inputmname" name="lastname" placeholder="Lastname" size="15" />
+            <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="error-message"></div>
 
+            <input type="text" id="inputlname" th:field="*{username}" name="username" placeholder="Username" size="15" />
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></div>
 
-			<!-- <label>
- <b>Phone:</b>
-</label> -->
+            <input type="email" id="inputmail" th:field="*{email}" placeholder="Enter Email" name="email" required>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
 
+            <input type="password" th:field="*{password}" name="password" id="inputpass" placeholder="Enter Password">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
 
-			<!-- <label for="email"><b>Email</b></label> -->
-			<input type="email" id="inputmail" th:field="*{email}" placeholder="Enter Email" name="email" required>
-			<div id='mail' class='err'></div>
+            <input type="password" name="confirmPassword" id="inputcpass" placeholder="Confirm Password">
+            <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message"></div>
 
-
-			<div id='phone' class='err'></div>
-			<!-- <label for="psw"><b>Password</b></label> -->
-			<input type="password" th:field="*{password}" name="password" id="inputpass" placeholder="Enter Password">
-			<div id='password' class='err'></div>
-			<!-- <label for="psw-confirm"><b>Re-type Password</b></label> -->
-			<input type="password" name="confirmPassword" id="inputcpass"  placeholder="confirm Password">
-
-			<div id='cpassword' class='err'></div>
-
-			<button type="submit" class="lll" value="signup" name="reg">Sign Up</button>
+            <button type="submit" class="lll" value="signup" name="reg">Sign Up</button>
 		</form>
 
 

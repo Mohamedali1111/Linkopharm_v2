@@ -56,8 +56,9 @@ public class UserController {
             return mav;
         }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            result.rejectValue("password", "error.user", "Password and Confirm Password must match");
+          
             ModelAndView mav = new ModelAndView("signup.html");
+            result.rejectValue("password", "error.user", "Password and Confirm Password must match");
             return mav;
         }
 
