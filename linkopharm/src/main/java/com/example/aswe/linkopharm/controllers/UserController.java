@@ -85,15 +85,19 @@ public class UserController {
     @PostMapping("Login")
     public RedirectView loginProcess(@RequestParam("email") String email, @RequestParam("password") String password) {
         User dbUser = this.userRepository.findByEmail(email);
-       
 
         if (dbUser != null && BCrypt.checkpw(password, dbUser.getPassword())) {
-           
-            return new RedirectView("/");
+          
+            if ("admin".equals(dbUser.getRole())) {
+                return new RedirectView("/dashboard");
+            } else {
+                return new RedirectView("/");
+            }
         } else {
             return new RedirectView("/User/Login");
         }
     }
+
 
 
     @GetMapping("profile")
@@ -193,6 +197,5 @@ public ModelAndView deleteUser(@PathVariable("id") int id) {
 
 
   
-
 
 }
