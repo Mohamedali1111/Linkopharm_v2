@@ -22,4 +22,9 @@ public class productsController {
         return mav;
     }
 
+    @GetMapping("productdDetails")
+    public String productdDetails(){
+        return "productdDetails";
+    }
+
 }
