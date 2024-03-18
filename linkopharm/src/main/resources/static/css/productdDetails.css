@@ -1,0 +1,258 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.mainContainer {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 3%;
+    height: 650px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    box-shadow: 4px 8px 19px 0px rgba(0, 0, 0, 0.27);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    padding: 30px;
+    padding-left: 30;
+}
+
+.right {
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.product-info {
+    position: relative;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 30px;
+    font-size: medium;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    box-shadow: 4px 8px 19px 0px rgba(0, 0, 0, 0.27);
+}
+
+.back {
+    color: black;
+    text-decoration: none;
+    font-size: medium;
+}
+
+.product-image {
+    margin-top: 10px;
+    margin-left: 50px;
+    position: relative;
+    border-radius: 5px;
+    width: 90%;
+    transition: transform 0.5s ease;
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+}
+
+.product-image:hover {
+    transform: scale(1.02);
+}
+
+.product-name {
+    margin-bottom: 270px;
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding: 20px 0;
+    font-size: x-large;
+}
+
+.product-price {
+    font-size: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.availability {
+    display: flex;
+    margin-top: 10px;
+}
+
+.product-availability {
+    font-size: medium;
+    height: 10px;
+    width: 10px;
+    background-color: #008a00;
+    border-radius: 50%;
+    margin-top: 4px;
+    margin-right: 5px;
+}
+
+.stock {
+    font-size: 14px;
+}
+
+.product-code {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.product-description {
+    font-size: 14px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.prodinfo {
+    font-size: x-large;
+}
+
+.button {
+    font-size: 12px;
+    border-radius: 5px;
+    margin-top: 20px;
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #3aa856;
+    background-color: #3aa856;
+}
+
+.button,
+.button__icon,
+.button__text {
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.button .button__text {
+    transform: translateX(14px);
+    color: #fff;
+    font-weight: bold;
+}
+
+.button .button__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: #34974d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button .svg {
+    width: 30px;
+    stroke: #fff;
+}
+
+.button:hover {
+    background: #34974d;
+}
+
+.button:hover .button__text {
+    color: transparent;
+}
+
+.button:hover .button__icon {
+    border-radius: 5px;
+    width: 148px;
+    transform: translateX(0);
+}
+
+.button:active .button__icon {
+    background-color: #2e8644;
+}
+
+.button:active {
+    border: 1px solid #2e8644;
+}
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    padding-top: 50px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.7); 
+    z-index: 1;
+}
+  
+.modal-content {
+    margin: auto;
+    margin-top: 3%;
+    display: block;
+    width: 40%;
+    max-width: 700px;
+    border-radius: 5px;
+    z-index: 1;
+}
+  
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+  
+.close {
+    margin-top: 15px;
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 40px;
+    transition: 0.3s;
+    z-index: 1;
+}
+  
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%; 
+        max-width: 90%;
+        max-height: 100%; 
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .mainContainer {
+        margin: 10px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .mainContainer {
+        margin: 5px;
+    }
+    .product-info {
+        margin: 5px;
+    }
+}
