@@ -2,10 +2,12 @@ package com.example.aswe.linkopharm.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.aswe.linkopharm.models.User;
 import com.example.aswe.linkopharm.repositories.UserRepository;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -28,13 +30,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("profile")
-    public ModelAndView getUsers() {
-        ModelAndView mav = new ModelAndView("profile.html");
-        mav.addObject("users", userRepository.findAll());
-        return mav;
-
-    }
+   
     // Registration for general user
 
     @GetMapping("Registration")
@@ -59,10 +55,17 @@ public class UserController {
             ModelAndView mav = new ModelAndView("signup.html");
             return mav;
         }
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            result.rejectValue("password", "error.user", "Password and Confirm Password must match");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
 
         // Hash and save the password
         String encodedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
         user.setPassword(encodedPassword);
+        String encodedConfrmPassword = BCrypt.hashpw(user.getConfirmPassword(), BCrypt.gensalt(12));
+        user.setConfirmPassword(encodedConfrmPassword);
 
         // Save the user
         userRepository.save(user);
@@ -80,17 +83,34 @@ public class UserController {
     }
 
     @PostMapping("Login")
-    public ModelAndView loginProcess(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public RedirectView loginProcess(@RequestParam("email") String email, @RequestParam("password") String password) {
         User dbUser = this.userRepository.findByEmail(email);
-        ModelAndView mav = new ModelAndView("redirect:/");
-        ModelAndView mavv = new ModelAndView("redirect:/User/Login");
+       
 
         if (dbUser != null && BCrypt.checkpw(password, dbUser.getPassword())) {
-            return mav;
+           
+            return new RedirectView("/");
         } else {
-            return mavv;
+            return new RedirectView("/User/Login");
         }
     }
+
+
+    @GetMapping("profile")
+public ModelAndView profile(HttpSession session) {
+    ModelAndView mav = new ModelAndView("profile.html");
+    User user = (User) session.getAttribute("user");
+    mav.addObject("user", user);
+    return mav;
+}
+
+
+
+
+
+
+
+
 
     @GetMapping("forgetPassword")
     public ModelAndView forgetPassword() {

@@ -26,22 +26,34 @@ public class User {
     
     @Email(message = "Invalid email format")
     @NotEmpty(message = "Email is required")
+
+    public String getConfirmPassword() {
+        return this.confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
     private String email;
     
     @NotEmpty(message = "Password is required")
     private String password;
 
+    @NotEmpty(message = "Confirm password is required")
+    private String confirmPassword;
+
     public User() {
     }
 
 
-    public User(int id, String firstname, String lastname, String username, String email, String password) {
+    public User(int id, String firstname, String lastname, String username, String email, String password, String confirmPassword ) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 
 
@@ -93,6 +105,7 @@ public class User {
         this.password = password;
     }
 
+
     @Override
     public String toString() {
         return "{" +
@@ -102,8 +115,10 @@ public class User {
             ", username='" + getUsername() + "'" +
             ", email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
+            ", confirmPassword='" + getConfirmPassword() + "'" +
             "}";
     }
+
      @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -112,12 +127,12 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return id == user.id && Objects.equals(firstname, user.firstname)&& Objects.equals(lastname, user.lastname)&& Objects.equals(username, user.username)&& Objects.equals(email, user.email)&& Objects.equals(password, user.password);
+        return id == user.id && Objects.equals(firstname, user.firstname)&& Objects.equals(lastname, user.lastname)&& Objects.equals(username, user.username)&& Objects.equals(email, user.email)&& Objects.equals(password, user.password)&& Objects.equals(confirmPassword, user.confirmPassword);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, username, email, password);
+        return Objects.hash(id, firstname, lastname, username, email, password,confirmPassword);
     }
 
     

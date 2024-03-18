@@ -138,50 +138,49 @@
 
 
                 <div class="row mt-2">
-                <form action="" method="POST">
+
     <div class="col-md-6">
+        <form th:action="@{/User/profile}" th:object="${user}" method="POST" enctype="multipart/form-data" >
         <label class="labels">First Name</label>
-        <input type="text" class="form-control" name="firstname" value="">
+        <input type="text" class="form-control" name="firstname" th:value="${user.firstname}">
     </div>
     <div class="col-md-6">
         <label class="labels">Last Name</label>
-        <input type="text" class="form-control" name="lastname"  value="">
+        <input type="text" class="form-control" name="lastname" th:value="${user.lastname}">
     </div>
 </div>
                 <div class="row mt-3">
-                <div class="col-md-12"><label class="labels">username</label><input type="text" class="form-control" name="username"  value=""></div>
+                <div class="col-md-12"><label class="labels">username</label><input type="text" class="form-control" name="username" th:value="${user.username}"></div>
                    
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" name="email"  value=""></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" name="email" th:value="${user.email}"></div>
                   
                 </div>
               
                 <div class="mt-5 text-center">
     <button class="btn btn-primary profile-button" type="submit" name="saveProfile">Save Profile</button>
-</div> </form>
+</form>
+</div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center experience"><span>change password</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Settings</span></div><br>
                 <div class="col-md-12">
-                <form action="" method="POST">
-        <label class="labels">Current Password</label>
-        <input type="password" class="form-control" name="currentPassword" placeholder="Current password">
-    </div>
-    <div class="col-md-12">
-        <label class="labels">New Password</label>
-        <input type="password" class="form-control" name="newPassword" placeholder="New password">
-    </div>
-    <div class="col-md-12">
-        <label class="labels">Confirm Password</label>
-        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password">
-    </div>
-  
-    <!-- Save Password Button -->
-    <div class="mt-5 text-center">
-        <button class="btn btn-primary profile-button" type="submit" name="savePassword">Save Password</button>
-    </div>
-    </form>
+                    <form th:action="@{/User/updatePassword}" method="POST">
+                        <label class="labels">Current Password</label>
+                        <input type="password" class="form-control" name="currentPassword" placeholder="Current password">
+                        
+                        <label class="labels">New Password</label>
+                        <input type="password" class="form-control" name="newPassword" placeholder="New password">
+                        
+                        <label class="labels">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password">
+                      
+                        <!-- Save Password Button -->
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button" type="submit" name="savePassword">Save Password</button>
+                        </div>
+                    </form>
             </div>
         </div>
     </div>
