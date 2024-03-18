@@ -15,6 +15,11 @@
 
 		
 	</head>
+	<style>
+        .error-message {
+            color: red;
+        }
+    </style>
 
 
 	<body>
@@ -29,12 +34,12 @@
 	<div id='lname' class='err'></div>
 
 	<input type="text" th:field="*{email}" id="inputmail" placeholder="Enter email" name="email" required>
-	<div id='mail' class='err'></div>
+	<div th:if="${param.error}" class="error-message">Invalid email or password</div>
 
 	
 	<input type="password" name="password" th:field="*{password}" id="inputpass" placeholder="Enter Password">
-	<div id='password' class='err'></div>
-	<p><a href="/User/forgetPassword">forgetpass?</a></p>
+	<div th:if="${param.error}" class="error-message">Invalid email or password</div>
+
 	<button type="submit" class="lll" value="signup" name="log">Login</button>
 </form>
 
