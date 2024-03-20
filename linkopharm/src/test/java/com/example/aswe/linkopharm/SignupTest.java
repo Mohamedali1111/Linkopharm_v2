@@ -41,6 +41,7 @@ public class SignupTest {
         newUser.setUsername("ESS");
         newUser.setEmail("eslam@gmail.com");
         newUser.setPassword("Eslam@123");
+        newUser.setConfirmPassword("Eslam@123");
 
         // mesh existing user 
         when(userRepository.findByEmail(newUser.getEmail())).thenReturn(null);
@@ -53,7 +54,6 @@ public class SignupTest {
         // Perform the signup
         ModelAndView mav = userController.saveFruit(newUser, mockBindingResult);
 
-        // Verify that the ModelAndView is not null and redirects to the login page as expected
         assertNotNull(mav);
         assertEquals("redirect:/User/Login", mav.getViewName());
     }
