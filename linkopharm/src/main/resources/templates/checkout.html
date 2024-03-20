@@ -79,7 +79,7 @@
                                     <div class="group">
                                         <label for="" class="text">Card number</label>
                                         <span class="error" id="CardNoError"></span>
-                                        <input type="text" name="CardNo" id="CardNo" placeholder="1111-2222-3333-4444">
+                                        <input type="text" name="CardNo" id="CardNo" placeholder="111-222-333">
                                     </div>
                                     <div class="group">
                                         <label for="" class="text">Expiration Date</label>
@@ -125,8 +125,8 @@
     
                 var phoneRegex = /^\d{11}$/;
                 var cvcRegex = /^\d{3}$/;
-                var exDateRegex = /^(0[1-9]|1[0-2])-(2[4-9]|2[0-9])$/;
-                var cardNoRegex = /^[0-9]+$/;
+                var exDateRegex = /^\d{2}-\d{2}$/;
+                var cardNoRegex = /^\d{9}$/;
                 var inputRegex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
                 var nameCardRegex = /^[A-Z][a-zA-Z0-9]*(?: [A-Z][a-zA-Z0-9]*)*$/;
     
