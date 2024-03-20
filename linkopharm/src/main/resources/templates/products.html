@@ -31,7 +31,7 @@
     </div>
     <div  class="container">
         <div th:each="product : ${products}" class="product category2" th:data-category="${product.category}">
-            <img src="/images/sunblock1.webp" alt="Product Image">
+            <img th:src="@{'/images/' + ${product.imagePath}}" alt="Product Image">
             <div class="product-info">
                 <div class="product-title" th:text="${product.name}"></div>
                 <div class="product-price" th:text="${product.price} + ' EGP'"></div>
@@ -39,7 +39,7 @@
             <div class="product-overlay">
                 <div class="product-overlay-content">
                     <a href="/products/view/productdDetails">
-                    <h3 th:text="${product.name}"></h3>
+                    <h3 class="product-name" th:text="${product.name}"></h3>
                     </a>
                     <p th:text="${product.description}"></p>
                     <button>Add to Cart</button>
