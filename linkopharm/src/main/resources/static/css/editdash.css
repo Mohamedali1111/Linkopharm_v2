@@ -55,3 +55,18 @@ textarea {
     letter-spacing: 1px;
     transition: 0.6s ease;
 }
+
+
+
+.errormsg {
+    color: #D8000C; 
+    background-color: #FFD2D2;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #D8000C;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+

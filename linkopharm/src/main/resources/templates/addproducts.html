@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -19,72 +17,57 @@
     <div class="container">
         <div th:replace="~{partials/dashboardsidebar}"></div>
 
-
         <main>
 
             <h1>Products</h1>
 
             <div class="addprod">
-                <form th:action="@{/products/save}" th:object="${product}" method="POST"
-                    enctype="multipart/form-data">
+                <form th:action="@{/products/save}" th:object="${product}" method="POST" enctype="multipart/form-data">
 
                     <h2 class="title">Add a Product</h2>
                     <div class="product-container" style="display: block;">
-                        <div class="input">
-                            <label for="id">Product ID</label>
-                            <div> <input type="text" th:field="*{id}" id="id" placeholder="Product id" name="id"
-                                    required></div>
-                            <span class="errormsg"></span>
-                        </div>
 
                         <div class="input">
                             <label for="name">Product Name</label>
-                            <div><input type="text" th:field="*{name}" id="name" placeholder="Product name" name="name"
-                                    required></div>
-                            <span class="errormsg"></span>
+                            <div><input type="text" th:field="*{name}" id="name" placeholder="Product name" name="name" required></div>
+                            <span class="errormsg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                         </div>
 
                         <div class="input">
                             <label for="image" class="add-photo-btn">Upload Image</label>
-                            <input type="file"  id="imageFile" name="imageFile" accept="image/*" required>
-                            <span class="errormsg"></span>
+                            <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
+                            <span class="errormsg" th:if="${imageError}" th:text="${imageError}"></span>
                         </div>
 
                         <div class="input">
                             <label for="availability">Availability</label>
-                            <div><input type="text" th:field="*{availability}" id="availability"
-                                    placeholder="Availability" name="availability" required></div>
-                            <span class="errormsg"></span>
+                            <div><input type="text" th:field="*{availability}" id="availability" placeholder="Availability" name="availability" required></div>
+                            <span class="errormsg" th:if="${#fields.hasErrors('availability')}" th:errors="*{availability}"></span>
                         </div>
 
                         <div class="input">
                             <label for="price">Product Price</label>
-                            <div><input type="text" th:field="*{price}" id="price" placeholder="Product Price"
-                                    name="price" required></div>
-                            <span class="errormsg"></span>
+                            <div><input type="text" th:field="*{price}" id="price" placeholder="Product Price" name="price" required></div>
+                            <span class="errormsg" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
                         </div>
 
                         <div class="input">
                             <label for="description">Product Description</label>
-                            <textarea id="description" th:field="*{description}" name="description" rows="4" cols="50"
-                                required></textarea>
-                            <span class="errormsg"></span>
+                            <textarea id="description" th:field="*{description}" name="description" rows="4" cols="50" required></textarea>
+                            <span class="errormsg" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                         </div>
 
                         <div class="input">
                             <label for="category">Category</label>
-                            <div><input type="text" th:field="*{category}" id="category" placeholder="Product Category"
-                                    name="category" required></div>
-                            <span class="errormsg"></span>
+                            <div><input type="text" th:field="*{category}" id="category" placeholder="Product Category" name="category" required></div>
+                            <span class="errormsg" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
                         </div>
 
                         <button type="submit" value="Submit" id="add">Add</button>
                         <button id="cancel">Cancel</button>
                     </div>
                 </form>
-
             </div>
-
         </main>
     </div>
 </body>

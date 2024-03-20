@@ -5,50 +5,51 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import java.util.Objects;
-
 
 @Entity
 public class products {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "Name is required")
+    @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters long")
     private String name;
-    
+
+    @NotBlank(message = "Availability is required")
     private String availability;
-    
+
+    @NotBlank(message = "Price is required")
+    @Pattern(regexp = "^[0-9]+(\\.[0-9]{1,2})?$", message = "Invalid price format")
     private String price;
-    
+
+    @NotBlank(message = "Description is required")
+    @Size(max = 1000, message = "Description must not exceed 1000 characters")
     private String description;
-    
+
+    @NotBlank(message = "Category is required")
     private String category;
 
-    @Column(length = 1000) // Adjust length as needed
+    @Column(length = 1000)
     private String imagePath;
 
     public products() {
     }
 
-    public products(Integer id, String name, String availability, String price, String description, String category) {
+    public products(Integer id, String name, String availability, String price, String description, String category, String imagePath) {
         this.id = id;
         this.name = name;
         this.availability = availability;
         this.price = price;
         this.description = description;
         this.category = category;
-    }
-
-
-    public String getImagePath() {
-        return this.imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-
 
     public Integer getId() {
         return this.id;
@@ -57,8 +58,6 @@ public class products {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 
     public String getName() {
         return this.name;
@@ -100,11 +99,18 @@ public class products {
         this.category = category;
     }
 
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public products id(Integer id) {
         setId(id);
         return this;
     }
-
 
     public products name(String name) {
         setName(name);
@@ -131,6 +137,11 @@ public class products {
         return this;
     }
 
+    public products imagePath(String imagePath) {
+        setImagePath(imagePath);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -139,14 +150,13 @@ public class products {
             return false;
         }
         products products = (products) o;
-        return Objects.equals(id, products.id)  && Objects.equals(imagePath, products.imagePath)&& Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category);
+        return Objects.equals(id, products.id) && Objects.equals(name, products.name) && Objects.equals(availability, products.availability) && Objects.equals(price, products.price) && Objects.equals(description, products.description) && Objects.equals(category, products.category) && Objects.equals(imagePath, products.imagePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, imagePath, name, availability, price, description, category);
+        return Objects.hash(id, name, availability, price, description, category, imagePath);
     }
-
 
     @Override
     public String toString() {
@@ -160,5 +170,8 @@ public class products {
             ", imagePath='" + getImagePath() + "'" +
             "}";
     }
+    
+
+
 }
 
