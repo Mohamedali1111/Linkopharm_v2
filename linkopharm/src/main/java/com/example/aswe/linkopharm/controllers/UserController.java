@@ -55,6 +55,32 @@ public class UserController {
             ModelAndView mav = new ModelAndView("signup.html");
             return mav;
         }
+
+           // Check if email ends with specific domains
+    if (!user.getEmail().matches(".*@(yahoo|gmail|outlook)\\.(com|net|org)")) {
+        result.rejectValue("email", "error.user", "Invalid email domain. Please use Yahoo, Gmail, or Outlook.");
+        ModelAndView mav = new ModelAndView("signup.html");
+        return mav;
+    }
+
+        if (user.getPassword().length() < 4) {
+            result.rejectValue("password", "error.user", "Password must be at least 4 characters long");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
+    
+        // Check if names contain only letters
+        if (!user.getFirstname().matches("[a-zA-Z]+")) {
+            result.rejectValue("firstname", "error.user", "First name must contain only letters");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
+    
+        if (!user.getLastname().matches("[a-zA-Z]+")) {
+            result.rejectValue("lastname", "error.user", "Last name must contain only letters");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
           
             ModelAndView mav = new ModelAndView("signup.html");
