@@ -39,6 +39,8 @@
 	
 	<input type="password" name="password" th:field="*{password}" id="inputpass" placeholder="Enter Password" required>
 	<div th:if="${param.error}" class="error-message">Invalid email or password</div>
+	
+<p> <a href="/User/forgetPassword">Forgot Password?</a></p>
 
 	<button type="submit" class="lll" value="signup" name="log">Login</button>
 </form>

@@ -36,95 +36,14 @@
 
 
 
-    <style>
-        /* Custom font */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
-        
-        /* Navbar styling */
-        .navbar-custom {
-            background-color: black;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Roboto', sans-serif; /* Apply custom font */
-            font-weight: bold;
-            font-size: 14px;
-            height: 100px;
-        }
-
-        .navbar-custom .navbar-brand {
-            margin-right: auto; /* Push the logo to the left */
-            margin-left: 12%;
-        }
-
-        .navbar-custom .navbar-brand img {
-            width: 150px; /* Adjust the width as needed */
-            height: auto;
-        }
-
-        .navbar-custom .navbar-nava {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin-right: 8%;
-        }
-
-        .navbar-custom .nav-itema a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 16px; /* Adjust the font size */
-            padding: 12px; /* Add padding between items */
-            display: block; /* Ensure each link takes the full width */
-        }
-
-        .navbar-custom .nav-itema a:hover {
-            color: red;
-        }
-
-        .navbar-custom .nav-itema i {
-            font-size: 20px; /* Adjust the icon size */
-        }
-
-        .navbar-custom .badge {
-            font-size: 0.8rem; /* Adjust the font size as needed */
-            position: absolute; /* Position the badge absolutely */
-            top: 22px; /* Adjust the top position to move it above the icon */
-            left: 84.5%; /* Center the badge horizontally */
-            transform: translateX(-50%); /* Center the badge horizontally */
-        }
-    </style>
 
 
 
 
 
     <body>
-        <nav class="navbar navbar-custom">
-            <div class="navbar-brand">
-                <img src="/images/linko logo transperant.png" alt="Logo">
-            </div>
-            <ul class="navbar-nava">
-                <li class="nav-itema"><a href="/">Home</a></li>
-                <li class="nav-itema"><a href="/">About</a></li>
-                <li class="nav-itema"><a href="/">Products</a></li>
-                <li class="nav-itema"><a href="/">Categories</a></li>
-                <li class="nav-itema"><a href="/">Reviews</a></li>
-                <li class="nav-itema"><a href="/">Contact</a></li>
-                <li class="nav-itema">
-                    <a href="/cart">
-                        <i class="fas fa-prescription-bottle-alt"></i>
-                    </a>
-                </li>
-                <li class="nav-itema">
-                    <a href="/User/profile">
-                        <i class="fas fa-user"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div th:replace="~{partials/navbar}"></div>
+     
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
