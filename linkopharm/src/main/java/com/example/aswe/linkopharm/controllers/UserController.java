@@ -102,12 +102,12 @@ public class UserController {
 
 
     @GetMapping("profile")
-public ModelAndView profile(HttpSession session) {
-    ModelAndView mav = new ModelAndView("profile.html");
-    User user = (User) session.getAttribute("user");
-    mav.addObject("user", user);
-    return mav;
-}
+    public ModelAndView profile() {
+        ModelAndView mav = new ModelAndView("profile.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
 
 
 
