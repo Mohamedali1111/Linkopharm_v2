@@ -25,7 +25,7 @@ body {
     padding: 25px;
 }
 
-.product-info {
+.product-Description {
     position: relative;
     margin-left: 50px;
     margin-right: 50px;
@@ -59,7 +59,7 @@ body {
 }
 
 .product-name {
-    margin-bottom: 270px;
+    margin-bottom: 200px;
     margin-top: 15px;
     border-top: 1px solid #ccc;
     padding: 20px 0;
@@ -73,11 +73,11 @@ body {
 }
 
 .availability {
-    display: flex;
-    margin-top: 10px;
+    /* display: flex; */
+    /* margin-top: 10px; */
 }
 
-.product-availability {
+/* .product-availability {
     font-size: medium;
     height: 10px;
     width: 10px;
@@ -85,26 +85,26 @@ body {
     border-radius: 50%;
     margin-top: 4px;
     margin-right: 5px;
-}
+} */
 
 .stock {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .product-code {
     margin-top: 5px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-.product-description {
-    font-size: 14px;
+.product-category {
+    font-size: 16px;
     margin-bottom: 15px;
     margin-top: 5px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
 
-.prodinfo {
+.prodDescription {
     font-size: x-large;
 }
 
