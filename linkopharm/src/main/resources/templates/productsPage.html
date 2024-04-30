@@ -38,7 +38,7 @@
             </div>
             <div class="product-overlay">
                 <div class="product-overlay-content">
-                    <a th:href="@{'/productsPage/view/productDetails/' + ${product.id}}">
+                    <a th:href="@{'/productsPage/productDetails/' + ${product.id}}">
                     <h3 class="product-name" th:text="${product.name}"></h3>
                     </a>
                     <p th:text="${product.description}"></p>

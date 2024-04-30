@@ -15,13 +15,13 @@ public class productsPageController {
     @Autowired
     private ProductRepository productRepository;
 
-    @GetMapping("/productsPage/view")
+    @GetMapping("/productsPage")
     public String getProducts(Model model) {
         model.addAttribute("products", productRepository.findAll());
         return "productsPage";
     }
 
-    @GetMapping("/productsPage/view/productDetails/{productId}")
+    @GetMapping("/productsPage/productDetails/{productId}")
     public String getProductDetails(@PathVariable("productId") Integer productId, Model model) {
         products product = this.productRepository.getById(productId);
         model.addAttribute("product", product);
