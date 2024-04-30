@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/products.css"/>
+    <link rel="stylesheet" href="/css/productsPage.css"/>
 
     
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
@@ -31,14 +31,14 @@
     </div>
     <div  class="container">
         <div th:each="product : ${products}" class="product category2" th:data-category="${product.category}">
-            <img th:src="@{'/images/' + ${product.imagePath}}" alt="Product Image">
+            <img th:src="@{'/images/' + ${product.imagePath}}" th:alt="${product.name}">
             <div class="product-info">
                 <div class="product-title" th:text="${product.name}"></div>
                 <div class="product-price" th:text="${product.price} + ' EGP'"></div>
             </div>
             <div class="product-overlay">
                 <div class="product-overlay-content">
-                    <a href="/products/view/productdDetails">
+                    <a th:href="@{'/productsPage/view/productDetails/' + ${product.id}}">
                     <h3 class="product-name" th:text="${product.name}"></h3>
                     </a>
                     <p th:text="${product.description}"></p>
