@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/displayproducts.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/editdash.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{partials/dashboardsidebar}"></div>
+
+    <main class="table">
+        <section class="theader">
+            <h1>Track Orders</h1>
+            <div class="search">
+                <input type="search" placeholder="Search Orders...">
+            </div>
+            <div class="add_order">
+                <a th:href="@{/orders/add}">
+                    <button class="btn add-product"><i class="fa fa-plus"></i> Add Order</button>
+                </a>
+            </div>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>City</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Update/Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.fname}"></td>
+                    <td th:text="${order.city}"></td>
+                    <td th:text="${order.exDate}"></td>
+                    <td th:text="${order.status}"></td>
+                    <td th:text="${'EGP ' + order.totalPrice}"></td>
+                    <td>
+                        <a th:href="@{'/orders/edit/' + ${order.id}}" class="btn edit-order">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <form th:action="@{'/orders/delete/' + ${order.id}}" method="post">
+                            <button type="submit" class="btn delete-order" onclick="return confirm('Are you sure?')">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>   
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>
