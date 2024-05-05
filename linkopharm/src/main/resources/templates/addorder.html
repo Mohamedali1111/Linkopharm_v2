@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/displayproducts.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/editdash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Add Order</title>
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="~{partials/dashboardsidebar}"></div>
+
+        <main>
+            <h1>Orders</h1>
+
+            <div class="addprod">
+                <form action="/orders/save" class="form" method="POST">
+                    <h2 class="title">Add an Order</h2>
+                    <div class="product-container">
+                        <div class="input">
+                            <label for="fname">First Name</label>
+                            <div><input type="text" id="fname" placeholder="First Name" name="fname" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="lname">Last Name</label>
+                            <div><input type="text" id="lname" placeholder="Last Name" name="lname" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="phone">Phone</label>
+                            <div><input type="text" id="phone" placeholder="Phone" name="phone" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="address">Address</label>
+                            <div><input type="text" id="address" placeholder="Address" name="address" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="city">City</label>
+                            <div><input type="text" id="city" placeholder="City" name="city" required></div>
+                        </div>
+
+                        <!-- <div class="input">
+                            <label for="nameCard">Name on Card</label>
+                            <div><input type="text" id="nameCard" placeholder="Name on Card" name="nameCard" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="cardNo">Card Number</label>
+                            <div><input type="text" id="cardNo" placeholder="Card Number" name="cardNo" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="exDate">Expiration Date</label>
+                            <div><input type="text" id="exDate" placeholder="Expiration Date" name="exDate" required></div>
+                        </div>
+
+                        <div class="input">
+                            <label for="cvc">CVC</label>
+                            <div><input type="text" id="cvc" placeholder="CVC" name="cvc" required></div>
+                        </div> -->
+
+                        <div class="input">
+                            <label for="totalPrice">Total Amount</label>
+                            <div><input type="text" id="totalPrice" placeholder="Total Amount" name="totalPrice" required></div>
+                        </div>
+
+                        <button type="submit" name="submit" id="add">Add</button>
+                        <span>
+                            <a href="/orders"><button id="cancel">Cancel</button></a>
+                        </span>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+
+        <div id="successPopup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: green; color: white; padding: 20px; border-radius: 5px; font-size: 1.2em; z-index: 1000;">
+            Order added successfully!
+        </div>
+    </div>
+</body>
+
+</html>
