@@ -1,12 +1,11 @@
 package com.example.aswe.linkopharm.models;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "orders")
@@ -25,6 +24,11 @@ public class order {
     private Integer cardNo;
     private String exDate;
     private Integer cvc;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
+    
+    private String status;
 
     public order() {
     }
@@ -108,7 +112,20 @@ public class order {
     public void setCvc(Integer cvc) {
         this.cvc = cvc;
     }
+
+    public Double getTotalPrice() { 
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) { 
+        this.totalPrice = totalPrice;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
-
-
-
