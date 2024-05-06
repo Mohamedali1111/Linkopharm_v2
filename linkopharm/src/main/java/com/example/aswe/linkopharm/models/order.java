@@ -24,6 +24,7 @@ public class order {
     private Integer cardNo;
     private String exDate;
     private Integer cvc;
+    private String orderDate;
 
     @Column(name = "total_price")
     private Double totalPrice;
@@ -127,5 +128,13 @@ public class order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 }
