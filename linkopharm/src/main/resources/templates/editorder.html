@@ -54,7 +54,12 @@
             
                     <div class="input">
                         <label for="status">Status</label>
-                        <div><input type="text" id="status" th:field="*{status}" required></div>
+                        <div>
+                            <select id="status" name="status" th:field="*{status}">
+                                <option value="Pending" th:selected="${order.status == 'Pending'}">Pending</option>
+                                <option value="Delivered" th:selected="${order.status == 'Delivered'}">Delivered</option>
+                            </select>
+                        </div>
                     </div>
                                 
                     <button type="submit" id="add">Update</button>

@@ -48,29 +48,14 @@
                             <div><input type="text" id="city" placeholder="City" name="city" required></div>
                         </div>
                         <div class="input">
-                            <label for="city">Status</label>
-                            <div><input type="text" id="status" placeholder="status" name="status" required></div>
+                            <label for="status">Status</label>
+                            <div>
+                                <select id="status" name="status" required>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Delivered">Delivered</option>
+                                </select>
+                            </div>
                         </div>
-
-                        <!-- <div class="input">
-                            <label for="nameCard">Name on Card</label>
-                            <div><input type="text" id="nameCard" placeholder="Name on Card" name="nameCard" required></div>
-                        </div>
-
-                        <div class="input">
-                            <label for="cardNo">Card Number</label>
-                            <div><input type="text" id="cardNo" placeholder="Card Number" name="cardNo" required></div>
-                        </div>
-
-                        <div class="input">
-                            <label for="exDate">Expiration Date</label>
-                            <div><input type="text" id="exDate" placeholder="Expiration Date" name="exDate" required></div>
-                        </div>
-
-                        <div class="input">
-                            <label for="cvc">CVC</label>
-                            <div><input type="text" id="cvc" placeholder="CVC" name="cvc" required></div>
-                        </div> -->
 
                         <div class="input">
                             <label for="totalPrice">Total Amount</label>
@@ -91,6 +76,8 @@
             Order added successfully!
         </div>
     </div>
+
+    
 </body>
 
 </html>
