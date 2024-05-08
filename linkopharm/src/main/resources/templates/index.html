@@ -514,6 +514,38 @@
     </div>
 </footer>
 
+
+<button class="whatsapp_float" onclick="openForm()"><i class="fa-brands fa-whatsapp whatsapp-icon"></i></button> 
+<div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <label for="msg"><b>Message</b></label>
+    <br>
+    <br>
+    <div class="containery">
+  <img src="/images/linko logo transperant.png" alt="Avatar">
+  <p>Hello. How can we help you ?</p>
+
+</div>
+    <div class="containery darker">
+  <img src="/images/avatar.png" alt="Avatar" class="right">
+  <p>Hey! I was asking about a product!</p>
+
+</div>
+    <br>
+    <a href="https:/wa.me/201066656123"  target="_blank" button  class="btn">Send </button> ></a>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
   <script src="/js/script.js"></script>
   <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

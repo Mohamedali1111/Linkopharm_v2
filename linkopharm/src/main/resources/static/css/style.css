@@ -650,3 +650,166 @@ margin-bottom: 10px;
 
 
 
+/* General CSS
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+} */
+
+/* Chat Button */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+.open-button:hover {
+  opacity: 1;
+}
+
+/* Chat Popup */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Chat Form Container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Submit/Send Button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Cancel Button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* WhatsApp Float Button */
+.whatsapp_float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+}
+
+.whatsapp_float:hover {
+  background-color: #128c7e;
+}
+
+.whatsapp-icon {
+  margin-top: 9px;
+}
+
+/* Responsive WhatsApp Float Button */
+@media screen and (max-width: 767px) {
+  .whatsapp-icon {
+    margin-top: 10px;
+  }
+  
+  .whatsapp_float {
+    width: 40px;
+    height: 40px;
+    bottom: 20px;
+    right: 10px;
+    font-size: 22px;
+  }
+}
+
+/* Chat Container */
+.containery::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Chat Bubbles */
+.bubble {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+  max-width: 80%;
+}
+
+/* Darker Chat Container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+/* Chat Images */
+.containery img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Right-aligned Chat Images */
+.containery img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+/* Time Text */
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
