@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Edit Product</title>
 </head>
+
 <body>
     <div class="container">
         <div th:replace="~{partials/dashboardsidebar}"></div>
         <main>
             <h1>Edit Product</h1>
             <div class="addprod">
-                <form th:action="@{/products/update}" th:object="${product}" method="POST" enctype="multipart/form-data" class="form">
+                <form th:action="@{/products/update}" th:object="${product}" method="POST" enctype="multipart/form-data"
+                    class="form">
                     <h2 class="title">Update a Product</h2>
                     <div class="product-container" style="display: block;">
                         <input type="hidden" th:field="*{id}" />
@@ -38,7 +41,8 @@
 
                         <div class="input">
                             <label for="availability">Availability</label>
-                            <div><input type="text" th:field="*{availability}" placeholder="Product Availability" required></div>
+                            <div><input type="text" th:field="*{availability}" placeholder="Product Availability"
+                                    required></div>
                         </div>
 
                         <div class="input">
@@ -63,12 +67,14 @@
 
                         <div class="actions">
                             <input type="submit" value="Update" id="add" />
-                            <a th:href="@{/products}" id="cancel">Cancel</a>
-                        </div>
+                            <span>
+                                <a href="/products"><button type="button" id="cancel">Cancel</button></a>
+                            </span> </div>
                     </div>
                 </form>
             </div>
         </main>
     </div>
 </body>
+
 </html>

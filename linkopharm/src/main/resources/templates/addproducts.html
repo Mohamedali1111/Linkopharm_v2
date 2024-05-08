@@ -29,7 +29,8 @@
 
                         <div class="input">
                             <label for="name">Product Name</label>
-                            <div><input type="text" th:field="*{name}" id="name" placeholder="Product name" name="name" required></div>
+                            <div><input type="text" th:field="*{name}" id="name" placeholder="Product name" name="name"
+                                    required></div>
                             <span class="errormsg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                         </div>
 
@@ -74,8 +75,11 @@
                         </div>
 
                         <button type="submit" value="Submit" id="add">Add</button>
-                        <button id="cancel">Cancel</button>
-                    </div>
+                        <span>
+                            <a href="/products"><button type="button" id="cancel">Cancel</button></a>
+                        </span>                  
+                      </div>
+                      
                 </form>
             </div>
         </main>

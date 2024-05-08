@@ -1,41 +1,46 @@
 <aside>
     <div class="top">
         <div class="logo">
-            <img src="../public/images/Linko logo transperant.png" alt="">
+            <img src="/images/linko logo transperant.png" alt="">
         </div>
         <div class="close" id="close-btn">
             <span class="material-symbols-sharp">close</span>
         </div>
     </div>
     <div class="sidebar">
-        <a href="/dashboard" class="active"><span class="material-symbols-sharp">dashboard</span>
+        <a href="/dashboard" class="sidebar-item"><span class="material-symbols-sharp">dashboard</span>
             <h3>Dashboard</h3>
         </a>
-        <a href="/User"><span class="material-symbols-sharp">person</span>
+        <a href="/User" class="sidebar-item"><span class="material-symbols-sharp">person</span>
             <h3>Customers</h3>
         </a>
-        <a href="/orders"><span class="material-symbols-sharp">receipt_long</span>
+        <a href="/orders" class="sidebar-item"><span class="material-symbols-sharp">receipt_long</span>
             <h3>Orders</h3>
         </a>
-        <a href=""><span class="material-symbols-sharp">insights</span>
-            <h3>Analytics</h3>
-        </a>
-        <a href=""><span class="material-symbols-sharp">chat</span>
-            <h3>Chat</h3><span class="message-count">3</span>
-        </a>
-        <a href="/products"><span class="material-symbols-sharp">inventory</span>
+       
+        <a href="/products" class="sidebar-item"><span class="material-symbols-sharp">inventory</span>
             <h3>Products</h3>
         </a>
-        <a href=""><span class="material-symbols-sharp">report</span>
+        <a href="" class="sidebar-item"><span class="material-symbols-sharp">report</span>
             <h3>Reports</h3>
         </a>
-        <a href=""><span class="material-symbols-sharp">Settings</span>
+        <a href="" class="sidebar-item"><span class="material-symbols-sharp">Settings</span>
             <h3>Settings</h3>
         </a>
        
-        <a href=""><span class="material-symbols-sharp">logout</span>
+        <a href="" class="sidebar-item"><span class="material-symbols-sharp">logout</span>
             <h3>Logout</h3>
         </a>
 
     </div>
 </aside>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var url = window.location.pathname;
+        var activeLink = document.querySelector('.sidebar-item[href="' + url + '"]');
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    });
+</script>
