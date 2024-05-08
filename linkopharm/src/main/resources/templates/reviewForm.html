@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Reviews</title>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/review.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <h3>Submit a Review</h3>
+    <form action="#" th:action="@{/review}" method="post">
+        <input type="text" name="username" placeholder="Your username" required><br>
+        <div class="rating">
+            <input type="number" name="rating" hidden>
+            <i class='bx bx-star star' style="--i: 0;"></i>
+            <i class='bx bx-star star' style="--i: 1;"></i>
+            <i class='bx bx-star star' style="--i: 2;"></i>
+            <i class='bx bx-star star' style="--i: 3;"></i>
+            <i class='bx bx-star star' style="--i: 4;"></i>
+        </div>
+        <textarea name="reviewText" cols="30" rows="5" placeholder="Your opinion..." required></textarea>
+        <div class="btn-group">
+            <button type="submit" class="btn submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="/js/review.js"></script>
+
+</body>
+</html>
