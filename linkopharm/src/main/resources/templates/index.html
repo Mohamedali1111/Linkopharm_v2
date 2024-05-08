@@ -16,72 +16,10 @@
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style>
-  .badge {
-  font-size: 0.8rem; /* Adjust the font size as needed */
-  position: absolute; /* Position the badge absolutely */
-  top: 22px; /* Adjust the top position to move it above the icon */
-  left: 84.5%; /* Center the badge horizontally */
-  transform: translateX(-50%); /* Center the badge horizontally */
-}
 
-.footer-logo {
-  /* Ensure the image is a block-level element */
-  margin: 0 auto; /* Center the image horizontally */
-  width: 150px;
-  height: 100px; /* Set the width of the image */
-  margin-bottom: 8px; 
-  margin-left: 12%;/* Add some bottom margin to create space between the image and the text */
-  top: 10%;
-}
-
-</style>
 <body data-bs-spy="scroll" data-bs-target=".navbar">
-  <header>
-    <nav class="navbar fixed-top navbar-expand-lg text-white">
-      <div class="container" id="q1">
-        <img src="/images/linko logo transperant.png" class="img-fluid">
-        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#hero">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#blog">products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#service">Categories</a>
-            </li>
-         
-            <li class="nav-item">
-              <a class="nav-link active" href="#reviews">Reviews</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/cart">
-                  <i class="fas fa-prescription-bottle-alt"></i> <!-- Pharmacy icon -->
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link active" href="/User/profile">
-                  <i class="fas fa-user"></i> <!-- Profile icon -->
-              </a>
-          </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <div th:replace="~{partials/navbar}"></div>
+
 
 
 
@@ -293,90 +231,49 @@
     </div>
   </section>
 
+
+
+<!-- reviews -->
   <section id="reviews" class="section-padding">
     <div class="container">
-      <div class="row text-center">
-        <div class="col-12" data-aos="fade-down" data-aos-delay="50">
-          <div class="Review-title">
-            <h5>Customers Feedback</h5>
-            <div class="line"></div>
-            <p class="para">Your insights and experiences fuel our journey to excellence. Share your feedback, and let's shape the future of healthcare together.</p>
-          </div>
+        <div class="row text-center">
+            <div class="col-12" data-aos="fade-down" data-aos-delay="50">
+                <div class="Review-title">
+                    <h5>Customers Feedback</h5>
+                    <div class="line"></div>
+                    <p class="para">Your insights and experiences fuel our journey to excellence. Share your feedback, and let's shape the future of healthcare together.</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row mt-4 gy-4">
-        <!-- Review 1 -->
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="reviw">
-            <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="150">
-              <div class="review-icon">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-              </div>
-              <p class="mt-3">Extremely satisfied with the skincare line! My skin has never felt better. The personalized advice was a game changer.</p>
+        <div class="row mt-4 gy-4">
+            <div th:each="review,iterStat : ${reviews}" class="col-lg-4 col-md-6 col-sm-6" th:if="${iterStat.index < 6}">
+                <div class="reviw">
+                    <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="150">
+                        <div class="review-icon">
+                            <span th:each="i : ${#numbers.sequence(1, review.rating)}">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            </span>
+                        </div>
+                        <p class="mt-3" th:text="${review.reviewText}">Review Text</p>
+                    </div>
+                    <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="150">
+                        <img src="/images/person1.png" class="img-fluid rounded-circle">
+                        <div class="review-name ms-3 mt-3">
+                            <h5 style="font-size: 20px !important;" th:text="${review.username}">Username</h5>
+                            <p>Customer</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="150">
-              <img src="/images/person1.png" class="img-fluid rounded-circle">
-              <div class="review-name ms-3 mt-3">
-                <h5 style="font-size: 20px !important;">Saher Amr</h5>
-                <p>Customer</p>
-              </div>
-            </div>
-          </div>
         </div>
-        <!-- Review 2 -->
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="reviw">
-            <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="250">
-              <div class="review-icon">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star-half-stroke" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-              </div>
-              <p class="mt-3">The oral care products are good, but I wish there were more natural flavor options. Delivery was swift, though!</p>
-            </div>
-            <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="250">
-              <img src="/images/person2.png" class="img-fluid rounded-circle">
-              <div class="review-name ms-3 mt-3">
-                <h5 style="font-size: 20px !important;">Youssef Anwar</h5>
-                <p>Customer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Review 3 -->
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="reviw">
-            <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="350">
-              <div class="review-icon">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-              </div>
-              <p class="mt-3">Top-notch customer service and high-quality products. The feminine care range is particularly impressive.</p>
-            </div>
-            <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="350">
-              <img src="/images/person3.png" class="img-fluid rounded-circle">
-              <div class="review-name ms-3 mt-3">
-                <h5 style="font-size: 20px !important;">Asmaa galal</h5>
-                <p>Customer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+    <div class="text-center mt-5">
+      <a href="/review" class="mt-4" style="color: #ff4c4c!important;" data-aos="fade-down" data-aos-delay="350">Add a Review</a>
+</section>
 
 
-  <!-- team -->
+
+
  
 
   <!-- Contact -->
@@ -463,56 +360,7 @@
   </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-dark section-padding">
-    <img src="/images/linko logo transperant.png" class="footer-logo">
-    <div class="container">
-        <div class="row text-white mb-5">
-            <div class="col-lg-3 col-md-3 col-sm-12" data-aos="fade-down" data-aos-delay="150">
-                <div class="logo">
-                 
-                </div>
-                <p class="mt-3 text-white">Welcome to Linkopharm, your trusted Pharmaceuticals company.</p>
-                <div class="footer-icons text-white">
-                    <a href="#"><i class="fab fa-facebook m-2"></i></a>
-                    <a href="#"><i class="fab fa-twitter m-2"></i></a>
-                    <a href="#"><i class="fab fa-instagram m-2"></i></a>
-                    <a href="#"><i class="fas fa-prescription-bottle-alt m-2"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12" data-aos="fade-down" data-aos-delay="250">
-                <h5 class="ms-3">Services</h5>
-                <div class="line ms-3" style="width: 40px !important;"></div>
-                <p class="ms-3 text-white">Medication Delivery</p>
-                <p class="ms-3 text-white">Telemedicine Consultation</p>
-                <p class="ms-3 text-white">Prescription Refills</p>
-                <p class="ms-3 text-white">Emergency Medical Assistance</p>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12" data-aos="fade-down" data-aos-delay="350">
-                <h5 class="ms-3">About</h5>
-                <div class="line ms-3" style="width: 40px !important;"></div>
-                <p class="ms-3 text-white">Blog</p>
-                <p class="ms-3 text-white">Pharmacy Pricing</p>
-                <p class="ms-3 text-white">Company Overview</p>
-                <p class="ms-3 text-white">Pharmacy Career</p>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 text-white" data-aos="fade-down" data-aos-delay="450">
-                <h5 class="ms-3">Contact</h5>
-                <div class="line ms-3" style="width: 40px !important;"></div>
-                <p class="ms-3 text-white">Kolhapur, 416008</p>
-                <p class="ms-3 text-white">(414) 586-3017</p>
-                <p class="ms-3 text-white">www.linkopharm.com</p>
-            </div>
-        </div>
-    </div>
-    <div class="container" data-aos="fade-down" data-aos-delay="550" style="border-top: 0.5px solid gray;">
-        <div class="row mt-5 mb-0">
-            <div class="col-auto">
-                <!-- Additional content if needed -->
-            </div>
-        </div>
-    </div>
-</footer>
+  <div th:replace="~{partials/footer}"></div>
 
 
 <button class="whatsapp_float" onclick="openForm()"><i class="fa-brands fa-whatsapp whatsapp-icon"></i></button> 
