@@ -61,7 +61,7 @@ public class orderController {
             mav.addObject("order", updatedOrder);
             return mav;
         }
-        updatedOrder.setId(id); 
+        updatedOrder.setId(id);
         orderRepository.save(updatedOrder);
         return new ModelAndView("redirect:/orders");
     }

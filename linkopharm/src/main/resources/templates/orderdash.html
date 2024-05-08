@@ -41,7 +41,7 @@
                 <tbody>
                 <tr th:each="order : ${orders}">
                     <td th:text="${order.id}"></td>
-                    <td th:text="${order.fname}"></td>
+                    <td th:text="${order.fname + ' ' + order.lname}"></td>
                     <td th:text="${order.city}"></td>
                     <td th:text="${order.orderDate}"></td>
                     <td th:text="${order.status}"></td>
