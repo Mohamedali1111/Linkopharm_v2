@@ -78,7 +78,6 @@
                 <div class="mt-5 text-center">
     <button class="btn btn-primary profile-button" type="submit" name="saveProfile">Save Profile</button>
 </form>
-<!-- Add this code snippet within your HTML file where you want to display the alert -->
 <div th:if="${profileUpdated}" class="alert alert-success alert-dismissible fade show" role="alert">
     Profile updated successfully!
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -90,21 +89,33 @@
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center experience"><span>change password</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Settings</span></div><br>
                 <div class="col-md-12">
-                    <form th:action="@{/User/updatePassword}" method="POST">
-                        <label class="labels">Current Password</label>
-                        <input type="password" class="form-control" name="currentPassword" placeholder="Current password">
-                        
-                        <label class="labels">New Password</label>
-                        <input type="password" class="form-control" name="newPassword" placeholder="New password">
-                        
-                        <label class="labels">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password">
-                      
-                        <!-- Save Password Button -->
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-primary profile-button" type="submit" name="savePassword">Save Password</button>
-                        </div>
-                    </form>
+                      <!-- Password Change Form -->
+            <form th:action="@{/User/updatePassword}" method="POST">
+                <label class="labels">Current Password</label>
+                <input type="password" class="form-control" name="currentPassword" placeholder="Current password">
+
+                <label class="labels">New Password</label>
+                <input type="password" class="form-control" name="newPassword" placeholder="New password">
+
+                <label class="labels">Confirm Password</label>
+                <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password">
+
+                <!-- Save Password Button -->
+                <div class="mt-5 text-center">
+                    <button class="btn btn-primary profile-button" type="submit" name="savePassword">Save Password</button>
+                </div>
+            </form>
+            <div th:if="${param.passwordUpdated}">
+                <div th:if="${param.passwordMismatch}" class="alert alert-danger" role="alert">
+                    New password and confirmation do not match.
+                </div>
+                <div th:if="${param.invalidPassword}" class="alert alert-danger" role="alert">
+                    Current password is incorrect.
+                </div>
+                <div th:if="${param.passwordUpdated && !param.passwordMismatch && !param.invalidPassword}" class="alert alert-success" role="alert">
+                    Password updated successfully.
+                </div>
+            </div>
             </div>
         </div>
     </div>

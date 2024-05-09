@@ -203,6 +203,49 @@ public class UserController {
 
 
 
+    @PostMapping("updatePassword")
+    public ModelAndView updatePassword(@RequestParam("currentPassword") String currentPassword,
+                                       @RequestParam("newPassword") String newPassword,
+                                       @RequestParam("confirmPassword") String confirmPassword,
+                                       HttpSession session) {
+        ModelAndView mav = new ModelAndView("redirect:/User/profile");
+    
+        // Retrieve email from session
+        String email = (String) session.getAttribute("email");
+    
+        // Find user by email
+        User user = userRepository.findByEmail(email);
+    
+        // Check if the current password is correct
+        if (BCrypt.checkpw(currentPassword, user.getPassword())) {
+            // Check if the new password matches the confirmation
+            if (newPassword.equals(confirmPassword)) {
+                // Update the password
+                String encodedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+                user.setPassword(encodedNewPassword);
+                userRepository.save(user);
+                mav.addObject("passwordUpdated", true);
+            } else {
+                // Passwords don't match
+                mav.addObject("passwordUpdated", false);
+                mav.addObject("passwordMismatch", true);
+            }
+        } else {
+            // Current password is incorrect
+            mav.addObject("passwordUpdated", false);
+            mav.addObject("invalidPassword", true);
+        }
+    
+        return mav;
+    }
+    
+
+
+
+
+
+
+
 
 
 
