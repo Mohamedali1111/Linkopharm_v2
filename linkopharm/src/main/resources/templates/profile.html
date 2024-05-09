@@ -59,7 +59,7 @@
                 <div class="row mt-2">
 
     <div class="col-md-6">
-        <form th:action="@{/User/profile}" th:object="${user}" method="POST" enctype="multipart/form-data" >
+        <form  th:action="@{/User/editProfile}" th:object="${user}" method="POST" enctype="multipart/form-data" >
         <label class="labels">First Name</label>
         <input type="text" class="form-control" name="firstname" th:value="${user.firstname}">
     </div>
@@ -78,6 +78,11 @@
                 <div class="mt-5 text-center">
     <button class="btn btn-primary profile-button" type="submit" name="saveProfile">Save Profile</button>
 </form>
+<!-- Add this code snippet within your HTML file where you want to display the alert -->
+<div th:if="${profileUpdated}" class="alert alert-success alert-dismissible fade show" role="alert">
+    Profile updated successfully!
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 </div>
             </div>
         </div>

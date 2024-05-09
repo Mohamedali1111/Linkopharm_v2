@@ -2,6 +2,7 @@ package com.example.aswe.linkopharm.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.aswe.linkopharm.models.User;
@@ -156,6 +157,62 @@ public class UserController {
         
         return mav;
     }
+
+
+
+
+
+    @PostMapping("editProfile")
+    public ModelAndView editProfile(@ModelAttribute User updatedUser, HttpSession session, RedirectAttributes redirectAttributes) {
+        ModelAndView mav = new ModelAndView();
+        
+        // Retrieve email from session
+        String email = (String) session.getAttribute("email");
+    
+        if(email == null) {
+            // If user is not logged in, redirect to login page with error message
+            mav.setViewName("redirect:/User/login?error=user_not_logged_in");
+            return mav;
+        }
+    
+        // Find user by email
+        User user = userRepository.findByEmail(email);
+    
+        // Update user details
+        if (user != null) {
+            user.setFirstname(updatedUser.getFirstname());
+            user.setLastname(updatedUser.getLastname());
+            user.setUsername(updatedUser.getUsername());
+            user.setEmail(updatedUser.getEmail());
+            // Update other fields as needed
+            userRepository.save(user);
+            redirectAttributes.addFlashAttribute("profileUpdated", true);
+            mav.setViewName("redirect:/User/profile");
+        } else {
+            // Handle the case where user is not found
+            redirectAttributes.addFlashAttribute("profileUpdated", false);
+            mav.setViewName("redirect:/User/login?error=user_not_found");
+        }
+        return mav;
+    }
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @GetMapping("Logout")
     public RedirectView logout(HttpSession session) {
