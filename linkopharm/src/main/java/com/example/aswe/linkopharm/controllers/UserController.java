@@ -136,14 +136,26 @@ public class UserController {
 
 
     @GetMapping("profile")
-    public ModelAndView profile(@RequestParam("id") int id) {
+    public ModelAndView profile(HttpSession session) {
         ModelAndView mav = new ModelAndView("profile.html");
-        User user = userRepository.findById(id);
-        mav.addObject("user", user);
+    
+        // Retrieve email from session
+        String email = (String) session.getAttribute("email");
+        
+        // Find user by email
+        User user = userRepository.findByEmail(email);
+        
+        // Check if user exists
+        if (user != null) {
+            mav.addObject("user", user);
+        } else {
+            // If user doesn't exist, handle the case accordingly
+            // For example, redirect to login page with an error message
+            mav.setViewName("redirect:/User/Login?error=user_not_found");
+        }
+        
         return mav;
     }
-
-
 
     @GetMapping("Logout")
     public RedirectView logout(HttpSession session) {
@@ -206,33 +218,33 @@ public ModelAndView showEditUserForm(@PathVariable("id") Integer id) {
 }
 
 
-@PostMapping("/update")
-public ModelAndView updateUser(@Valid @ModelAttribute("user") User user, BindingResult result) {
-    if (result.hasErrors()) {
-        return new ModelAndView("editcust").addObject("user", user);
-    }
+// @PostMapping("/update")
+// public ModelAndView updateUser(@Valid @ModelAttribute("user") User user, BindingResult result) {
+//     if (result.hasErrors()) {
+//         return new ModelAndView("editcust").addObject("user", user);
+//     }
     
-    User existingUser = userRepository.findById(user.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + user.getId()));
+//     User existingUser = userRepository.findById(user.getId())
+//             .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + user.getId()));
 
-    existingUser.setFirstname(user.getFirstname());
-    existingUser.setLastname(user.getLastname());
-    existingUser.setUsername(user.getUsername());
-    existingUser.setEmail(user.getEmail());
+//     existingUser.setFirstname(user.getFirstname());
+//     existingUser.setLastname(user.getLastname());
+//     existingUser.setUsername(user.getUsername());
+//     existingUser.setEmail(user.getEmail());
 
-    userRepository.save(existingUser);
+//     userRepository.save(existingUser);
 
-    return new ModelAndView("redirect:/User");
-}
+//     return new ModelAndView("redirect:/User");
+// }
 
 
-@GetMapping("/delete/{id}")
-public ModelAndView deleteUser(@PathVariable("id") int id) {
-    User user = userRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-    userRepository.delete(user);
-    return new ModelAndView("redirect:/User");
-}
+// @GetMapping("/delete/{id}")
+// public ModelAndView deleteUser(@PathVariable("id") int id) {
+//     User user = userRepository.findById(id)
+//             .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+//     userRepository.delete(user);
+//     return new ModelAndView("redirect:/User");
+// }
 
 
   
