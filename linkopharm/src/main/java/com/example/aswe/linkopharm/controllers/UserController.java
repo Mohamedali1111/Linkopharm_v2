@@ -110,35 +110,47 @@ public class UserController {
     }
 
     @PostMapping("Login")
-    public RedirectView loginProcess(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public ModelAndView loginProcess(@RequestParam("email") String email, 
+                                     @RequestParam("password") String password,
+                                     HttpSession session) {
+        // Find user by email
         User dbUser = this.userRepository.findByEmail(email);
-
-        if (dbUser != null && BCrypt.checkpw(password, dbUser.getPassword())) {
-          
+        Boolean isPassword = BCrypt.checkpw(password, dbUser.getPassword());
+    
+        // Check if user exists and password is correct
+        if (dbUser != null && isPassword ) {
+            // Set session attribute to store user's email
+            session.setAttribute("email", dbUser.getEmail());
+            
+            // Check user role and redirect accordingly
             if ("admin".equals(dbUser.getRole())) {
-                return new RedirectView("/dashboard");
+                return new ModelAndView("redirect:/dashboard");
             } else {
-                return new RedirectView("/");
+                return new ModelAndView("redirect:/");
             }
         } else {
-            return new RedirectView("/User/Login");
+            return new ModelAndView("redirect:/User/login");
         }
     }
-
+    
 
 
     @GetMapping("profile")
-    public ModelAndView profile() {
+    public ModelAndView profile(@RequestParam("id") int id) {
         ModelAndView mav = new ModelAndView("profile.html");
-        User newUser = new User();
-        mav.addObject("user", newUser);
+        User user = userRepository.findById(id);
+        mav.addObject("user", user);
         return mav;
     }
 
 
 
-
-
+    @GetMapping("Logout")
+    public RedirectView logout(HttpSession session) {
+        // Invalidate session
+        session.invalidate();
+        return new RedirectView("/"); // Redirect to login page after logout
+    }
 
 
 
