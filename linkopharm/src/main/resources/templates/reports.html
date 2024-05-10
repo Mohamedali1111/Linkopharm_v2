@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/displayproducts.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/editdash.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="~{partials/dashboardsidebar}"></div>
+
+
+        <div class="content">
+            <main class="table">
+                <section class="theader">
+                    <h1>Reviews</h1>
+                </section>
+                <section class="testimonials">
+                    <div th:if="${reviews}">
+                        <div th:each="review : ${reviews}" class="testimonial">
+                            <div class="content">
+                                <h4 th:text="${review.username}"></h4>
+                                <div class="stars">
+                                    <i class="fa fa-star" th:each="i : ${#numbers.sequence(1, review.rating)}"></i>
+                                </div>
+                                <p class="rev" th:text="${review.reviewText}"></p>
+                                <form th:action="@{/delete-review}" method="post">
+                                    <input type="hidden" name="id" th:value="${review.id}" />
+                                    <button class="delete-btn" type="submit">Delete</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div th:unless="${reviews}">
+                        <p>No reviews found.</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

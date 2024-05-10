@@ -216,3 +216,54 @@ main.table {
     margin-left: 30px;
     margin-bottom: 100px;
 }
+
+
+.testimonials {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    max-height: 80vh;
+    /* Set a max height to the testimonials section */
+}
+
+.testimonial {
+    width: 300px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.testimonial h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.testimonial p {
+    font-size: 14px;
+}
+.stars {
+    color: gold;
+}
+.delete-btn {
+    background-color: #ff4444;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.delete-form {
+    display: inline; 
+}
