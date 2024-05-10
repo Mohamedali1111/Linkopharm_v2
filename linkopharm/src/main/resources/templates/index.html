@@ -296,87 +296,46 @@
     </div>
   </section>
 
+
+  <!-- review -->
   <section id="reviews" class="section-padding">
     <div class="container">
-      <div class="row text-center">
-        <div class="col-12" data-aos="fade-down" data-aos-delay="50">
-          <div class="Review-title">
-            <h5>Customers Feedback</h5>
-            <div class="line"></div>
-            <p class="para">Your insights and experiences fuel our journey to excellence. Share your feedback, and let's shape the future of healthcare together.</p>
-          </div>
+        <div class="row text-center">
+            <div class="col-12" data-aos="fade-down" data-aos-delay="50">
+                <div class="Review-title">
+                    <h5>Customers Feedback</h5>
+                    <div class="line"></div>
+                    <p class="para">Your insights and experiences fuel our journey to excellence. Share your feedback, and let's shape the future of healthcare together.</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row mt-4 gy-4">
-        <!-- Review 1 -->
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="reviw">
-            <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="150">
-              <div class="review-icon">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-              </div>
-              <p class="mt-3">Extremely satisfied with the skincare line! My skin has never felt better. The personalized advice was a game changer.</p>
+        <div class="row mt-4 gy-4">
+            <div th:each="review,iterStat : ${reviews}" class="col-lg-4 col-md-6 col-sm-6" th:if="${iterStat.index < 6}">
+                <div class="reviw">
+                    <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="150">
+                        <div class="review-icon">
+                            <span th:each="i : ${#numbers.sequence(1, review.rating)}">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            </span>
+                        </div>
+                        <p class="mt-3" th:text="${review.reviewText}">Review Text</p>
+                    </div>
+                    <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="150">
+                        <img src="/images/person1.png" class="img-fluid rounded-circle">
+                        <div class="review-name ms-3 mt-3">
+                            <h5 style="font-size: 20px !important;" th:text="${review.username}">Username</h5>
+                            <p>Customer</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="150">
-              <img src="/images/person1.png" class="img-fluid rounded-circle">
-              <div class="review-name ms-3 mt-3">
-                <h5 style="font-size: 20px !important;">Saher Amr</h5>
-                <p>Customer</p>
-              </div>
-            </div>
-          </div>
         </div>
-        <!-- Review 2 -->
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="reviw">
-            <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="250">
-              <div class="review-icon">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star-half-stroke" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-              </div>
-              <p class="mt-3">The oral care products are good, but I wish there were more natural flavor options. Delivery was swift, though!</p>
-            </div>
-            <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="250">
-              <img src="/images/person2.png" class="img-fluid rounded-circle">
-              <div class="review-name ms-3 mt-3">
-                <h5 style="font-size: 20px !important;">Youssef Anwar</h5>
-                <p>Customer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Review 3 -->
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="reviw">
-            <div class="review-box shadow p-4" data-aos="fade-down" data-aos-delay="350">
-              <div class="review-icon">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-              </div>
-              <p class="mt-3">Top-notch customer service and high-quality products. The feminine care range is particularly impressive.</p>
-            </div>
-            <div class="image d-flex ms-3 mt-4" data-aos="fade-down" data-aos-delay="350">
-              <img src="/images/person3.png" class="img-fluid rounded-circle">
-              <div class="review-name ms-3 mt-3">
-                <h5 style="font-size: 20px !important;">Asmaa galal</h5>
-                <p>Customer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+    <div class="text-center mt-5">
+      <a href="/review" class="mt-4" style="color: #ff4c4c!important;" data-aos="fade-down" data-aos-delay="350">Add a Review</a>
+
+</section>
+
 
 
   <!-- team -->
