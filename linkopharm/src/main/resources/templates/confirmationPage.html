@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/confirmationPage.css"/>
+    <title>confirmationPage</title>
+</head>
+<body>
+    <div th:replace="~{partials/navbar}"></div>
+    <div class="hero">
+        <center>
+            <div class="container">
+                <div class="Left">
+                    <img class="check" src="../public/images/checked (1).png" alt="">
+                    <p class="message">Thank you, for your order!</p>
+                    <p class="message1">Your order will be delivered within 1 day of your purchase</p>
+                    <p class="message3">Your order number is</p>
+                    <p class="order_number" th:text="'#' + ${order.id}"></p>
+                    <a href="/">
+                        <button>
+                            <span>Continue Shopping</span>
+                        </button>
+                    </a>
+                    <!-- <a href="/">
+                        <button class="B1">
+                            <span>Receipt</span>
+                        </button>
+                    </a> -->
+                </div>
+                <div class="right">
+                    <table style="width:100%">
+                        <tr>
+                            <td class="th">Name:</td>
+                            <td th:text="${order.fname}"></td>
+                        </tr>
+                        <tr>
+                            <td class="th">Order date:</td>
+                            <td th:text="${order.orderDate}"></td>
+                        </tr>
+                        <tr>
+                            <td class="th">City:</td>
+                            <td th:text="${order.city}"></td>
+                        </tr>
+                        <tr>
+                            <td class="th">Address:</td>
+                            <td th:text="${order.address}"></td>
+                        </tr>
+                        <tr>
+                            <td class="th">Status:</td>
+                            <td th:text="${order.status}"></td>
+                        </tr>
+                        <tr>
+                            <td class="th">Total price:</td>
+                            <td th:text="${order.totalPrice}"></td>
+                        </tr>
+                        <tr>
+                            <td class="th">Payment:</td>
+                            <td>Visa</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </center>
+        <br>
+    </div>   
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
