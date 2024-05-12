@@ -31,62 +31,28 @@ import jakarta.validation.Valid;
 @RequestMapping("/cart")
 public class cartController {
 
-      private static final String UPLOAD_DIR = "linkopharm/src/main/resources/static/images/"; // Update with your upload directory path
-
+   
     @Autowired
     private CartRepository cartRepository;
 
     @GetMapping("")
-public ModelAndView getProducts() {
-    ModelAndView mav = new ModelAndView("cart");
-    mav.addObject("cartItems", cartRepository.findAll());
-    return mav;
-}
-
-    @GetMapping("/add")
-    public ModelAndView addProductForm() {
-        ModelAndView mav = new ModelAndView("addtocart");
-        mav.addObject("cartItem", new cart()); // Assuming "addtocart.html" contains a form for adding to cart
+    public ModelAndView getProducts() {
+        ModelAndView mav = new ModelAndView("cart");
+        mav.addObject("cartItems", cartRepository.findAll());
         return mav;
     }
 
-    @PostMapping("/save")
-    public ModelAndView saveProduct(@Valid @ModelAttribute("cartItem") cart cartItem,
-                                    BindingResult result,
-                                    @RequestParam("imageFile") MultipartFile imageFile) {
-        ModelAndView mav = new ModelAndView();
-        if (result.hasErrors()) {
-            mav.setViewName("addtocart");
-            mav.addObject("cartItem", cartItem);
-            return mav;
-        }
-
-        String contentType = imageFile.getContentType();
-        if (!imageFile.isEmpty() && (contentType == null || !contentType.startsWith("image/"))) {
-            mav.setViewName("addtocart");
-            mav.addObject("cartItem", cartItem);
-            mav.addObject("imageError", "File must be an image");
-            return mav; 
-        }
-        try {
-           if (!imageFile.isEmpty()) {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-            String fileName = imageFile.getOriginalFilename();
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            cartItem.setProduct_image(fileName); 
-        }
-            cartRepository.save(cartItem);
-            mav.setViewName("redirect:/cart");
-        } catch (Exception e) {
-            // Handle any exceptions that occur during saving
-            mav.setViewName("addtocart");
-            mav.addObject("cartItem", cartItem);
-            mav.addObject("error", "Error saving cart item");
-        }
+    @GetMapping("/add")
+    public ModelAndView showAddToCartForm() {
+        ModelAndView mav = new ModelAndView("cart.html");
+        cart newItem = new cart();
+        mav.addObject("cartItem", newItem);
         return mav;
+    }
+
+    @PostMapping("/add")
+    public String addToCart(@ModelAttribute("cartItem") cart cartItem) {
+        cartRepository.save(cartItem);
+        return "redirect:/cart";
     }
 }
