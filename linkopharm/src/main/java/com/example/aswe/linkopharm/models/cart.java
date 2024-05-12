@@ -20,6 +20,7 @@ public class cart {
 
     private int user_id;
     private String product_name;
+    @Column(length = 1000)
     private String product_image;
     private int product_price;
     private String product_description;
