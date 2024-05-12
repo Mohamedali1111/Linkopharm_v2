@@ -27,7 +27,7 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/products")
 public class ProductController {
 
-    private static final String UPLOAD_DIR = "src/main/resources/static/images/";
+    private static final String UPLOAD_DIR = "linkopharm/src/main/resources/static/images/";
 
     @Autowired
     private ProductRepository productRepository;
