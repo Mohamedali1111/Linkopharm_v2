@@ -51,8 +51,9 @@ public class cartController {
     }
 
     @PostMapping("/add")
-    public String addToCart(@ModelAttribute("cartItem") cart cartItem) {
+    public ModelAndView addToCart(@ModelAttribute("cartItem") cart cartItem) {
         cartRepository.save(cartItem);
-        return "redirect:/cart";
-    }
+        ModelAndView mav = new ModelAndView("redirect:/cart");
+        return mav;
+    } 
 }
