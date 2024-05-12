@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    padding-right: 20px;
+    height: auto;
+    margin: 5%;
+    margin-top: 50px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    box-shadow: 4px 8px 19px 0px rgba(0, 0, 0, 0.27);
+}
+
+.check {
+    margin-top: 20px;
+    width: 35%;
+}
+
+.message1 {
+    margin-bottom: 25px;
+    margin-top: 5px;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.message {
+    margin-top: 25px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.message3 {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.order_number {
+    font-size: large;
+    font-weight: bold;
+}
+
+button {
+    width: 25%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #2a3a91;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: #161d49;
+    color: white;
+}
+
+table {
+    margin-top: 5%; 
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 5px;
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+}
+
+.th {
+    font-weight: bold;
+}
+
+/* Media Query for smaller screens */
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; 
+        gap: 10px; 
+        padding-right: 10px;
+    }
+}
+
+
+
+
+
+
+
