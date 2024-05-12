@@ -15,6 +15,15 @@ public class order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    private int userId;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     private String fname;
     private String lname;
     private String phone;
