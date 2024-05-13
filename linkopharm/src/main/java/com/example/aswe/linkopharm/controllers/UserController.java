@@ -6,7 +6,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.aswe.linkopharm.models.User;
+import com.example.aswe.linkopharm.models.order;
 import com.example.aswe.linkopharm.repositories.UserRepository;
+import com.example.aswe.linkopharm.repositories.orderRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -30,6 +32,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private orderRepository orderRepository;
 
    
     // Registration for general user
@@ -148,6 +153,10 @@ public class UserController {
         
         // Check if user exists
         if (user != null) {
+            List<order> orders = orderRepository.findByUserId(user.getId());
+        
+            // Add the user and their orders to the ModelAndView
+            mav.addObject("orders", orders);
             mav.addObject("user", user);
         } else {
             // If user doesn't exist, handle the case accordingly
