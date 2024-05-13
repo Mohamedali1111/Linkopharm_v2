@@ -22,7 +22,6 @@
 <html>
 
 
-
 <link rel="stylesheet" href="../css/profile.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -44,7 +43,7 @@
     <body>
         <div th:replace="~{partials/navbar}"></div>
      
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="container1">
     <div class="row">
         <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="../images/userr.avif"><span class="font-weight-bold"><?php echo $username; ?></span><span class="text-black-50"><?php echo $email; ?></span><span> </span></div>
@@ -120,7 +119,26 @@
         </div>
     </div>
 </div>
+
+</div>
+<div class="container1">
+    <h3 class="h11">Your Orders</h3>
+    <ul class="ul1">
+        <li class="li1" th:each="order : ${orders}">
+            <div class="order-details">
+                <div th:text="'Order ID: ' + ${order.id}"></div>
+                <div class="order-date" th:text="'Date: ' + ${order.orderDate}"></div>
+            </div>
+            <div class="order-total" th:text="'Total: ' + ${order.totalPrice} + ' EGP'"></div>
+        </li>
+    </ul>
 </div>
 </div>     </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script></html>
+
+
+
+
+
+
