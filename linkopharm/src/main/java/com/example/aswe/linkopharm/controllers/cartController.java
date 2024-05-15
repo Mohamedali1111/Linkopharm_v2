@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.aswe.linkopharm.models.User;
 import com.example.aswe.linkopharm.models.cart;
@@ -82,4 +85,29 @@ public class cartController {
         }
         return new ModelAndView("redirect:/cart");
     }
+
+    @PostMapping("/remove")
+public String removeItemFromCart(@RequestParam("id") int cartId, RedirectAttributes redirectAttributes) {
+    cartRepository.deleteById(cartId);
+    redirectAttributes.addFlashAttribute("successMessage", "Item removed successfully!");
+    return "redirect:/cart";
+}
+@PostMapping("/updateQuantity")
+public String updateCartItemQuantity(@RequestParam("id") int cartId, @RequestParam("operation") String operation) {
+    Optional<cart> cart = cartRepository.findById(cartId);
+    if (cart.isPresent()) {
+        cart cartItem = cart.get();
+        int currentQuantity = cartItem.getQuantity();
+        if ("increase".equals(operation)) {
+            cartItem.setQuantity(currentQuantity + 1);
+        } else if ("decrease".equals(operation) && currentQuantity > 1) {
+            cartItem.setQuantity(currentQuantity - 1);
+        }
+        cartRepository.save(cartItem);
+    }
+    return "redirect:/cart";
+}
+
+
+
 }

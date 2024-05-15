@@ -28,13 +28,13 @@ public class cart {
     private String product_image;
     private int product_price;
     private String product_description;
-    private String quantity;
+    private int quantity;
 
 
     public cart() {
     }
 
-    public cart(int id, User user, String product_name, String product_image, int product_price, String product_description, String quantity) {
+    public cart(int id, User user, String product_name, String product_image, int product_price, String product_description, int quantity) {
         this.id = id;
         this.user = user;
         this.product_name = product_name;
@@ -93,13 +93,15 @@ public class cart {
         this.product_description = product_description;
     }
 
-    public String getQuantity() {
+
+    public int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+  
 
       @Override
     public boolean equals(Object o) {
