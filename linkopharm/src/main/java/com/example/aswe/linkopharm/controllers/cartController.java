@@ -62,7 +62,7 @@ public class cartController {
         ModelAndView mav = new ModelAndView("cart.html");
         String email = (String) session.getAttribute("email");
         if (email == null) {
-            return new ModelAndView("redirect:/User/login");
+            return new ModelAndView("redirect:/User/Login");
         }
         cart newItem = new cart();
         mav.addObject("cartItem", newItem);
@@ -73,7 +73,7 @@ public class cartController {
     public ModelAndView addToCart(@ModelAttribute("cartItem") cart cartItem, HttpSession session) {
         String email = (String) session.getAttribute("email");
         if (email == null) {
-            return new ModelAndView("redirect:/User/login");
+            return new ModelAndView("redirect:/User/Login");
         }
         User user = userRepository.findByEmail(email);
         if (user != null) {
