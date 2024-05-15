@@ -100,21 +100,15 @@
                     <h5>Cart Summary</h5>
                 </div>
                 <div class="ibox-content">
-                    <span>
-                        Total
-                    </span>
-                    <h2 class="font-bold">
-                        390,00EGP
-                    </h2>
-
+                    <span>Total</span>
+                    <h2 class="font-bold" th:text="${totalPrice} + ' EGP'"></h2>
+                    <h4 th:text="' Total Quantity '+${totalQuantity}"></h4>
                     <hr>
-                    <span class="text-muted small">
-                        *For Egypt applicable sales tax will be applied
-                    </span>
+                    <span class="text-muted small">*For Egypt applicable sales tax will be applied</span>
                     <div class="m-t-sm">
                         <div class="btn-group">
-                        <a href="/checkout" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
-                        <a href="/cart" class="btn btn-white btn-sm"> Cancel</a>
+                            <a href="/checkout" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                            <a href="/cart" class="btn btn-white btn-sm"> Cancel</a>
                         </div>
                     </div>
                 </div>

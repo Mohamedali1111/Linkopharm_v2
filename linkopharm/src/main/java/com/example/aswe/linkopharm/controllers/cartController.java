@@ -7,8 +7,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.List;
 
-import org.hibernate.mapping.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import com.example.aswe.linkopharm.repositories.CartRepository;
 import com.example.aswe.linkopharm.repositories.UserRepository;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,10 +53,17 @@ public class cartController {
         String email = (String) session.getAttribute("email");
         if (email == null) {
             mav.addObject("cartItems", Collections.emptyList());
+            mav.addObject("totalPrice", BigDecimal.ZERO);
+            mav.addObject("totalQuantity", 0);
         } else {
             User user = userRepository.findByEmail(email);
             if (user != null) {
-                mav.addObject("cartItems", cartRepository.findByUserId(user.getId()));
+                List<cart> cartItems = cartRepository.findByUserId(user.getId());
+                mav.addObject("cartItems", cartItems);
+                BigDecimal totalPrice = calculateTotalPrice(cartItems);
+                int totalQuantity = calculateTotalQuantity(cartItems);
+                mav.addObject("totalPrice", totalPrice); // Add total price to the model
+                mav.addObject("totalQuantity", totalQuantity); // Add total quantity to the model
             }
         }
         return mav;
@@ -109,5 +118,22 @@ public String updateCartItemQuantity(@RequestParam("id") int cartId, @RequestPar
 }
 
 
+public BigDecimal calculateTotalPrice(List<cart> cartItems) {
+    BigDecimal total = BigDecimal.ZERO;
+    for (cart item : cartItems) {
+        BigDecimal price = BigDecimal.valueOf(item.getProduct_price());
+        BigDecimal quantity = BigDecimal.valueOf(item.getQuantity());
+        BigDecimal itemTotal = price.multiply(quantity);
+        total = total.add(itemTotal);
+    }
+    return total;
+}
 
+public int calculateTotalQuantity(List<cart> cartItems) {
+    int totalQuantity = 0;
+    for (cart item : cartItems) {
+        totalQuantity += item.getQuantity();
+    }
+    return totalQuantity;
+}
 }
