@@ -154,10 +154,15 @@ public class UserController {
         // Check if user exists
         if (user != null) {
             List<order> orders = orderRepository.findByUserId(user.getId());
-        
-            // Add the user and their orders to the ModelAndView
-            mav.addObject("orders", orders);
-            mav.addObject("user", user);
+            if (orders.size() != 0) {
+                // Add the user and their orders to the ModelAndView
+                mav.addObject("orders", orders);
+                mav.addObject("user", user);
+            }
+            else{
+                mav.addObject("orders", null);
+                mav.addObject("user", user);
+            }
         } else {
             // If user doesn't exist, handle the case accordingly
             // For example, redirect to login page with an error message
@@ -359,3 +364,6 @@ public ModelAndView showEditUserForm(@PathVariable("id") Integer id) {
   
 
 }
+
+
+
