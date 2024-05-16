@@ -1,5 +1,7 @@
 package com.example.aswe.linkopharm.models;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +38,7 @@ public class order {
     private String orderDate;
 
     @Column(name = "total_price")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
     
     private String status;
 
@@ -123,11 +125,11 @@ public class order {
         this.cvc = cvc;
     }
 
-    public Double getTotalPrice() { 
+    public BigDecimal getTotalPrice() { 
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) { 
+    public void setTotalPrice(BigDecimal totalPrice) { 
         this.totalPrice = totalPrice;
     }
     
@@ -147,3 +149,11 @@ public class order {
         this.orderDate = orderDate;
     }
 }
+
+
+
+
+
+
+
+
