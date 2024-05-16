@@ -1,249 +1,245 @@
 <hb>
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/checkout.css" />
-        <title>Checkout</title>
-    </head>
-    <body>
-        <div th:replace="~{partials/navbar}"></div>
-        <div class="hero">
-            <div class="container">
-                <div class="checkoutLayout">
-                    <div class="returnCart">
-                        <a class="keepShopping" href="/">Keep shopping</a>
-                        <h1>List Products In Cart</h1>
-                        <div class="list">
-                            <div class="item">
-                                <img src="/images/sunblock1.webp" alt="">
-                                <div class="info">
-                                    <div class="name">Product 1</div>
-                                    <div class="price">50 EGP</div>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="/css/checkout.css" />
+            <title>Checkout</title>
+        </head>
+        <body>
+            <div th:replace="~{partials/navbar}"></div>
+            <div class="hero">
+                <div class="container">
+                    <div class="checkoutLayout">
+                        <div class="returnCart">
+                            <a class="keepShopping" href="/">Keep shopping</a>
+                            <h1>List Products In Cart</h1>
+                            <div th:each="cartItem : ${cartItems}" class="list">
+                                <div class="item">
+                                    <img th:src="@{'/images/' + ${cartItem.product_image}}" th:alt="${cartItem.product_name}">
+                                    <div class="info">
+                                        <div class="name" th:text="${cartItem.product_name}"></div>
+                                        <div class="price" th:text="'Unit price: ' + ${cartItem.product_price}"></div>
+                                    </div>
+                                    <div class="quantity" th:text="${cartItem.quantity}"></div>
+                                    <div class="returnPrice" th:text="${cartItem.product_price} * ${cartItem.quantity} + ' EGP'"></div>
                                 </div>
-                                <div class="quantity">2</div>
-                                <div class="returnPrice">100 EGP</div>
                             </div>
-                            <div class="item">
-                                <img src="/images/sunblock2.jpg" alt="">
-                                <div class="info">
-                                    <div class="name">Product 2</div>
-                                    <div class="price">80 EGP</div>
-                                </div>
-                                <div class="quantity">1</div>
-                                <div class="returnPrice">80 EGP</div>
+                            <div th:unless="${cartItems}" class="emptyCartMessage">
+                                No items in cart
                             </div>
                         </div>
-                    </div>
-                    <div class="right">
-                        <h1>CHECKOUT</h1>
-                        <h1 class="sInfo">Shipping information</h1>
-                        <form th:action="@{/checkout/placeOrder}" th:object="${Order}" method="POST" onsubmit="return validateForm()">
-                            <div class="form">
-                                <div class="group">
-                                    <label for="" class="text">First Name</label>
-                                    <span class="error" id="FnameError"></span>
-                                    <input type="text" th:field="*{fname}" id="fname" name="fname" placeholder="Your First Name">
+                        <div class="right">
+                            <h1>CHECKOUT</h1>
+                            <h1 class="sInfo">Shipping information</h1>
+                            <form th:action="@{/checkout/placeOrder}" th:object="${Order}" method="POST" onsubmit="return validateForm()">
+                                <div class="form">
+                                    <div class="group">
+                                        <label for="" class="text">First Name</label>
+                                        <span class="error" id="FnameError"></span>
+                                        <input type="text" th:field="*{fname}" id="fname" name="fname" placeholder="Your First Name">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">Last Name</label>
+                                        <span class="error" id="LnameError"></span>
+                                        <input type="text" th:field="*{lname}" id="lname" name="lname" placeholder="Your Last Name">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">Phone Number</label>
+                                        <span class="error" id="PhoneError"></span>
+                                        <input type="tel" th:field="*{phone}" id="phone" name="phone" placeholder="Your Phone Number">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">Address</label>
+                                        <span class="error" id="AddressError"></span>
+                                        <input type="text" th:field="*{address}" id="address" name="address" placeholder="Your Address">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">City</label>
+                                        <span class="error" id="CityError"></span>
+                                        <select th:field="*{city}" id="city" name="city">
+                                            <option value="">Choose..</option>
+                                            <option value="Cairo">Cairo</option>
+                                        </select>
+                                    </div>
+                                    <h1 class="details">Payment details</h1>
+                                    <div></div>
+                                    <div class="group">
+                                        <label for="" class="text">Name on card</label>
+                                        <span class="error" id="NameCardError"></span>
+                                        <input type="text" th:field="*{nameCard}" id="nameCard" name="nameCard" placeholder="Your name and surname">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">Card number</label>
+                                        <span class="error" id="CardNoError"></span>
+                                        <input type="text" th:field="*{cardNo}" id="cardNo" name="cardNo" placeholder="111-222-333">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">Expiration Date</label>
+                                        <span class="error" id="ExDateError"></span>
+                                        <input type="text" th:field="*{exDate}" id="exDate" name="exDate" placeholder="09-21">
+                                    </div>
+                                    <div class="group">
+                                        <label for="" class="text">CVC</label>
+                                        <span class="error" id="CVCError"></span>
+                                        <input type="text" th:field="*{cvc}" id="cvc" name="cvc" placeholder="***" >
+                                    </div>
                                 </div>
-                                <div class="group">
-                                    <label for="" class="text">Last Name</label>
-                                    <span class="error" id="LnameError"></span>
-                                    <input type="text" th:field="*{lname}" id="lname" name="lname" placeholder="Your Last Name">
+                                <div class="return">
+                                    <div class="row">
+                                        <div class="text">Total Quantity</div>
+                                        <div id="totalQuantity" th:text="${totalQuantity}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="text">Total Price</div>
+                                        <div id="totalPrice" th:text="${totalPrice} + ' EGP'"></div>
+                                    </div>
                                 </div>
-                                <div class="group">
-                                    <label for="" class="text">Phone Number</label>
-                                    <span class="error" id="PhoneError"></span>
-                                    <input type="tel" th:field="*{phone}" id="phone" name="phone" placeholder="Your Phone Number">
-                                </div>
-                                <div class="group">
-                                    <label for="" class="text">Address</label>
-                                    <span class="error" id="AddressError"></span>
-                                    <input type="text" th:field="*{address}" id="address" name="address" placeholder="Your Address">
-                                </div>
-                                <div class="group">
-                                    <label for="" class="text">City</label>
-                                    <span class="error" id="CityError"></span>
-                                    <select th:field="*{city}" id="city" name="city">
-                                        <option value="">Choose..</option>
-                                        <option value="Cairo">Cairo</option>
-                                    </select>
-                                </div>
-                                <h1 class="details">Payment details</h1>
-                                <div></div>
-                                <div class="group">
-                                    <label for="" class="text">Name on card</label>
-                                    <span class="error" id="NameCardError"></span>
-                                    <input type="text" th:field="*{nameCard}" id="nameCard" name="nameCard" placeholder="Your name and surname">
-                                </div>
-                                <div class="group">
-                                    <label for="" class="text">Card number</label>
-                                    <span class="error" id="CardNoError"></span>
-                                    <input type="text" th:field="*{cardNo}" id="cardNo" name="cardNo" placeholder="111-222-333">
-                                </div>
-                                <div class="group">
-                                    <label for="" class="text">Expiration Date</label>
-                                    <span class="error" id="ExDateError"></span>
-                                    <input type="text" th:field="*{exDate}" id="exDate" name="exDate" placeholder="09-21">
-                                </div>
-                                <div class="group">
-                                    <label for="" class="text">CVC</label>
-                                    <span class="error" id="CVCError"></span>
-                                    <input type="text" th:field="*{cvc}" id="cvc" name="cvc" placeholder="***" >
-                                </div>
-                            </div>
-                            <div class="return">
-                                <div class="row">
-                                    <div class="text">Total Quantity</div>
-                                    <div id="totalQuantity">3</div>
-                                </div>
-                                <div class="row">
-                                    <div class="text">Total Price</div>
-                                    <div id="totalPrice">180 EGP</div>
-                                </div>
-                            </div>
-                            <button class="buttonCheckout" type="submit">
-                                PLACE ORDER
-                            </button>
-                        </form>
+                                <button class="buttonCheckout" type="submit">
+                                    PLACE ORDER
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-        function validateForm() {
-
-            var fname = document.getElementById('fname').value;
-            var lname = document.getElementById('lname').value; 
-            var phone = document.getElementById('phone').value;
-            var address = document.getElementById('address').value;
-            var city = document.getElementById('city').value;
-            var nameCard = document.getElementById('nameCard').value;
-            var cardNo = document.getElementById('cardNo').value;
-            var exDate = document.getElementById('exDate').value;
-            var cvc = document.getElementById('cvc').value;
+            <script>
+            function validateForm() {
     
-            var phoneRegex = /^\d{11}$/;
-            var cvcRegex = /^\d{3}$/;
-            var exDateRegex = /^\d{2}-\d{2}$/;
-            var cardNoRegex = /^\d{9}$/;
-            var inputRegex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
-            var nameCardRegex = /^[A-Z][a-zA-Z0-9]*(?: [A-Z][a-zA-Z0-9]*)*$/;
-    
-            var errors = {};
-    
-            if (fname.trim() === '') {
-                errors['Fname'] = '*Please fill in your first name';
-            } else if (!fname.match(inputRegex)) {
-                errors['Fname'] = '*Invalid name. (Use letters, numbers, and spaces, without leading or trailing spaces)';
-            } else {
-                errors['Fname'] = '';
-            }
-    
-            if (lname.trim() === '') {
-                errors['Lname'] = '*Please fill in your last name';
-            } else if (!lname.match(inputRegex)) {
-                errors['Lname'] = '*Invalid name. (Use letters, numbers, and spaces, without leading or trailing spaces)';
-            } else {
-                errors['Lname'] = '';
-            }
-    
-            if (phone.trim() === '') {
-                errors['Phone'] = '*Please fill in your phone number';
-            } else if (!phone.match(phoneRegex)) {
-                errors['Phone'] = '*Invalid phone number. Please enter a 11-digit phone number';
-            } else {
-                errors['Phone'] = '';
-            }
-    
-            if (address.trim() === '') {
-                errors['Address'] = '*Please fill in your address';
-            } else if (!address.match(inputRegex)) {
-                errors['Address'] = '*Invalid address. (Use letters, numbers, and spaces, without leading or trailing spaces)';
-            } else {
-                errors['Address'] = '';
-            }
-    
-            if (city === '') {
-                errors['City'] = '*Please choose a city';
-            } else {
-                errors['City'] = '';
-            }
-    
-            if (nameCard.trim() === '') {
-                errors['NameCard'] = '*Please fill in the name on your card';
-            } else if (!nameCard.match(nameCardRegex)) {
-                errors['NameCard'] = '*Invalid name. Use capitalization and avoid special characters';
-            } else {
-                errors['NameCard'] = '';
-            }
-
-            if (cardNo.trim() === '') {
-                errors['CardNo'] = '*Please fill in your card number';
-            } else if (!cardNo.match(cardNoRegex)) {
-                errors['CardNo'] = '*Invalid card number. The card number must be 9 digits long';
-            } else {
-                errors['CardNo'] = '';
-            }
-    
-    
-            if (exDate.trim() === '') {
-                errors['ExDate'] = '*Please fill in the card expiration date';
-            } else if (!exDate.match(exDateRegex)) {
-                errors['ExDate'] = '*Invalid expiration date, Please enter a date in the format MM-YY';
-            } else {
-                // Validate the month and year
-                var parts = exDate.split('-');
-                var month = parseInt(parts[0]);
-                var year = parseInt(parts[1]);
-                if (year < 24 || year > 29 || month < 1 || month > 12) {
-                    errors['ExDate'] = '*Invalid expiration date. Please enter a date between 24-29 and ensure the month is correct';
+                var fname = document.getElementById('fname').value;
+                var lname = document.getElementById('lname').value; 
+                var phone = document.getElementById('phone').value;
+                var address = document.getElementById('address').value;
+                var city = document.getElementById('city').value;
+                var nameCard = document.getElementById('nameCard').value;
+                var cardNo = document.getElementById('cardNo').value;
+                var exDate = document.getElementById('exDate').value;
+                var cvc = document.getElementById('cvc').value;
+        
+                var phoneRegex = /^\d{11}$/;
+                var cvcRegex = /^\d{3}$/;
+                var exDateRegex = /^\d{2}-\d{2}$/;
+                var cardNoRegex = /^\d{9}$/;
+                var inputRegex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+                var nameCardRegex = /^[A-Z][a-zA-Z0-9]*(?: [A-Z][a-zA-Z0-9]*)*$/;
+        
+                var errors = {};
+        
+                if (fname.trim() === '') {
+                    errors['Fname'] = '*Please fill in your first name';
+                } else if (!fname.match(inputRegex)) {
+                    errors['Fname'] = '*Invalid name. (Use letters, numbers, and spaces, without leading or trailing spaces)';
                 } else {
-                    errors['ExDate'] = '';
+                    errors['Fname'] = '';
                 }
-            }
-    
-    
-            if (cvc.trim() === '') {
-                errors['CVC'] = '*Please fill in the CVC';
-            } else if (!cvc.match(cvcRegex)) {
-                errors['CVC'] = '*Invalid CVC. The CVC must be 3 digits long';
-            } else {
-                errors['CVC'] = '';
-            }
-    
-            // Display errors in error divs
-            Object.keys(errors).forEach(function(key) {
-                document.getElementById(key + 'Error').innerText = errors[key];
-            });
-    
-            // Check if there are any errors
-            for (var key in errors) {
-                if (errors[key] !== '') {
-                    return false;
+        
+                if (lname.trim() === '') {
+                    errors['Lname'] = '*Please fill in your last name';
+                } else if (!lname.match(inputRegex)) {
+                    errors['Lname'] = '*Invalid name. (Use letters, numbers, and spaces, without leading or trailing spaces)';
+                } else {
+                    errors['Lname'] = '';
                 }
-            }
+        
+                if (phone.trim() === '') {
+                    errors['Phone'] = '*Please fill in your phone number';
+                } else if (!phone.match(phoneRegex)) {
+                    errors['Phone'] = '*Invalid phone number. Please enter a 11-digit phone number';
+                } else {
+                    errors['Phone'] = '';
+                }
+        
+                if (address.trim() === '') {
+                    errors['Address'] = '*Please fill in your address';
+                } else if (!address.match(inputRegex)) {
+                    errors['Address'] = '*Invalid address. (Use letters, numbers, and spaces, without leading or trailing spaces)';
+                } else {
+                    errors['Address'] = '';
+                }
+        
+                if (city === '') {
+                    errors['City'] = '*Please choose a city';
+                } else {
+                    errors['City'] = '';
+                }
+        
+                if (nameCard.trim() === '') {
+                    errors['NameCard'] = '*Please fill in the name on your card';
+                } else if (!nameCard.match(nameCardRegex)) {
+                    errors['NameCard'] = '*Invalid name. Use capitalization and avoid special characters';
+                } else {
+                    errors['NameCard'] = '';
+                }
     
-            return true;
-        }   
-        </script>
-    </body>
-</html>
+                if (cardNo.trim() === '') {
+                    errors['CardNo'] = '*Please fill in your card number';
+                } else if (!cardNo.match(cardNoRegex)) {
+                    errors['CardNo'] = '*Invalid card number. The card number must be 9 digits long';
+                } else {
+                    errors['CardNo'] = '';
+                }
+        
+        
+                if (exDate.trim() === '') {
+                    errors['ExDate'] = '*Please fill in the card expiration date';
+                } else if (!exDate.match(exDateRegex)) {
+                    errors['ExDate'] = '*Invalid expiration date, Please enter a date in the format MM-YY';
+                } else {
+                    // Validate the month and year
+                    var parts = exDate.split('-');
+                    var month = parseInt(parts[0]);
+                    var year = parseInt(parts[1]);
+                    if (year < 24 || year > 29 || month < 1 || month > 12) {
+                        errors['ExDate'] = '*Invalid expiration date. Please enter a date between 24-29 and ensure the month is correct';
+                    } else {
+                        errors['ExDate'] = '';
+                    }
+                }
+        
+        
+                if (cvc.trim() === '') {
+                    errors['CVC'] = '*Please fill in the CVC';
+                } else if (!cvc.match(cvcRegex)) {
+                    errors['CVC'] = '*Invalid CVC. The CVC must be 3 digits long';
+                } else {
+                    errors['CVC'] = '';
+                }
+        
+                // Display errors in error divs
+                Object.keys(errors).forEach(function(key) {
+                    document.getElementById(key + 'Error').innerText = errors[key];
+                });
+        
+                // Check if there are any errors
+                for (var key in errors) {
+                    if (errors[key] !== '') {
+                        return false;
+                    }
+                }
+        
+                return true;
+            }   
+            </script>
+        </body>
+    </html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
