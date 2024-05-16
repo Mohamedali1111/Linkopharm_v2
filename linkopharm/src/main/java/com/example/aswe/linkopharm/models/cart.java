@@ -23,6 +23,8 @@ public class cart {
   @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    private int productId;
     private String product_name;
     @Column(length = 1000)
     private String product_image;
@@ -101,8 +103,15 @@ public class cart {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-  
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+  
       @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -133,3 +142,8 @@ public class cart {
     }
 
 }
+
+
+
+
+
