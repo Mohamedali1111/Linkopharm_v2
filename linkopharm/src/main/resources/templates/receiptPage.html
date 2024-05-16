@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <link rel="stylesheet" href="/css/receiptPage.css"/>
+</head>
+<body>
+  <div class="invoice">
+    <div align='left'><img src="/images/linko logo transperant.png" width="20%"/></div>
+    <br/>
+    
+    <div class="header">
+      <h1>Receipt</h1>
+    </div>
+
+    <div class="invoice-details">
+      <div>
+        <p>Order ID: <span th:text="${lastOrder.id}" id="invoice-number"></span></p>
+        <p>Date: <span th:text="${lastOrder.orderDate}" id="invoice-date"></span></p>
+      </div>
+    </div>
+    
+    <div class="client-details">
+      <h2>Client Details</h2>
+      <p th:text="'Name: ' + ${lastOrder.fname} +  ' ' + ${lastOrder.lname}"><span id="client-name"></span></p>
+      <p th:text="'Address: ' + ${lastOrder.address}"><span id="client-address"></span></p>
+    </div>
+
+    <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Unit price</th> 
+              <th>Total Price</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr th:each="orderItem : ${orderItems}">
+            <td th:text="${orderItem.product.name}"></td>
+            <td th:text="${orderItem.quantity}"></td>
+            <td th:text="${orderItem.product.price}"></td>
+            <td th:text="${orderItem.product.price}*${orderItem.quantity}"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th colspan="3" th:text="'Total: ' + ${lastOrder.totalPrice}"></th>
+          </tr>
+        </tbody>
+    </table>      
+
+    <center>
+      <a href="/">
+        <button>
+            Continue Shopping
+        </button>
+      </a>
+    </center>
+  </div>
+</body>
+</html>
