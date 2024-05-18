@@ -52,6 +52,7 @@
                         <input type="hidden" name="product_image" th:value="${product.imagePath}" />
                         <input type="hidden" name="product_price" th:value="${product.price}" />
                         <input type="hidden" name="product_description" th:value="${product.description}" />
+                        <input type="hidden" name="productId" th:value="${product.Id}" />
                         <input type="hidden" name="quantity" value="1" />
                         <button type="submit" value="Submit" id="add">Add to Cart</button>
                     </form>
@@ -85,6 +86,8 @@
 
 </body>
 </html>
+
+
 
 
 

@@ -125,12 +125,17 @@
     <h3 class="h11">Your Orders</h3>
     <ul class="ul1">
         <li class="li1" th:each="order : ${orders}">
-            <div class="order-details">
-                <div th:text="'Order ID: ' + ${order.id}"></div>
-                <div class="order-date" th:text="'Date: ' + ${order.orderDate}"></div>
-            </div>
-            <div class="order-total" th:text="'Total: ' + ${order.totalPrice} + ' EGP'"></div>
+                <div class="order-details">
+                    <a th:href="@{'/receiptPage/' + ${order.id}}">
+                        <div th:text="'Order ID: ' + ${order.id}"></div>
+                    </a>
+                    <div class="order-date" th:text="'Date: ' + ${order.orderDate}"></div>
+                </div>
+                <div class="order-total" th:text="'Total: ' + ${order.totalPrice} + ' EGP'"></div>
         </li>
+        <div th:unless="${orders}">
+            Your order history is empty.
+        </div>
     </ul>
 </div>
 </div>     </body>
