@@ -172,46 +172,43 @@ public class UserController {
         return mav;
     }
 
-
-@PostMapping("editProfile")
-public ModelAndView editProfile(@ModelAttribute @Validated User updatedUser, BindingResult result,
-                                HttpSession session, RedirectAttributes redirectAttributes) {
-    ModelAndView mav = new ModelAndView("redirect:/User/profile");
-    String sessionEmail = (String) session.getAttribute("email");
-    if (sessionEmail == null) {
-        redirectAttributes.addFlashAttribute("error", "You must be logged in to edit your profile.");
-        mav.setViewName("redirect:/User/login");
-        return mav;
-    }
-
-    User user = userRepository.findByEmail(sessionEmail);
-    if (user == null) {
-        redirectAttributes.addFlashAttribute("notFound", "User not found.");
-        return mav;
-    }
-
-    if (result.hasErrors()) {
-        redirectAttributes.addFlashAttribute("formErrors", result.getAllErrors());
-        return mav;
-    }
-
-    if (!user.getEmail().equals(updatedUser.getEmail())) { // If email is being changed
-        User existingUser = userRepository.findByEmail(updatedUser.getEmail());
-        if (existingUser != null) {
-            redirectAttributes.addFlashAttribute("emailError", "This email is already in use.");
+    @PostMapping("editProfile")
+    public ModelAndView editProfile(@ModelAttribute @Validated User updatedUser, BindingResult result,
+                                    HttpSession session, RedirectAttributes redirectAttributes) {
+        ModelAndView mav = new ModelAndView("redirect:/User/profile");
+        String sessionEmail = (String) session.getAttribute("email");
+        if (sessionEmail == null) {
+            redirectAttributes.addFlashAttribute("error", "You must be logged in to edit your profile.");
+            mav.setViewName("redirect:/User/login");
             return mav;
         }
+    
+        User user = userRepository.findByEmail(sessionEmail);
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("notFound", "User not found.");
+            return mav;
+        }
+    
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("formErrors", result.getAllErrors());
+            return mav;
+        }
+    
+        // Check if user tries to change their email
+        if (!user.getEmail().equals(updatedUser.getEmail())) {
+            redirectAttributes.addFlashAttribute("emailError", "Email changes are not allowed.");
+            return mav;
+        }
+    
+        // Update other user details
+        user.setFirstname(updatedUser.getFirstname());
+        user.setLastname(updatedUser.getLastname());
+        user.setUsername(updatedUser.getUsername());
+        userRepository.save(user);
+        redirectAttributes.addFlashAttribute("profileUpdated", "Profile updated successfully.");
+    
+        return mav;
     }
-
-    user.setFirstname(updatedUser.getFirstname());
-    user.setLastname(updatedUser.getLastname());
-    user.setUsername(updatedUser.getUsername());
-    user.setEmail(updatedUser.getEmail());
-    userRepository.save(user);
-    redirectAttributes.addFlashAttribute("profileUpdated", "Profile updated successfully.");
-
-    return mav;
-}
 
     @PostMapping("/updatePassword")
     public ModelAndView updatePassword(@RequestParam("currentPassword") String currentPassword,

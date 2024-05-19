@@ -25,15 +25,15 @@
 
     <body>
         <div th:replace="~{partials/navbar}"></div>
-     <!-- Profile Update Messages -->
+<!-- Profile Update Messages -->
 <div th:if="${profileUpdated}" class="alert alert-success" role="alert">
-    <p th:text="${profileUpdated}">Profile updated successfully!</p>
+    <p>Profile updated successfully!</p>
 </div>
 <div th:if="${notFound}" class="alert alert-danger" role="alert">
     <p>User not found.</p>
 </div>
 <div th:if="${error}" class="alert alert-danger" role="alert">
-    <p th:text="${error}">Generic error message if needed.</p>
+    <p th:text="${error}">You must be logged in to edit your profile.</p>
 </div>
 
 <!-- Password Update Messages -->
