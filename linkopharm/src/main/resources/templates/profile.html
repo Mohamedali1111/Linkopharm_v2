@@ -1,21 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"></html>
 <html lang="en">
@@ -42,7 +25,33 @@
 
     <body>
         <div th:replace="~{partials/navbar}"></div>
-     
+     <!-- Profile Update Messages -->
+<div th:if="${profileUpdated}" class="alert alert-success" role="alert">
+    <p th:text="${profileUpdated}">Profile updated successfully!</p>
+</div>
+<div th:if="${notFound}" class="alert alert-danger" role="alert">
+    <p>User not found.</p>
+</div>
+<div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}">Generic error message if needed.</p>
+</div>
+
+<!-- Password Update Messages -->
+<div th:if="${passwordUpdated}" class="alert alert-success" role="alert">
+    <p>Password updated successfully!</p>
+</div>
+<div th:if="${passwordError}" class="alert alert-danger" role="alert">
+    <p th:text="${passwordError}">New password must be at least 6 characters.</p>
+</div>
+<div th:if="${passwordMismatch}" class="alert alert-danger" role="alert">
+    <p>New password and confirmation do not match.</p>
+</div>
+<div th:if="${invalidPassword}" class="alert alert-danger" role="alert">
+    <p>Current password is incorrect.</p>
+</div>
+<div th:if="${emailError}" class="alert alert-danger" role="alert">
+    <p th:text="${emailError}">This email is already in use.</p>
+</div>
 <div class="container1">
     <div class="row">
         <div class="col-md-3 border-right">
@@ -77,10 +86,6 @@
                 <div class="mt-5 text-center">
     <button class="btn btn-primary profile-button" type="submit" name="saveProfile">Save Profile</button>
 </form>
-<div th:if="${profileUpdated}" class="alert alert-success alert-dismissible fade show" role="alert">
-    Profile updated successfully!
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
 </div>
             </div>
         </div>
@@ -104,23 +109,12 @@
                     <button class="btn btn-primary profile-button" type="submit" name="savePassword">Save Password</button>
                 </div>
             </form>
-            <div th:if="${param.passwordUpdated}">
-                <div th:if="${param.passwordMismatch}" class="alert alert-danger" role="alert">
-                    New password and confirmation do not match.
-                </div>
-                <div th:if="${param.invalidPassword}" class="alert alert-danger" role="alert">
-                    Current password is incorrect.
-                </div>
-                <div th:if="${param.passwordUpdated && !param.passwordMismatch && !param.invalidPassword}" class="alert alert-success" role="alert">
-                    Password updated successfully.
-                </div>
-            </div>
+       
             </div>
         </div>
     </div>
 </div>
 
-</div>
 <div class="container1">
     <h3 class="h11">Your Orders</h3>
     <ul class="ul1">

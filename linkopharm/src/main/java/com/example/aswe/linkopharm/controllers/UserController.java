@@ -135,7 +135,7 @@ public class UserController {
                 return new ModelAndView("redirect:/");
             }
         } else {
-            return new ModelAndView("redirect:/User/login");
+            return new ModelAndView("redirect:/User/Login");
         }
     }
     
@@ -173,55 +173,51 @@ public class UserController {
     }
 
 
-
-
-
-    @PostMapping("editProfile")
-    public ModelAndView editProfile(@ModelAttribute User updatedUser, HttpSession session, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView();
-        
-        // Retrieve email from session
-        String email = (String) session.getAttribute("email");
-    
-        if(email == null) {
-            // If user is not logged in, redirect to login page with error message
-            mav.setViewName("redirect:/User/login?error=user_not_logged_in");
-            return mav;
-        }
-    
-        // Find user by email
-        User user = userRepository.findByEmail(email);
-    
-        // Update user details
-        if (user != null) {
-            user.setFirstname(updatedUser.getFirstname());
-            user.setLastname(updatedUser.getLastname());
-            user.setUsername(updatedUser.getUsername());
-            user.setEmail(updatedUser.getEmail());
-            // Update other fields as needed
-            userRepository.save(user);
-            redirectAttributes.addFlashAttribute("profileUpdated", true);
-            mav.setViewName("redirect:/User/profile");
-        } else {
-            // Handle the case where user is not found
-            redirectAttributes.addFlashAttribute("profileUpdated", false);
-            mav.setViewName("redirect:/User/login?error=user_not_found");
-        }
+@PostMapping("editProfile")
+public ModelAndView editProfile(@ModelAttribute @Validated User updatedUser, BindingResult result,
+                                HttpSession session, RedirectAttributes redirectAttributes) {
+    ModelAndView mav = new ModelAndView("redirect:/User/profile");
+    String sessionEmail = (String) session.getAttribute("email");
+    if (sessionEmail == null) {
+        redirectAttributes.addFlashAttribute("error", "You must be logged in to edit your profile.");
+        mav.setViewName("redirect:/User/login");
         return mav;
     }
-    
-    
 
+    User user = userRepository.findByEmail(sessionEmail);
+    if (user == null) {
+        redirectAttributes.addFlashAttribute("notFound", "User not found.");
+        return mav;
+    }
 
+    if (result.hasErrors()) {
+        redirectAttributes.addFlashAttribute("formErrors", result.getAllErrors());
+        return mav;
+    }
 
+    if (!user.getEmail().equals(updatedUser.getEmail())) { // If email is being changed
+        User existingUser = userRepository.findByEmail(updatedUser.getEmail());
+        if (existingUser != null) {
+            redirectAttributes.addFlashAttribute("emailError", "This email is already in use.");
+            return mav;
+        }
+    }
 
+    user.setFirstname(updatedUser.getFirstname());
+    user.setLastname(updatedUser.getLastname());
+    user.setUsername(updatedUser.getUsername());
+    user.setEmail(updatedUser.getEmail());
+    userRepository.save(user);
+    redirectAttributes.addFlashAttribute("profileUpdated", "Profile updated successfully.");
 
+    return mav;
+}
 
-    @PostMapping("updatePassword")
+    @PostMapping("/updatePassword")
     public ModelAndView updatePassword(@RequestParam("currentPassword") String currentPassword,
                                        @RequestParam("newPassword") String newPassword,
                                        @RequestParam("confirmPassword") String confirmPassword,
-                                       HttpSession session) {
+                                       HttpSession session, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("redirect:/User/profile");
     
         // Retrieve email from session
@@ -231,24 +227,28 @@ public class UserController {
         User user = userRepository.findByEmail(email);
     
         // Check if the current password is correct
-        if (BCrypt.checkpw(currentPassword, user.getPassword())) {
-            // Check if the new password matches the confirmation
-            if (newPassword.equals(confirmPassword)) {
-                // Update the password
-                String encodedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
-                user.setPassword(encodedNewPassword);
-                userRepository.save(user);
-                mav.addObject("passwordUpdated", true);
-            } else {
-                // Passwords don't match
-                mav.addObject("passwordUpdated", false);
-                mav.addObject("passwordMismatch", true);
-            }
-        } else {
-            // Current password is incorrect
-            mav.addObject("passwordUpdated", false);
-            mav.addObject("invalidPassword", true);
+        if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
+            redirectAttributes.addFlashAttribute("invalidPassword", "Current password is incorrect.");
+            return mav;
         }
+    
+        // Validate new password
+        if (newPassword.length() < 6) {
+            redirectAttributes.addFlashAttribute("passwordError", "New password must be at least 6 characters.");
+            return mav;
+        }
+    
+        // Check if new password matches the confirmation
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("passwordMismatch", "New password and confirmation do not match.");
+            return mav;
+        }
+    
+        // Update the password
+        String encodedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+        user.setPassword(encodedNewPassword);
+        userRepository.save(user);
+        redirectAttributes.addFlashAttribute("passwordUpdated", "Password updated successfully.");
     
         return mav;
     }
