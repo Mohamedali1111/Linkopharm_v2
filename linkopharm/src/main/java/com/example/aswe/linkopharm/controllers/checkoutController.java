@@ -3,6 +3,7 @@ package com.example.aswe.linkopharm.controllers;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +24,8 @@ import com.example.aswe.linkopharm.models.products;
 import com.example.aswe.linkopharm.repositories.CartRepository;
 import com.example.aswe.linkopharm.repositories.ProductRepository;
 import com.example.aswe.linkopharm.repositories.UserRepository;
-import com.example.aswe.linkopharm.repositories.orderRepository;
 import com.example.aswe.linkopharm.repositories.orderItemRepository;
+import com.example.aswe.linkopharm.repositories.orderRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -55,13 +56,15 @@ public class checkoutController {
         ModelAndView mav = new ModelAndView("checkout"); 
         mav.addObject("Order", new order());
         String email = (String) session.getAttribute("email");
+          List<cart> cartItems = new ArrayList<cart>();
+
         if (email == null) {
             mav.addObject("cartItems", null);
             mav.addObject("totalPrice", BigDecimal.ZERO);
             mav.addObject("totalQuantity", 0);
         } else {
             User user = userRepository.findByEmail(email);
-            List<cart> cartItems = cartRepository.findByUserId(user.getId());
+            cartItems = cartRepository.findByUserId(user.getId());
             int totalQuantity = calculateTotalQuantity(cartItems);
             BigDecimal totalPrice = calculateTotalPrice(cartItems);
             if (user != null && totalQuantity != 0) {
@@ -74,6 +77,10 @@ public class checkoutController {
                 mav.addObject("totalPrice", totalPrice);
                 mav.addObject("totalQuantity", totalQuantity);
             }
+        }
+        if(cartItems.isEmpty()){
+             return new ModelAndView("redirect:/errorPage/emptyCart");
+            
         }
         return mav;
     }
