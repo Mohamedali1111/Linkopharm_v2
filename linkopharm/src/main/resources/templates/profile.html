@@ -84,9 +84,17 @@
                 </div>
               
                 <div class="mt-5 text-center">
+   
+</div>
+<div class="mt-5 text-center">
     <button class="btn btn-primary profile-button" type="submit" name="saveProfile">Save Profile</button>
 </form>
+    <!-- Logout Form -->
+    <form th:action="@{/User/Logout}" method="post" style="display:inline;">
+        <a href="/User/Logout" class="btn btn-secondary profile-button" style="margin-left: 10px;">Logout</a>
+    </form>
 </div>
+
             </div>
         </div>
         <div class="col-md-4">
