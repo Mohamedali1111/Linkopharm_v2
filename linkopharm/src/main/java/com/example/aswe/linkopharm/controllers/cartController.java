@@ -7,6 +7,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.List;
 
 
@@ -81,19 +82,31 @@ public class cartController {
         return mav;
     }
 
-    @PostMapping("/add")
-    public ModelAndView addToCart(@ModelAttribute("cartItem") cart cartItem, HttpSession session) {
-        String email = (String) session.getAttribute("email");
-        if (email == null) {
-            return new ModelAndView("redirect:/User/Login");
-        }
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
-            cartItem.setUser(user);
-            cartRepository.save(cartItem);
-        }
-        return new ModelAndView("redirect:/cart");
+  @PostMapping("/add")
+public ModelAndView addToCart(@ModelAttribute("cartItem") cart newItem, HttpSession session, RedirectAttributes redirectAttributes) {
+    String email = (String) session.getAttribute("email");
+    if (email == null) {
+        return new ModelAndView("redirect:/User/Login");
     }
+    User user = userRepository.findByEmail(email);
+    if (user != null) {
+        List<cart> existingItems = cartRepository.findByUserId(user.getId()).stream()
+            .filter(item -> item.getProduct_name().equals(newItem.getProduct_name()))
+            .collect(Collectors.toList());
+
+        if (!existingItems.isEmpty()) {
+            // Product is already in cart
+            redirectAttributes.addFlashAttribute("errorMessage", "Product already in cart");
+            return new ModelAndView("redirect:/productsPage");
+        } else {
+            // Add new item to cart
+            newItem.setUser(user);
+            cartRepository.save(newItem);
+            redirectAttributes.addFlashAttribute("successMessage", "Product added to cart successfully");
+        }
+    }
+    return new ModelAndView("redirect:/productsPage");
+}
 
     @PostMapping("/remove")
 public String removeItemFromCart(@RequestParam("id") int cartId, RedirectAttributes redirectAttributes) {

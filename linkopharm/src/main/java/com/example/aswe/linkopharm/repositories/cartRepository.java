@@ -6,5 +6,5 @@ import com.example.aswe.linkopharm.models.cart;
 
 public interface CartRepository extends JpaRepository<cart, Integer> {
     List<cart> findByUserId(int userId);
-    
+
 }
