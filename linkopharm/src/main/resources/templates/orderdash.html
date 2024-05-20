@@ -8,6 +8,36 @@
     <link rel="stylesheet" href="/css/dashboard.css" />
     <link rel="stylesheet" href="/css/editdash.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function searchTable() {
+           console.log("AAAAAAAAAAA");
+           // Declare variables
+           var input, filter, table, tr, td, i, txtValue;
+           input = document.getElementById("myInput");
+           filter = input.value.toUpperCase();
+           table = document.getElementById("myTable");
+           tr = table.getElementsByTagName("tr");
+         
+           // Loop through all table rows, and hide those who don't match the search query
+           for (i = 0; i < tr.length; i++) {
+               let matchFound = false;
+               let tdElements = tr[i].getElementsByTagName("td");
+               for (let j = 1; j < tdElements.length; j++) {
+                 td = tdElements[j];
+                 txtValue = td.textContent || td.innerText;
+                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                   matchFound = true;
+                   break;
+                 }
+               }
+               if (matchFound) {
+                 tr[i].style.display = "";
+               } else {
+                 tr[i].style.display = "none";
+               }
+             }
+         } 
+       </script>
 </head>
 <body>
 <div class="container">
@@ -17,7 +47,7 @@
         <section class="theader">
             <h1>Track Orders</h1>
             <div class="search">
-                <input type="search" placeholder="Search Orders...">
+                <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search Orders...">
             </div>
             <div class="add_order">
                 <a th:href="@{/orders/add}">
@@ -26,7 +56,7 @@
             </div>
         </section>
         <section class="table_body">
-            <table>
+            <table id="myTable">
                 <thead>
                 <tr>
                     <th>Order ID</th>
