@@ -73,7 +73,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h4 th:text="${cartItem.product_price}+ 'EGP'">
+                                    <h4 th:text="${cartItem.product_price*cartItem.quantity}+ 'EGP'">
                                       EGP
                                     </h4>
                                 </td>
