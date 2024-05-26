@@ -136,9 +136,37 @@ body {
 }
 
 .keepShopping {
-    color: black;
-    text-decoration: none;
-    font-size: large;  
+    padding: 12px 20px;
+    border: unset;
+    border-radius: 10px;
+    color: #212121;
+    font-size: medium;
+    z-index: 1;
+    background: #d5d5d5;
+    position: relative;
+    transition: all 0.4s;
+    overflow: hidden;
+}
+   
+.keepShopping::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    background-color: #212121;
+    z-index: -1;
+    transition: all 0.4s
+}
+   
+.keepShopping:hover {
+    color: #e8e8e8;
+}
+   
+.keepShopping:hover::before {
+    width: 100%;
 }
 
 h1 {

@@ -13,7 +13,11 @@
                 <div class="container">
                     <div class="checkoutLayout">
                         <div class="returnCart">
-                            <a class="keepShopping" href="/">Keep shopping</a>
+                            <a href="/productsPage">
+                                <button class="keepShopping">
+                                    Keep shopping
+                                </button>
+                            </a>
                             <h1>List Products In Cart</h1>
                             <div th:each="cartItem : ${cartItems}" class="list">
                                 <div class="item">
