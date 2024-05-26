@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"></html>
 <html lang="en">
@@ -117,27 +116,61 @@
         </div>
     </div>
 </div>
-
+</div>  
 <div class="container1">
     <h3 class="h11">Your Orders</h3>
+    <div id="successMessage" th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div id="errorMessage" th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
     <ul class="ul1">
         <li class="li1" th:each="order : ${orders}">
-                <div class="order-details">
-                    <a th:href="@{'/receiptPage/' + ${order.id}}">
-                        <div th:text="'Order ID: ' + ${order.id}"></div>
-                    </a>
-                    <div class="order-date" th:text="'Date: ' + ${order.orderDate}"></div>
+            <div class="order-details">
+                <a th:href="@{'/receiptPage/' + ${order.id}}">
+                    <div th:text="'Order ID: ' + ${order.id}"></div>
+                </a>
+                <div class="order-date" th:text="'Date: ' + ${order.orderDate}"></div>
+                <div th:if="${order.status} == 'Pending'">
+                    <form th:action="@{'/User/cancelOrder/' + ${order.id}}" method="post">
+                        <button class="cancel-order-btn" type="submit">Cancel Order</button>
+                    </form>
                 </div>
-                <div class="order-total" th:text="'Total: ' + ${order.totalPrice} + ' EGP'"></div>
+            </div>
+            <div class="order-total" th:text="'Total: ' + ${order.totalPrice} + ' EGP'"></div>
+            <div class="order-status" th:text="'Status: ' + ${order.status}"></div>
         </li>
         <div th:unless="${orders}">
             Your order history is empty.
         </div>
+        <div class="container-cancellation-policy">
+            <h1 class="h1-cancellation-policy">Cancellation Policy</h1>
+            <p class="cancellation-policy">Orders can be cancelled only if their status is <span class="status">"Pending"</span>; once an order status changes, it cannot be cancelled.</p>
+        </div>
     </ul>
 </div>
-</div>     </body>
+<script>
+    setTimeout(function() {
+        document.querySelectorAll(".alert").forEach(function(element) {
+            element.classList.add("hidden");
+            setTimeout(function() {
+                element.remove();
+            }, 500);
+        });
+    }, 5000);
+</script>
+</body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script></html>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
