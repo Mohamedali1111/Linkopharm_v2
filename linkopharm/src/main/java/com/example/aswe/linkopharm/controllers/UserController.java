@@ -168,6 +168,21 @@ public class UserController {
         return mav;
     }
 
+    @PostMapping("/cancelOrder/{orderId}")
+    public ModelAndView cancelOrder(@PathVariable Integer orderId, RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView();
+        
+        int updatedRows = orderRepository.cancelOrder(orderId);
+        if (updatedRows > 0) {
+            redirectAttributes.addFlashAttribute("successMessage", "Order cancelled successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to cancel the order.");
+        }
+
+        modelAndView.setViewName("redirect:/User/profile");
+        return modelAndView;
+    }
+
     @PostMapping("editProfile")
     public ModelAndView editProfile(@ModelAttribute @Validated User updatedUser, BindingResult result,
             HttpSession session, RedirectAttributes redirectAttributes) {
