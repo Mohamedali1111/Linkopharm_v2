@@ -58,6 +58,7 @@
                             <select id="status" name="status" th:field="*{status}">
                                 <option value="Pending" th:selected="${order.status == 'Pending'}">Pending</option>
                                 <option value="Delivered" th:selected="${order.status == 'Delivered'}">Delivered</option>
+                                <option value="Cancelled" th:selected="${order.status == 'Cancelled'}">Cancelled</option>
                             </select>
                         </div>
                     </div>
