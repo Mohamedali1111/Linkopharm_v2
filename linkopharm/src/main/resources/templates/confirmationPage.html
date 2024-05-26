@@ -6,26 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/confirmationPage.css"/>
     <title>confirmationPage</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var button = document.getElementById("cancelButton");
-            var countdown = 30;
-            var interval = setInterval(function() {
-                if (countdown > 0) {
-                    countdown--;
-                    button.textContent = "Cancel (" + countdown + "s)";
-                } else {
-                    clearInterval(interval);
-                    button.disabled = true;
-                    button.textContent = "Button Disabled";
-                }
-            }, 1000);
-
-            button.addEventListener("click", function() {
-                confirm("Are you sure you want to cancel your order?");
-            });
-        });
-    </script>
 </head>
 <body>
     <div th:replace="~{partials/navbar}"></div>
@@ -42,8 +22,7 @@
                         <button>
                             <span>Continue Shopping</span>
                         </button>
-                        <button id="cancelButton">Cancel (30s)</button>
-
+                        <!-- <button id="cancelButton">Cancel (30s)</button> -->
                     </a>
                     <!-- <a href="/">
                         <button class="B1">
@@ -86,9 +65,33 @@
             </div>
         </center>
         <br>
-    </div>   
+    </div>  
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var button = document.getElementById("cancelButton");
+            var countdown = 30;
+            var interval = setInterval(function() {
+                if (countdown > 0) {
+                    countdown--;
+                    button.textContent = "Cancel (" + countdown + "s)";
+                } else {
+                    clearInterval(interval);
+                    button.disabled = true;
+                    button.textContent = "Sorry, you cannot cancel the order now";
+                }
+            }, 1000);
+
+            button.addEventListener("click", function() {
+                confirm("Are you sure you want to cancel your order?");
+            });
+        });
+    </script>  -->
 </body>
 </html>
+
+
+
+
 
 
 
