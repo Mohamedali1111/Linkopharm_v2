@@ -8,22 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/productsPage.css"/>
 
-    
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gerlach+Sans:wght@400&display=swap">
     <title>Products Page</title>    
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-
 </head>
 
 
 <body>
     <div th:replace="~{partials/navbar}"></div>
-   
     <div class="navbar1">
         <div class="dropdown">
             <a href="#" class="navbar-item">Categories</a>
@@ -65,12 +59,19 @@
             </div>
         </div>
     </div>
-    <div th:if="${not #strings.isEmpty(errorMessage)}" class="alert alert-danger">
-        <p th:text="${errorMessage}"></p>
-    </div>
-    <div th:if="${not #strings.isEmpty(successMessage)}" class="alert alert-success">
-        <p th:text="${successMessage}"></p>
-    </div>
+    <div class="pagination">
+        <ul>
+            <li th:if="${currentPage > 0}">
+                <a th:href="@{/productsPage(page=${currentPage - 1})}">&laquo; Previous</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:href="@{/productsPage(page=${i})}" th:text="${i + 1}" th:classappend="${currentPage == i} ? 'active'"></a>
+            </li>
+            <li th:if="${currentPage < totalPages - 1}">
+                <a th:href="@{/productsPage(page=${currentPage + 1})}">Next &raquo;</a>
+            </li>
+        </ul>
+    </div>    
     <script>
         document.querySelectorAll('.dropdown-content a').forEach(item => {
             item.addEventListener('click', event => {
@@ -96,8 +97,6 @@
 
 </body>
 </html>
-
-
 
 
 

@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.aswe.linkopharm.models.products;
 import com.example.aswe.linkopharm.repositories.ProductRepository;
 
@@ -19,9 +24,15 @@ public class productsPageController {
     private ProductRepository productRepository;
 
     @GetMapping("")
-    public ModelAndView getProducts() {
-        ModelAndView mav = new ModelAndView("productsPage.html");
-        mav.addObject("products", productRepository.findAll());
+    public ModelAndView getProducts(@RequestParam(defaultValue = "0") int page) {
+        int pageSize = 8;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<products> productPage = productRepository.findAll(pageable);
+
+        ModelAndView mav = new ModelAndView("productsPage");
+        mav.addObject("products", productPage.getContent());
+        mav.addObject("totalPages", productPage.getTotalPages());
+        mav.addObject("currentPage", page);
         return mav;
     }
 

@@ -100,7 +100,7 @@ body {
 .product-overlay-content button {
     padding: 10px 20px;
     width: 130px;
-    background-color: #49d8b9;
+    background-color: #3aa856;
     color: #fff;
     font-size: 1em;
     border: none;
@@ -110,7 +110,7 @@ body {
 }
 
 .product-overlay-content button:hover {
-    background-color: #37a18a;
+    background-color: #2e8644;
 }
 
 .navbar1 {
@@ -197,6 +197,45 @@ a {
     text-decoration: none;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.pagination ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.pagination li {
+    margin: 0;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.pagination a.active {
+    background-color: #333;
+    color: #fff;
+    background-color: #333;
+}
+
 @media (max-width: 1200px) {
     .container {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -218,6 +257,7 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
