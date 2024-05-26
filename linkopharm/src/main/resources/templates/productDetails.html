@@ -26,15 +26,24 @@
                         </div>
                         <p class="product-code" th:text="'Product code: ' + ${product.id}"></p>
                         <p class="product-category" th:text="'Category: ' + ${product.category}"></p>
-                        <button type="button" class="button">
-                            <span class="button__text">ADD TO CART</span>
-                            <span class="button__icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
-                                    <line y2="19" y1="5" x2="12" x1="12"></line>
-                                    <line y2="12" y1="12" x2="19" x1="5"></line>
-                                </svg>
-                            </span>
-                        </button>
+                        <form th:action="@{/cart/add}" th:object="${cartItems}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="user_id" value="1" /> <!-- Assuming user_id is static or fetched from session -->
+                            <input type="hidden" name="product_name" th:value="${product.name}" />
+                            <input type="hidden" name="product_image" th:value="${product.imagePath}" />
+                            <input type="hidden" name="product_price" th:value="${product.price}" />
+                            <input type="hidden" name="product_description" th:value="${product.description}" />
+                            <input type="hidden" name="productId" th:value="${product.Id}" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <button type="submit" class="button" value="Submit">
+                                <span class="button__text">ADD TO CART</span>
+                                <span class="button__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
+                                        <line y2="19" y1="5" x2="12" x1="12"></line>
+                                        <line y2="12" y1="12" x2="19" x1="5"></line>
+                                    </svg>
+                                </span>
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <div class="right">

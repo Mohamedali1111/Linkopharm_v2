@@ -52,6 +52,7 @@ body {
     position: relative;
     border-radius: 5px;
     width: 90%;
+    height: 500px;
     transition: transform 0.5s ease;
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
 }
@@ -120,7 +121,7 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    border: 1px solid #3aa856;
+    border: 0px solid #3aa856;
     background-color: #3aa856;
 }
 
