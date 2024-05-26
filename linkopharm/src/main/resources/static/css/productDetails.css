@@ -175,6 +175,39 @@ body {
     border: 1px solid #2e8644;
 }
 
+.back {
+    padding: 12px 20px;
+    border: unset;
+    border-radius: 10px;
+    color: #212121;
+    z-index: 1;
+    background: #d5d5d5;
+    position: relative;
+    transition: all 0.4s;
+    overflow: hidden;
+}
+   
+.back::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    background-color: #212121;
+    z-index: -1;
+    transition: all 0.4s;
+}
+   
+.back:hover {
+    color: #e8e8e8;
+}
+   
+.back:hover::before {
+    width: 100%;
+}
+
 .modal {
     display: none; 
     position: fixed;
