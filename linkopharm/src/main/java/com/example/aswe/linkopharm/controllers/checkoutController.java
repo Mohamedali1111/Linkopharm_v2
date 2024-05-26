@@ -79,7 +79,7 @@ public class checkoutController {
             }
         }
         if(cartItems.isEmpty()){
-             return new ModelAndView("redirect:/errorPage/emptyCart");
+            return new ModelAndView("redirect:/emptyCart");
             
         }
         return mav;
