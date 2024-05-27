@@ -9,15 +9,15 @@ import com.example.aswe.linkopharm.models.error;
 @Controller 
 public class errorPageController {
 
-    @GetMapping("/***")
-    public ModelAndView generalError(){
-        ModelAndView mav = new ModelAndView("errorPage.html");
-        error error = new error();
-        error.setErrortitle("404 - Page Not Found");
-        error.setErrorMessage("Oops! The page you're looking for could not be found.");
-        mav.addObject("error", error);
-        return mav;
-    }
+    // @GetMapping("/***")
+    // public ModelAndView generalError(){
+    //     ModelAndView mav = new ModelAndView("errorPage.html");
+    //     error error = new error();
+    //     error.setErrortitle("404 - Page Not Found");
+    //     error.setErrorMessage("Oops! The page you're looking for could not be found.");
+    //     mav.addObject("error", error);
+    //     return mav;
+    // }
 
     @GetMapping("/errorPage")
     public ModelAndView error(){
