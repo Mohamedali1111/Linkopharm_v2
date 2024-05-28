@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -48,13 +48,14 @@ body {
 
 .product-price {
     color: rgb(0, 0, 0);
-    font-weight: bold;
+    font-weight: bolder;
     font-size: 1.2em;
 }
 
 .product-name {
     transition: opacity 0.3s;
     width: 100%;
+    font-weight: bolder;
 }
 
 .product-name:hover {
@@ -257,7 +258,6 @@ a {
         grid-template-columns: 1fr;
     }
 }
-
 
 
 

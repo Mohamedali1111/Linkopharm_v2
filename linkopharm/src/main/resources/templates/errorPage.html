@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${error.errorTitle}"></title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${error.errorTitle}"></title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Chango" rel="stylesheet">
     <link rel="stylesheet" href="/css/errorPage.css"/>
 </head>
 <body>
-    <div class="error-container">
-        <h1 th:text="${error.errorTitle}"></h1>
-        <p th:text="${error.errorMessage}"></p>
-        <p><a href="/">Go back to home</a></p>
-    </div>
+	<div id="notfound">
+		<div class="notfound">
+			<div>
+				<div class="notfound-404">
+					<h1>!</h1>
+				</div>
+				<h2 th:text="${error.errorTitle}"></h2>
+			</div>
+			<p th:text="${error.errorMessage}"></p>
+            <a href="/">Back to homepage</a>
+		</div>
+	</div>
 </body>
 </html>
-
-
-
-
 
 
 

@@ -146,6 +146,7 @@ body {
     position: relative;
     transition: all 0.4s;
     overflow: hidden;
+    font-weight: bolder;
 }
    
 .keepShopping::before {
