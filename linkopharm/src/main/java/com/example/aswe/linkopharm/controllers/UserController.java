@@ -7,6 +7,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.aswe.linkopharm.models.User;
 import com.example.aswe.linkopharm.models.order;
+import com.example.aswe.linkopharm.services.UserService;
 import com.example.aswe.linkopharm.repositories.UserRepository;
 import com.example.aswe.linkopharm.repositories.orderRepository;
 
@@ -28,83 +29,86 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/User")
-
 public class UserController {
+    
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private orderRepository orderRepository;
 
-    // Registration for general user
+    @Autowired
+    private UserRepository userRepository;
 
-    @GetMapping("Registration")
-    public ModelAndView addUser() {
-        ModelAndView mav = new ModelAndView("signup.html");
-        User newUser = new User();
-        mav.addObject("user", newUser);
-        return mav;
-    }
+        // Registration for general user
 
-    @PostMapping("Registration")
-    public ModelAndView saveFruit(@ModelAttribute @Validated User user, BindingResult result) {
-        if (result.hasErrors()) {
+        @GetMapping("Registration")
+        public ModelAndView addUser() {
             ModelAndView mav = new ModelAndView("signup.html");
+            User newUser = new User();
+            mav.addObject("user", newUser);
             return mav;
         }
-
-        // Check if email already exists
-        User existingUser = userRepository.findByEmail(user.getEmail());
-        if (existingUser != null) {
-            result.rejectValue("email", "error.user", "Email already exists");
-            ModelAndView mav = new ModelAndView("signup.html");
+    
+        @PostMapping("Registration")
+        public ModelAndView saveFruit(@ModelAttribute @Validated User user, BindingResult result) {
+            if (result.hasErrors()) {
+                ModelAndView mav = new ModelAndView("signup.html");
+                return mav;
+            }
+    
+            // Check if email already exists
+            User existingUser = userRepository.findByEmail(user.getEmail());
+            if (existingUser != null) {
+                result.rejectValue("email", "error.user", "Email already exists");
+                ModelAndView mav = new ModelAndView("signup.html");
+                return mav;
+            }
+    
+            // Check if email ends with specific domains
+            if (!user.getEmail().matches(".*@(yahoo|gmail|outlook)\\.(com|net|org)")) {
+                result.rejectValue("email", "error.user", "Invalid email domain. Please use Yahoo, Gmail, or Outlook.");
+                ModelAndView mav = new ModelAndView("signup.html");
+                return mav;
+            }
+    
+            if (user.getPassword().length() < 4) {
+                result.rejectValue("password", "error.user", "Password must be at least 4 characters long");
+                ModelAndView mav = new ModelAndView("signup.html");
+                return mav;
+            }
+    
+            // Check if names contain only letters
+            if (!user.getFirstname().matches("[a-zA-Z]+")) {
+                result.rejectValue("firstname", "error.user", "First name must contain only letters");
+                ModelAndView mav = new ModelAndView("signup.html");
+                return mav;
+            }
+    
+            if (!user.getLastname().matches("[a-zA-Z]+")) {
+                result.rejectValue("lastname", "error.user", "Last name must contain only letters");
+                ModelAndView mav = new ModelAndView("signup.html");
+                return mav;
+            }
+            if (!user.getPassword().equals(user.getConfirmPassword())) {
+    
+                ModelAndView mav = new ModelAndView("signup.html");
+                result.rejectValue("password", "error.user", "Password and Confirm Password must match");
+                return mav;
+            }
+    
+            // Hash and save the password
+            String encodedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
+            user.setPassword(encodedPassword);
+            String encodedConfrmPassword = BCrypt.hashpw(user.getConfirmPassword(), BCrypt.gensalt(12));
+            user.setConfirmPassword(encodedConfrmPassword);
+    
+            // Save the user
+            userRepository.save(user);
+    
+            ModelAndView mav = new ModelAndView("redirect:/User/Login");
             return mav;
         }
-
-        // Check if email ends with specific domains
-        if (!user.getEmail().matches(".*@(yahoo|gmail|outlook)\\.(com|net|org)")) {
-            result.rejectValue("email", "error.user", "Invalid email domain. Please use Yahoo, Gmail, or Outlook.");
-            ModelAndView mav = new ModelAndView("signup.html");
-            return mav;
-        }
-
-        if (user.getPassword().length() < 4) {
-            result.rejectValue("password", "error.user", "Password must be at least 4 characters long");
-            ModelAndView mav = new ModelAndView("signup.html");
-            return mav;
-        }
-
-        // Check if names contain only letters
-        if (!user.getFirstname().matches("[a-zA-Z]+")) {
-            result.rejectValue("firstname", "error.user", "First name must contain only letters");
-            ModelAndView mav = new ModelAndView("signup.html");
-            return mav;
-        }
-
-        if (!user.getLastname().matches("[a-zA-Z]+")) {
-            result.rejectValue("lastname", "error.user", "Last name must contain only letters");
-            ModelAndView mav = new ModelAndView("signup.html");
-            return mav;
-        }
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-
-            ModelAndView mav = new ModelAndView("signup.html");
-            result.rejectValue("password", "error.user", "Password and Confirm Password must match");
-            return mav;
-        }
-
-        // Hash and save the password
-        String encodedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
-        user.setPassword(encodedPassword);
-        String encodedConfrmPassword = BCrypt.hashpw(user.getConfirmPassword(), BCrypt.gensalt(12));
-        user.setConfirmPassword(encodedConfrmPassword);
-
-        // Save the user
-        userRepository.save(user);
-
-        ModelAndView mav = new ModelAndView("redirect:/User/Login");
-        return mav;
-    }
 
     @GetMapping("Login")
     public ModelAndView login() {
@@ -118,7 +122,7 @@ public class UserController {
     public ModelAndView loginProcess(@RequestParam("email") String email,
                                      @RequestParam("password") String password,
                                      HttpSession session, RedirectAttributes redirectAttributes) {
-        User dbUser = userRepository.findByEmail(email);
+        User dbUser = userService.findByEmail(email);
     
         if (dbUser != null && BCrypt.checkpw(password, dbUser.getPassword())) {
             session.setAttribute("email", dbUser.getEmail());
@@ -141,7 +145,7 @@ public class UserController {
         String email = (String) session.getAttribute("email");
 
         // Find user by email
-        User user = userRepository.findByEmail(email);
+        User user = userService.findByEmail(email);
 
         // Check if user exists
         if (user != null) {
@@ -189,7 +193,7 @@ public class UserController {
             return mav;
         }
 
-        User user = userRepository.findByEmail(sessionEmail);
+        User user = userService.findByEmail(sessionEmail);
         if (user == null) {
             redirectAttributes.addFlashAttribute("notFound", "User not found.");
             return mav;
@@ -210,7 +214,7 @@ public class UserController {
         user.setFirstname(updatedUser.getFirstname());
         user.setLastname(updatedUser.getLastname());
         user.setUsername(updatedUser.getUsername());
-        userRepository.save(user);
+        userService.save(user);
         redirectAttributes.addFlashAttribute("profileUpdated", "Profile updated successfully.");
 
         return mav;
@@ -227,7 +231,7 @@ public class UserController {
         String email = (String) session.getAttribute("email");
 
         // Find user by email
-        User user = userRepository.findByEmail(email);
+        User user = userService.findByEmail(email);
 
         // Check if the current password is correct
         if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
@@ -250,7 +254,7 @@ public class UserController {
         // Update the password
         String encodedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
         user.setPassword(encodedNewPassword);
-        userRepository.save(user);
+        userService.save(user);
         redirectAttributes.addFlashAttribute("passwordUpdated", "Password updated successfully.");
 
         return mav;
@@ -274,7 +278,7 @@ public class UserController {
     @GetMapping("")
     public ModelAndView showDashboard() {
         ModelAndView mav = new ModelAndView("custdash");
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.findAll();
         mav.addObject("users", users);
         return mav;
     }
@@ -293,13 +297,13 @@ public class UserController {
             return new ModelAndView("addcust");
         }
 
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userService.findByEmail(user.getEmail()) != null) {
             result.rejectValue("email", "error.user", "An account with this email already exists.");
             return new ModelAndView("addcust");
         }
 
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        userRepository.save(user);
+        userService.save(user);
 
         return new ModelAndView("redirect:/User"); // Redirect to dashboard
     }
@@ -307,8 +311,8 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public ModelAndView showEditUserForm(@PathVariable("id") Integer id) {
         ModelAndView mav = new ModelAndView("editcust");
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        User user = userService.findById(id);
+                // .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         mav.addObject("user", user);
         return mav;
     }
@@ -319,7 +323,7 @@ public class UserController {
             return new ModelAndView("editcust").addObject("user", user);
         }
 
-        User existingUser = userRepository.findById(user.getId());
+        User existingUser = userService.findById(user.getId());
         if (existingUser == null) {
             throw new IllegalArgumentException("Invalid user Id:" + user.getId());
         }
@@ -329,19 +333,19 @@ public class UserController {
         existingUser.setUsername(user.getUsername());
         existingUser.setEmail(user.getEmail());
 
-        userRepository.save(existingUser);
+        userService.save(existingUser);
 
         return new ModelAndView("redirect:/User");
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") int id) {
-        User user = userRepository.findById(id);
+        User user = userService.findById(id);
         if (user == null) {
             throw new IllegalArgumentException("User not found with id: " + id);
         }
 
-        userRepository.delete(user);
+        userService.delete(id);
         return new ModelAndView("redirect:/User");
     }
 }
