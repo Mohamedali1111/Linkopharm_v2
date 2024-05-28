@@ -11,9 +11,11 @@ import com.example.aswe.linkopharm.services.UserService;
 import com.example.aswe.linkopharm.repositories.UserRepository;
 import com.example.aswe.linkopharm.repositories.orderRepository;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -37,78 +39,73 @@ public class UserController {
     @Autowired
     private orderRepository orderRepository;
 
-    @Autowired
-    private UserRepository userRepository;
 
-        // Registration for general user
+    @GetMapping("Registration")
+    public ModelAndView addUser() {
+        ModelAndView mav = new ModelAndView("signup.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
 
-        @GetMapping("Registration")
-        public ModelAndView addUser() {
+    @PostMapping("Registration")
+    public ModelAndView saveFruit(@ModelAttribute @Validated User user, BindingResult result) {
+        if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView("signup.html");
-            User newUser = new User();
-            mav.addObject("user", newUser);
             return mav;
         }
-    
-        @PostMapping("Registration")
-        public ModelAndView saveFruit(@ModelAttribute @Validated User user, BindingResult result) {
-            if (result.hasErrors()) {
-                ModelAndView mav = new ModelAndView("signup.html");
-                return mav;
-            }
-    
-            // Check if email already exists
-            User existingUser = userRepository.findByEmail(user.getEmail());
-            if (existingUser != null) {
-                result.rejectValue("email", "error.user", "Email already exists");
-                ModelAndView mav = new ModelAndView("signup.html");
-                return mav;
-            }
-    
-            // Check if email ends with specific domains
-            if (!user.getEmail().matches(".*@(yahoo|gmail|outlook)\\.(com|net|org)")) {
-                result.rejectValue("email", "error.user", "Invalid email domain. Please use Yahoo, Gmail, or Outlook.");
-                ModelAndView mav = new ModelAndView("signup.html");
-                return mav;
-            }
-    
-            if (user.getPassword().length() < 4) {
-                result.rejectValue("password", "error.user", "Password must be at least 4 characters long");
-                ModelAndView mav = new ModelAndView("signup.html");
-                return mav;
-            }
-    
-            // Check if names contain only letters
-            if (!user.getFirstname().matches("[a-zA-Z]+")) {
-                result.rejectValue("firstname", "error.user", "First name must contain only letters");
-                ModelAndView mav = new ModelAndView("signup.html");
-                return mav;
-            }
-    
-            if (!user.getLastname().matches("[a-zA-Z]+")) {
-                result.rejectValue("lastname", "error.user", "Last name must contain only letters");
-                ModelAndView mav = new ModelAndView("signup.html");
-                return mav;
-            }
-            if (!user.getPassword().equals(user.getConfirmPassword())) {
-    
-                ModelAndView mav = new ModelAndView("signup.html");
-                result.rejectValue("password", "error.user", "Password and Confirm Password must match");
-                return mav;
-            }
-    
-            // Hash and save the password
-            String encodedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
-            user.setPassword(encodedPassword);
-            String encodedConfrmPassword = BCrypt.hashpw(user.getConfirmPassword(), BCrypt.gensalt(12));
-            user.setConfirmPassword(encodedConfrmPassword);
-    
-            // Save the user
-            userRepository.save(user);
-    
-            ModelAndView mav = new ModelAndView("redirect:/User/Login");
+
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            result.rejectValue("email", "error.user", "Email already exists");
+            ModelAndView mav = new ModelAndView("signup.html");
             return mav;
         }
+
+        // Check if email ends with specific domains
+        if (!user.getEmail().matches(".*@(yahoo|gmail|outlook)\\.(com|net|org)")) {
+            result.rejectValue("email", "error.user", "Invalid email domain. Please use Yahoo, Gmail, or Outlook.");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
+
+        if (user.getPassword().length() < 4) {
+            result.rejectValue("password", "error.user", "Password must be at least 4 characters long");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
+
+        // Check if names contain only letters
+        if (!user.getFirstname().matches("[a-zA-Z]+")) {
+            result.rejectValue("firstname", "error.user", "First name must contain only letters");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
+
+        if (!user.getLastname().matches("[a-zA-Z]+")) {
+            result.rejectValue("lastname", "error.user", "Last name must contain only letters");
+            ModelAndView mav = new ModelAndView("signup.html");
+            return mav;
+        }
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+
+            ModelAndView mav = new ModelAndView("signup.html");
+            result.rejectValue("password", "error.user", "Password and Confirm Password must match");
+            return mav;
+        }
+
+        // Hash and save the password
+        String encodedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
+        user.setPassword(encodedPassword);
+        String encodedConfrmPassword = BCrypt.hashpw(user.getConfirmPassword(), BCrypt.gensalt(12));
+        user.setConfirmPassword(encodedConfrmPassword);
+
+        // Save the user
+        userRepository.save(user);
+
+        ModelAndView mav = new ModelAndView("redirect:/User/Login");
+        return mav;
+    }
 
     @GetMapping("Login")
     public ModelAndView login() {
@@ -132,8 +129,8 @@ public class UserController {
                 return new ModelAndView("redirect:/");
             }
         } else {
-            redirectAttributes.addAttribute("error", "true");  // Add error as a parameter
-            return new ModelAndView("redirect:/User/Login?error=true"); // Redirect with error parameter
+            redirectAttributes.addAttribute("error", "true");  
+            return new ModelAndView("redirect:/User/Login?error=true"); 
         }
     }
 
@@ -141,17 +138,15 @@ public class UserController {
     public ModelAndView profile(HttpSession session) {
         ModelAndView mav = new ModelAndView("profile.html");
 
-        // Retrieve email from session
+        
         String email = (String) session.getAttribute("email");
 
-        // Find user by email
-        User user = userService.findByEmail(email);
+        
+        User user = userRepository.findByEmail(email);
 
-        // Check if user exists
         if (user != null) {
             List<order> orders = orderRepository.findByUserId(user.getId());
             if (orders.size() != 0) {
-                // Add the user and their orders to the ModelAndView
                 mav.addObject("orders", orders);
                 mav.addObject("user", user);
             } else {
@@ -159,8 +154,6 @@ public class UserController {
                 mav.addObject("user", user);
             }
         } else {
-            // If user doesn't exist, handle the case accordingly
-            // For example, redirect to login page with an error message
             mav.setViewName("redirect:/User/Login?error=user_not_found");
         }
 
@@ -204,13 +197,11 @@ public class UserController {
             return mav;
         }
 
-        // Check if user tries to change their email
         if (!user.getEmail().equals(updatedUser.getEmail())) {
             redirectAttributes.addFlashAttribute("emailError", "Email changes are not allowed.");
             return mav;
         }
 
-        // Update other user details
         user.setFirstname(updatedUser.getFirstname());
         user.setLastname(updatedUser.getLastname());
         user.setUsername(updatedUser.getUsername());
@@ -227,31 +218,26 @@ public class UserController {
             HttpSession session, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("redirect:/User/profile");
 
-        // Retrieve email from session
         String email = (String) session.getAttribute("email");
 
-        // Find user by email
-        User user = userService.findByEmail(email);
+        
+        User user = userRepository.findByEmail(email);
 
-        // Check if the current password is correct
         if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
             redirectAttributes.addFlashAttribute("invalidPassword", "Current password is incorrect.");
             return mav;
         }
 
-        // Validate new password
         if (newPassword.length() < 6) {
             redirectAttributes.addFlashAttribute("passwordError", "New password must be at least 6 characters.");
             return mav;
         }
 
-        // Check if new password matches the confirmation
         if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("passwordMismatch", "New password and confirmation do not match.");
             return mav;
         }
 
-        // Update the password
         String encodedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
         user.setPassword(encodedNewPassword);
         userService.save(user);
@@ -262,9 +248,8 @@ public class UserController {
 
     @GetMapping("Logout")
     public RedirectView logout(HttpSession session) {
-        // Invalidate session
         session.invalidate();
-        return new RedirectView("/"); // Redirect to login page after logout
+        return new RedirectView("/"); 
     }
 
     @GetMapping("forgetPassword")
@@ -283,7 +268,6 @@ public class UserController {
         return mav;
     }
 
-    // Admin adds user directly redirecting differently
     @GetMapping("/AddUser")
     public ModelAndView addAdminUserForm() {
         ModelAndView mav = new ModelAndView("addcust");
@@ -305,7 +289,7 @@ public class UserController {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userService.save(user);
 
-        return new ModelAndView("redirect:/User"); // Redirect to dashboard
+        return new ModelAndView("redirect:/User"); 
     }
 
     @GetMapping("/edit/{id}")
