@@ -116,25 +116,20 @@ public class UserController {
 
     @PostMapping("Login")
     public ModelAndView loginProcess(@RequestParam("email") String email,
-            @RequestParam("password") String password,
-            HttpSession session) {
-        // Find user by email
-        User dbUser = this.userRepository.findByEmail(email);
-        Boolean isPassword = BCrypt.checkpw(password, dbUser.getPassword());
-
-        // Check if user exists and password is correct
-        if (dbUser != null && isPassword) {
-            // Set session attribute to store user's email
+                                     @RequestParam("password") String password,
+                                     HttpSession session, RedirectAttributes redirectAttributes) {
+        User dbUser = userRepository.findByEmail(email);
+    
+        if (dbUser != null && BCrypt.checkpw(password, dbUser.getPassword())) {
             session.setAttribute("email", dbUser.getEmail());
-
-            // Check user role and redirect accordingly
             if ("admin".equals(dbUser.getRole())) {
                 return new ModelAndView("redirect:/dashboard");
             } else {
                 return new ModelAndView("redirect:/");
             }
         } else {
-            return new ModelAndView("redirect:/User/Login");
+            redirectAttributes.addAttribute("error", "true");  // Add error as a parameter
+            return new ModelAndView("redirect:/User/Login?error=true"); // Redirect with error parameter
         }
     }
 
