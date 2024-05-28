@@ -1,7 +1,7 @@
 package com.example.aswe.linkopharm.controllers;
 
 import com.example.aswe.linkopharm.models.products;
-import com.example.aswe.linkopharm.repositories.ProductRepository;
+import com.example.aswe.linkopharm.services.ProductService;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -30,12 +31,13 @@ public class ProductController {
     private static final String UPLOAD_DIR = "linkopharm/src/main/resources/static/images/";
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @GetMapping("")
     public ModelAndView getProducts() {
-        ModelAndView mav = new ModelAndView("displayproducts");
-        mav.addObject("products", productRepository.findAll());
+        ModelAndView mav = new ModelAndView("displayproducts.html");
+        List<products> products = productService.findAll();
+        mav.addObject("products", products);
         return mav;
     }
 
@@ -46,49 +48,47 @@ public class ProductController {
         return mav;
     }
 
-@PostMapping("/save")
-public ModelAndView saveProduct(@Valid @ModelAttribute("product") products  product, BindingResult result, @RequestParam("imageFile") MultipartFile imageFile) {
-    ModelAndView mav = new ModelAndView();
-    if (result.hasErrors()) {
-        mav.setViewName("addproducts");
-        mav.addObject("product", product);
-        return mav; 
-    }
-
-    String contentType = imageFile.getContentType();
-    if (!imageFile.isEmpty() && (contentType == null || !contentType.startsWith("image/"))) {
-        mav.setViewName("addproducts");
-        mav.addObject("product", product);
-        mav.addObject("imageError", "File must be an image");
-        return mav; 
-    }
-    try {
-        if (!imageFile.isEmpty()) {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-            String fileName = imageFile.getOriginalFilename();
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            product.setImagePath(fileName); 
+    @PostMapping("/save")
+    public ModelAndView saveProduct(@Valid @ModelAttribute("product") products product, BindingResult result, @RequestParam("imageFile") MultipartFile imageFile) {
+        ModelAndView mav = new ModelAndView();
+        if (result.hasErrors()) {
+            mav.setViewName("addproducts");
+            mav.addObject("product", product);
+            return mav; 
         }
-        productRepository.save(product);
-        mav.setViewName("redirect:/products");
-    } catch (IOException e) {
-        mav.setViewName("addproducts");
-        mav.addObject("product", product);
-        mav.addObject("imageError", "Error saving image");
+
+        String contentType = imageFile.getContentType();
+        if (!imageFile.isEmpty() && (contentType == null || !contentType.startsWith("image/"))) {
+            mav.setViewName("addproducts");
+            mav.addObject("product", product);
+            mav.addObject("imageError", "File must be an image");
+            return mav; 
+        }
+        try {
+            if (!imageFile.isEmpty()) {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+                String fileName = imageFile.getOriginalFilename();
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                product.setImagePath(fileName); 
+            }
+            productService.save(product);
+            mav.setViewName("redirect:/products");
+        } catch (IOException e) {
+            mav.setViewName("addproducts");
+            mav.addObject("product", product);
+            mav.addObject("imageError", "Error saving image");
+        }
+        return mav;
     }
-    return mav;
-}
-
-
 
     @GetMapping("/edit/{id}")
     public ModelAndView editProductForm(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("editproduct");
-        products product = productRepository.findById(id).orElse(null);
+        products product = productService.findById(id);
         if (product != null) {
             mav.addObject("product", product);
         } else {
@@ -105,21 +105,25 @@ public ModelAndView saveProduct(@Valid @ModelAttribute("product") products  prod
             return mav; 
         }
         // Find the existing product
-        products existingProduct = productRepository.findById(product.getId()).orElse(null);
+        products existingProduct = productService.findById(product.getId());
         if (existingProduct != null) {
             existingProduct.setName(product.getName());
             existingProduct.setAvailability(product.getAvailability());
             existingProduct.setPrice(product.getPrice());
             existingProduct.setDescription(product.getDescription());
             existingProduct.setCategory(product.getCategory());
-            productRepository.save(existingProduct);
+            productService.save(existingProduct);
         }
         return new ModelAndView("redirect:/products");
     }
 
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Integer id) {
-        productRepository.deleteById(id);
+        productService.deleteById(id);
         return "redirect:/products";
     }
 }
+
+
+
+
