@@ -15,7 +15,6 @@
     <title>Products Page</title>    
 </head>
 
-
 <body>
     <div th:replace="~{partials/navbar}"></div>
     <div class="navbar1">
@@ -23,12 +22,9 @@
             <a href="#" class="navbar-item">Categories</a>
             <div class="dropdown-content">
                 <a href="#" data-filter="category" data-value="all">All</a>
-                <a href="#" data-filter="category" data-value="Hair Care">Hair Care</a>
-                <a href="#" data-filter="category" data-value="Skin Care">Skin Care</a>
-                <a href="#" data-filter="category" data-value="Oral Care">Oral Care</a>
-                <a href="#" data-filter="category" data-value="Nutrients">Nutrients</a>
-                <a href="#" data-filter="category" data-value="Topical Muscle Relaxants">Topical Muscle Relaxants</a>
-                <a href="#" data-filter="category" data-value="Feminine">Feminine</a>
+                <th:block th:each="category : ${categories}">
+                    <a href="#" data-filter="category" th:data-value="${category.name}" th:text="${category.name}"></a>
+                </th:block>
             </div>
         </div>
     </div>
@@ -72,6 +68,7 @@
             </li>
         </ul>
     </div>    
+
     <script>
         document.querySelectorAll('.dropdown-content a').forEach(item => {
             item.addEventListener('click', event => {

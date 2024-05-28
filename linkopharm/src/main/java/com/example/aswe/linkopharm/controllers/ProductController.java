@@ -1,6 +1,8 @@
 package com.example.aswe.linkopharm.controllers;
 
+import com.example.aswe.linkopharm.models.category;
 import com.example.aswe.linkopharm.models.products;
+import com.example.aswe.linkopharm.repositories.categoryRepository;
 import com.example.aswe.linkopharm.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -33,6 +35,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private categoryRepository categoryRepository;
+
     @GetMapping("")
     public ModelAndView getProducts() {
         ModelAndView mav = new ModelAndView("displayproducts.html");
@@ -44,6 +49,8 @@ public class ProductController {
     @GetMapping("/add")
     public ModelAndView addProductForm() {
         ModelAndView mav = new ModelAndView("addproducts");
+        List<category> categories = categoryRepository.findAll();
+        mav.addObject("categories", categories);
         mav.addObject("product", new products()); 
         return mav;
     }

@@ -1,5 +1,7 @@
 package com.example.aswe.linkopharm.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.example.aswe.linkopharm.models.category;
 import com.example.aswe.linkopharm.models.products;
 import com.example.aswe.linkopharm.repositories.ProductRepository;
+import com.example.aswe.linkopharm.repositories.categoryRepository;
 
 
 @Controller
@@ -23,13 +27,18 @@ public class productsPageController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private categoryRepository categoryRepository;
+
     @GetMapping("")
     public ModelAndView getProducts(@RequestParam(defaultValue = "0") int page) {
         int pageSize = 8;
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<products> productPage = productRepository.findAll(pageable);
 
+        List<category> categories = categoryRepository.findAll();
         ModelAndView mav = new ModelAndView("productsPage");
+        mav.addObject("categories", categories);
         mav.addObject("products", productPage.getContent());
         mav.addObject("totalPages", productPage.getTotalPages());
         mav.addObject("currentPage", page);

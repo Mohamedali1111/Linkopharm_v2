@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/editdash.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{partials/dashboardsidebar}"></div>
+
+    <main>
+        <h1>Edit Category</h1>
+
+        <div class="addprod">
+            <form th:action="@{/categories/update/{id}(id=${category.id})}" th:object="${category}" method="POST">
+                <input type="hidden" th:field="*{id}" />
+                <h2 class="title">Update Category</h2>
+                <div class="product-container" style="display: block;">
+                    <div class="input">
+                        <label for="name">Category Name</label>
+                        <div><input type="text" id="name" th:field="*{name}" required></div>
+                    </div>
+                    <button type="submit" id="add">Update</button>
+                    <a th:href="@{/categories}"><button type="button">Cancel</button></a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/displayproducts.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/editdash.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function searchTable() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                let matchFound = false;
+                let tdElements = tr[i].getElementsByTagName("td");
+                for (let j = 1; j < tdElements.length; j++) {
+                    td = tdElements[j];
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        matchFound = true;
+                        break;
+                    }
+                }
+                if (matchFound) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{partials/dashboardsidebar}"></div>
+
+    <main class="table">
+        <section class="theader">
+            <h1>Manage Categories</h1>
+            <div class="search">
+                <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search Categories...">
+            </div>
+            <div class="add_category">
+                <a th:href="@{/categories/add}">
+                    <button class="btn add-category"><i class="fa fa-plus"></i> Add Category</button>
+                </a>
+            </div>
+        </section>
+        <section class="table_body">
+            <table id="myTable">
+                <thead>
+                <tr>
+                    <th>Category ID</th>
+                    <th>Category Name</th>
+                    <th>Update/Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.id}"></td>
+                    <td th:text="${category.name}"></td>
+                    <td>
+                        <a th:href="@{'/categories/edit/' + ${category.id}}" class="btn edit-category">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <form th:action="@{'/categories/delete/' + ${category.id}}" method="post">
+                            <button type="submit" class="btn delete-category" onclick="return confirm('Are you sure?')">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>

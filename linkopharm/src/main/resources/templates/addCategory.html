@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/displayproducts.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/editdash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Add Category</title>
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="~{partials/dashboardsidebar}"></div>
+
+        <main>
+            <h1>Categories</h1>
+
+            <div class="addprod">
+                <form action="/categories/save" class="form" method="POST">
+                    <h2 class="title">Add a Category</h2>
+                    <div class="product-container">
+                        <div class="input">
+                            <label for="name">Category Name</label>
+                            <div><input type="text" id="name" placeholder="Category Name" name="name" required></div>
+                        </div>
+                        <button type="submit" name="submit" id="add">Add</button>
+                        <span>
+                            <a href="/categories"><button type="button" id="cancel">Cancel</button></a>
+                        </span>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+
+        <div id="successPopup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: green; color: white; padding: 20px; border-radius: 5px; font-size: 1.2em; z-index: 1000;">
+            Category added successfully!
+        </div>
+    </div>
+</body>
+
+</html>
