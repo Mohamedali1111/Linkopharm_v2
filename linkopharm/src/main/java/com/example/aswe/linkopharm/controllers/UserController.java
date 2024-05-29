@@ -14,7 +14,6 @@ import com.example.aswe.linkopharm.repositories.orderRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -38,6 +37,9 @@ public class UserController {
 
     @Autowired
     private orderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     @GetMapping("Registration")
@@ -176,41 +178,51 @@ public class UserController {
     }
 
     @PostMapping("editProfile")
-    public ModelAndView editProfile(@ModelAttribute @Validated User updatedUser, BindingResult result,
+    public ModelAndView editProfile(@ModelAttribute @Valid User updatedUser, BindingResult result,
             HttpSession session, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("redirect:/User/profile");
         String sessionEmail = (String) session.getAttribute("email");
+    
         if (sessionEmail == null) {
             redirectAttributes.addFlashAttribute("error", "You must be logged in to edit your profile.");
             mav.setViewName("redirect:/User/login");
             return mav;
         }
-
+    
         User user = userService.findByEmail(sessionEmail);
         if (user == null) {
             redirectAttributes.addFlashAttribute("notFound", "User not found.");
             return mav;
         }
-
-        if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("formErrors", result.getAllErrors());
-            return mav;
-        }
-
+    
         if (!user.getEmail().equals(updatedUser.getEmail())) {
             redirectAttributes.addFlashAttribute("emailError", "Email changes are not allowed.");
             return mav;
         }
-
+    
+   
+        if (updatedUser.getFirstname().length() < 2) {
+            redirectAttributes.addFlashAttribute("firstnameError", "First name must be at least 2 characters long.");
+            return mav;
+        }
+        if (updatedUser.getLastname().length() < 2) {
+            redirectAttributes.addFlashAttribute("lastnameError", "Last name must be at least 2 characters long.");
+            return mav;
+        }
+        if (updatedUser.getUsername().length() < 2) {
+            redirectAttributes.addFlashAttribute("usernameError", "Username must be at least 2 characters long.");
+            return mav;
+        }
+    
+  
         user.setFirstname(updatedUser.getFirstname());
         user.setLastname(updatedUser.getLastname());
         user.setUsername(updatedUser.getUsername());
         userService.save(user);
         redirectAttributes.addFlashAttribute("profileUpdated", "Profile updated successfully.");
-
+    
         return mav;
     }
-
     @PostMapping("/updatePassword")
     public ModelAndView updatePassword(@RequestParam("currentPassword") String currentPassword,
             @RequestParam("newPassword") String newPassword,

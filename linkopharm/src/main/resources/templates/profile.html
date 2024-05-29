@@ -50,6 +50,15 @@
 <div th:if="${emailError}" class="alert alert-danger" role="alert">
     <p th:text="${emailError}">This email is already in use.</p>
 </div>
+  <div th:if="${firstnameError}" class="alert alert-danger" role="alert">
+    <p th:text="${firstnameError}">First name must be at least 2 characters long.</p>
+</div>
+<div th:if="${lastnameError}" class="alert alert-danger" role="alert">
+    <p th:text="${lastnameError}">Last name must be at least 2 characters long.</p>
+</div>
+<div th:if="${usernameError}" class="alert alert-danger" role="alert">
+    <p th:text="${usernameError}">Username must be at least 2 characters long.</p>
+</div>
 <div class="container1">
     <div class="row">
         <div class="col-md-3 border-right">
