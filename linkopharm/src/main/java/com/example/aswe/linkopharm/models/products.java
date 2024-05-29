@@ -5,9 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -17,22 +20,24 @@ public class products {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+
     @NotBlank(message = "Name is required")
-    @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters long")
+    @Size(min = 4, max = 100, message = "Name must be between 4 and 100 characters long")
     private String name;
 
     @NotBlank(message = "Availability is required")
+    @Size(min = 4, message = "Availability must be at least 4 characters long")
     private String availability;
 
+    
     @NotBlank(message = "Price is required")
     @Pattern(regexp = "^[0-9]+(\\.[0-9]{1,2})?$", message = "Invalid price format")
     private String price;
 
     @NotBlank(message = "Description is required")
-    @Size(max = 1000, message = "Description must not exceed 1000 characters")
+    @Size(min = 4, max = 1000, message = "Description must be between 4 and 1000 characters long")
     private String description;
 
-    @NotBlank(message = "Category is required")
     private String category;
 
     @Column(length = 1000)

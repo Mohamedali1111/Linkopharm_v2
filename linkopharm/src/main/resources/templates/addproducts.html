@@ -61,7 +61,7 @@
                         <div class="input">
                             <label for="category">Category</label>
                             <div>
-                                <select id="category" th:field="*{category}" required>
+                                <select id="category" th:field="*{category}">
                                     <option value="">Select Category</option>
                                     <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
                                 </select>

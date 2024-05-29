@@ -61,7 +61,7 @@ public class ProductController {
         if (result.hasErrors()) {
             mav.setViewName("addproducts");
             mav.addObject("product", product);
-            return mav; 
+            return mav;
         }
 
         String contentType = imageFile.getContentType();
