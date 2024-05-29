@@ -131,8 +131,8 @@ public class UserController {
                 return new ModelAndView("redirect:/");
             }
         } else {
-            redirectAttributes.addAttribute("error", "true");  
-            return new ModelAndView("redirect:/User/Login?error=true"); 
+        redirectAttributes.addFlashAttribute("error", "Invalid email or password.");
+        return new ModelAndView("redirect:/User/Login");
         }
     }
 
